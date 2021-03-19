@@ -1,0 +1,42 @@
+@import '../../../scss/00_imports';
+
+:host-context(.header) {
+  position: fixed;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 68px;
+  transform: translateY(0);
+  transition: all 0.3s ease-out;
+  @include frosted-glass(color('darker'), 0.72);
+  &[data-state='hidden'] {
+    transform: translateY(-80px);
+  }
+  &[data-light='true'] {
+    @include frosted-glass(color('light'), 0.72);
+  }
+}
+
+.header {
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    @include container-padding;
+  }
+  &__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+  }
+}
+
+.ps5-logo {
+  height: inherit;
+  width: inherit;
+  fill: color('ps-blue');
+}
