@@ -1,8 +1,8 @@
 @import '../../../scss/00_imports';
 
 :host-context(.c-hero) {
-  // --a-start: 0%;
-  // --a-end: 0%;
+  --a-start: 0%;
+  --a-end: 0%;
   position: relative;
   display: block;
   background-color: color('darker');
@@ -42,5 +42,18 @@
     height: 6.25%;
     width: 100%;
     @include smooth-gradient(color('carbon'));
+  }
+}
+
+:host-context(.l-content--hide) {
+  &::after {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(355deg, rgba(color('darker'), 1) var(--a-start), rgba(color('darker'), 0) var(--a-end));
   }
 }
