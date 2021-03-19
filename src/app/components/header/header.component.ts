@@ -30,9 +30,6 @@ export class HeaderComponent implements OnInit, AfterViewInit {
             scrollingDown
               ? this.render.setAttribute(headerNav, 'data-state', 'hidden')
               : this.render.removeAttribute(headerNav, 'data-state');
-            this.render.setAttribute(headerNav, 'data-light', 'true');
-          } else {
-            this.render.removeAttribute(headerNav, 'data-light');
           }
         }
       },

@@ -13,9 +13,6 @@
   &[data-state='hidden'] {
     transform: translateY(-80px);
   }
-  &[data-light='true'] {
-    @include frosted-glass(color('light'), 0.72);
-  }
 }
 
 .header {
@@ -30,13 +27,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px;
-    width: 50px;
+    height: 24px;
+    width: auto;
   }
 }
 
-.ps5-logo {
+.tt-logo {
   height: inherit;
   width: inherit;
-  fill: color('ps-blue');
+  fill: color('light');
 }
