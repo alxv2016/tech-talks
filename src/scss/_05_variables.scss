@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Abril+Fatface|Roboto+Mono:500|Roboto:400,500,700&display=swap');
+// Base type
+$base-font-family: 'Roboto', 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !default;
+$base-font-size: 1rem !default;
+$headline-line-height: 1.15 !default;
+$heading-line-height: 1.25 !default;
+$body-line-height: 1.65 !default;
+$max-width: 1024px !default;
+$max-content-width: 992px !default;
+$font-families: (
+  abril: 'Abril Fatface',
+  roboto: 'Roboto',
+  mono: 'Roboto Mono',
+) !default;
+// Icon sizes
+$icon-sizes: (
+  xs: 18px,
+  sm: 24px,
+  md: 36px,
+  lg: 48px,
+  xl: 56px,
+) !default;
+// Font weights
+$font-weights: (
+  regular: 400,
+  medium: 500,
+  bold: 700,
+) !default;
+// Breakpoints
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1440px,
+) !default;
+// Colors
+$colors: (
+  light: #f8f8f9,
+  dark: #292b30,
+  darker: #000421,
+  ps-blue: #2d64e7,
+  offgrey: #70707b,
+  carbon: #636d86,
+  ps-purp: #481699,
+) !default;
+// Border radius
+$border-radius: 1.25rem !default;
+// Type scale
+// Using a modular type scale we define our font size in em units for responsive scaling
+// by multiplying the scale ratio of: 1.2, with our base font size of 1em(browser default of 16px)
+// https://www.modularscale.com/?1&em&1.2
+$legal: 0.579rem; //(0.694 / 1.2) 9px
+$overline: 0.694rem; //(0.833 / 1.2) 11px
+$body--2: 0.833rem; //(1 / 1.2) 13px
+$body--1: $base-font-size; // 16px
+$subtitle: 1.2rem; //(1 * 1.2) 19px
+$subtitle--2: 1.44rem; //(1.2 * 1.2) 23px
+$title--3: 1.728rem; //(1.44 * 1.2) 27px
+$title--2: 2.074rem; //(1.728 * 1.2) 33px
+$title--1: 2.488rem; //(2.074 * 1.2) 39px
+$large--title: 2.986rem; //(2.489 * 1.2) 47px
+$huge--title: 3.58rem; // (2.968 * 1.2) 57px
+$headliner--1: 4.3rem; //68px;
+$headliner--2: 5.16rem; //82.56px
+$headliner--3: 6.192rem; //99px
+// Spacing scale
+$spacing--2xs: 0.125rem; // 2px
+$spacing--xs: 0.25rem; // 4px
+$spacing--sm: 0.5rem; // 8px
+$spacing--md: 0.75rem; // 12px
+$spacing--lg: 1rem; // 16px
+$spacing--xl: 1.5rem; // 24px
+$spacing--2xl: 2rem; // 32px
+$spacing--3xl: 2.5rem; // 40px
+$spacing--4xl: 3rem; // 48px
+// layout scale
+$layout--2xs: 1rem; // 16px
+$layout--xs: 1.5rem; // 24px
+$layout--sm: 2rem; // 32px
+$layout--md: 3rem; // 48px
+$layout--lg: 4rem; // 64px
+$layout--xl: 6rem; // 96px
+$layout--2xl: 10rem; // 160px

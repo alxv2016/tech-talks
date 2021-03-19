@@ -1,0 +1,128 @@
+// helper mixins ie predefined styles
+//
+/// focus events
+/// Usage: @include on-event;
+@mixin on-focus($self: false) {
+  @if $self {
+    &,
+    &:active,
+    &:focus {
+      @content;
+    }
+  } @else {
+    &:active,
+    &:focus {
+      @content;
+    }
+  }
+}
+// media query mixin
+// use the base-breakpoints map
+// usage: @include breakpoint($breakpoint);
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: #{map-get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  } @else {
+    @warn 'error value does not exist in $base-breakpoints';
+  }
+}
+
+@mixin button-reset {
+  cursor: pointer;
+  border: none;
+  user-select: none;
+  min-width: 0;
+  background-color: inherit;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  &::-moz-focus-inner {
+    border: 0;
+  }
+}
+// ios / safari frosted glass effect
+// only supported on Edge, Safari
+@mixin backdrop-filter {
+  @supports (backdrop-filter: saturate(180%) blur(20px)) {
+    @content;
+  }
+}
+
+@mixin frosted-glass($color, $opacity: false) {
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  background-color: rgba($color, 0.8);
+  @if $opacity {
+    background-color: rgba($color, $opacity);
+  }
+}
+
+@mixin image-overlay($color) {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: linear-gradient(180deg, rgba($color, 0.245) 0%, rgba($color, 0.975) 100%);
+
+  @include breakpoint(md) {
+    background: linear-gradient(180deg, rgba($color, 0) 0%, rgba($color, 0.965) 90%);
+  }
+}
+
+// contain screen size
+@mixin container-padding {
+  padding: 0 $spacing--lg;
+  margin: auto;
+  @include breakpoint(md) {
+    padding: 0 $spacing--xl;
+    max-width: 768px;
+  }
+  @include breakpoint(lg) {
+    padding: 0 $spacing--3xl;
+    max-width: $max-width;
+  }
+  // @include breakpoint(xl) {
+  //   max-width: $max-width;
+  // }
+}
+
+// Material elevations
+@mixin elevate-1($color, $opacity: false) {
+  box-shadow: 0 1px 3px rgba($color, 0.12), 0 1px 2px rgba($color, 0.24);
+  @if $opacity {
+    box-shadow: 0 1px 3px rgba($color, $opacity), 0 1px 2px rgba($color, $opacity);
+  }
+}
+
+@mixin elevate-2($color, $opacity: false) {
+  box-shadow: 0 3px 6px rgba($color, 0.12), 0 3px 6px rgba($color, 0.24);
+  @if $opacity {
+    box-shadow: 0 3px 6px rgba($color, $opacity), 0 3px 6px rgba($color, $opacity);
+  }
+}
+
+@mixin elevate-3($color, $opacity: false) {
+  box-shadow: 0 10px 20px rgba($color, 0.12), 0 6px 6px rgba($color, 0.23);
+  @if $opacity {
+    box-shadow: 0 10px 20px rgba($color, $opacity), 0 6px 6px rgba($color, $opacity);
+  }
+}
+
+@mixin elevate-4($color, $opacity: false) {
+  box-shadow: 0 14px 28px rgba($color, 0.12), 0 10px 10px rgba($color, 0.22);
+  @if $opacity {
+    box-shadow: 0 14px 28px rgba($color, $opacity), 0 10px 10px rgba($color, $opacity);
+  }
+}
+
+@mixin elevate-5($color, $opacity: false) {
+  box-shadow: 0 19px 38px rgba($color, 0.12), 0 15px 12px rgba($color, 0.22);
+  @if $opacity {
+    box-shadow: 0 19px 38px rgba($color, $opacity), 0 15px 12px rgba($color, $opacity);
+  }
+}
