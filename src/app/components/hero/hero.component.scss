@@ -10,28 +10,36 @@
 
 .c-hero {
   &__container {
+    position: relative;
     display: block;
   }
   &__title {
     position: relative;
+    z-index: 1;
     @include container-padding;
     padding-top: $layout--2xl;
+    padding-bottom: $layout--xl;
     @include breakpoint(md) {
       padding-top: $layout--2xl;
+      padding-bottom: $layout--xl;
     }
   }
 }
 
 .grads {
   position: absolute;
+  z-index: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  padding-top: 68px;
   &__row {
-    height: 12.5%;
+    position: relative;
+    height: 6.25%;
     width: 100%;
     @include smooth-gradient(color('carbon'));
   }
