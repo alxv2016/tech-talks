@@ -1,0 +1,39 @@
+@import '../scss/00_imports';
+
+:host {
+  display: block;
+  height: 6000px;
+}
+
+.section {
+  position: relative;
+  width: 100%;
+  &__container {
+    position: relative;
+    @include container-padding;
+  }
+  &--overflow {
+    overflow: hidden;
+  }
+}
+
+.l-margin--top {
+  margin-top: $layout--md;
+  @include breakpoint(md) {
+    margin-top: $layout--lg;
+  }
+}
+
+.l-margin--top-lg {
+  margin-top: $layout--md;
+  @include breakpoint(md) {
+    margin-top: $layout--xl;
+  }
+}
+
+.l-margin--top-xl {
+  margin-top: $layout--xl;
+  @include breakpoint(md) {
+    margin-top: $layout--2xl;
+  }
+}
