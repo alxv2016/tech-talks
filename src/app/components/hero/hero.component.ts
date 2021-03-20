@@ -64,26 +64,24 @@ export class HeroComponent implements OnInit, AfterViewInit {
       },
     });
 
-    glitch
-      .fromTo(
-        grads,
-        {
-          xPercent: -80,
-        },
-        {
-          xPercent: 80,
-          stagger: 0.125,
-        }
-      )
-      .fromTo(
-        heroTitle,
-        {
-          textShadow: '-1.25px 0px 0px #12FFFF, 1.25px 0px 0px #FF00A2',
-        },
-        {
-          textShadow: '1.25px 0px 0px #12FFFF, -1.25px 0px 0px #FF00A2',
-        },
-        3.25
-      );
+    glitch.fromTo(
+      grads,
+      {
+        xPercent: -80,
+      },
+      {
+        xPercent: 80,
+        stagger: 0.125,
+      }
+    );
+    // .fromTo(heroTitle,
+    //   {
+    //     textShadow: '0px 0px 0px #12FFFF, 0px 0px 0px #FF00A2',
+    //   },
+    //   {
+    //     textShadow: '44px 0px 0px #12FFFF, -44px 0px 0px #FF00A2',
+    //     ease: 'elastic'
+    //   }, 1.25
+    // );
   }
 }

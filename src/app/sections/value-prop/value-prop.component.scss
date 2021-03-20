@@ -1,0 +1,48 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-value-prop) {
+  --a-start: 0%;
+  --a-end: 0%;
+  position: relative;
+  display: block;
+  background-color: color('darker');
+}
+
+.c-value-prop {
+  &__container {
+    position: relative;
+    display: block;
+    @include container-padding;
+    margin-top: $layout--lg;
+    margin-bottom: $layout--lg;
+    overflow: hidden;
+  }
+}
+
+.value-prop {
+  color: color('offgrey');
+}
+
+.value-prop ~ .value-prop {
+  margin-top: $spacing--3xl;
+  @include breakpoint(md) {
+    margin-top: $spacing--4xl;
+  }
+  @include breakpoint(lg) {
+    margin-top: $layout--lg;
+  }
+}
+
+:host-context(.l-content--reveal) {
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(175deg, rgba(color('darker'), 0) var(--a-start), rgba(color('darker'), 1) var(--a-end));
+    transform-origin: bottom center;
+  }
+}

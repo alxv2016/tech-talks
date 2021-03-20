@@ -23,18 +23,18 @@ form legend {
 
 // ps5 titles
 .display-1 {
-  font-size: $huge--title;
+  font-size: $large--title;
   font-weight: font-weight('bold');
   line-height: 1.15;
   margin: 0;
   @include breakpoint(sm) {
-    font-size: $headliner--1;
+    font-size: $large--title;
   }
   @include breakpoint(md) {
-    font-size: $headliner--2;
+    font-size: $huge--title;
   }
   @include breakpoint(lg) {
-    font-size: $headliner--3;
+    font-size: $headliner--2;
   }
   & ~ p {
     margin-top: $spacing--xl;
@@ -70,10 +70,10 @@ form legend {
   line-height: 1.15;
   font-weight: font-weight('bold');
   @include breakpoint(md) {
-    font-size: $title--3;
+    font-size: $title--2;
   }
   @include breakpoint(lg) {
-    font-size: $title--2;
+    font-size: $large--title;
   }
   & ~ h2,
   & ~ h2,

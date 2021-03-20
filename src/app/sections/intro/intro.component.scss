@@ -1,0 +1,38 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-intro) {
+  --a-start: 0%;
+  --a-end: 0%;
+  position: relative;
+  display: block;
+  background-color: color('darker');
+}
+
+.c-intro {
+  &__container {
+    position: relative;
+    display: block;
+    @include container-padding;
+    margin-top: $layout--lg;
+    margin-bottom: $layout--lg;
+    overflow: hidden;
+  }
+}
+
+.brand-reveal {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tt-logo {
+  fill: color('light');
+  height: 48px;
+  width: auto;
+}
+
+.bolt {
+  fill: color('carbon');
+}
