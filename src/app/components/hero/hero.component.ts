@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostBinding,
@@ -12,7 +11,6 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
-import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -24,33 +22,31 @@ export class HeroComponent implements OnInit, AfterViewInit {
   @HostBinding('class') class = 'c-hero l-content--hide';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
-  // @HostBinding('style.--b-start') @Input() bStart: string = '0%';
-  // @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
   @ViewChild('heroTitle') heroTitle!: ElementRef;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
 
-  constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {
-    gsap.registerPlugin(ScrollTrigger);
-  }
+  constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
 
-  ngOnInit(): void {
-    this.aStart = '0%';
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     const heroTitle = this.heroTitle.nativeElement;
     const grads = this.grad.map((grad) => grad.nativeElement);
 
-    ScrollTrigger.create({
-      markers: false,
-      trigger: this.element.nativeElement,
-      start: 'top top',
-      end: '+=240 top',
-      scrub: 0.45,
-      onUpdate: (self: any) => {
-        const heroReveal = this.util.calculateScroll(self.progress, 3, 20);
-        this.aStart = `${heroReveal.start}%`;
-        this.aEnd = `${heroReveal.end}%`;
+    gsap.to(heroTitle, {
+      yPercent: -20,
+      scale: 0.98,
+      scrollTrigger: {
+        markers: false,
+        trigger: this.element.nativeElement,
+        start: 'top top',
+        end: '+=240 top',
+        scrub: 0.45,
+        onUpdate: (self: any) => {
+          const heroReveal = this.util.calculateScroll(self.progress, 3, 20);
+          this.aStart = `${heroReveal.start}%`;
+          this.aEnd = `${heroReveal.end}%`;
+        },
       },
     });
 
@@ -67,21 +63,12 @@ export class HeroComponent implements OnInit, AfterViewInit {
     glitch.fromTo(
       grads,
       {
-        xPercent: -80,
+        xPercent: -58,
       },
       {
-        xPercent: 80,
+        xPercent: 58,
         stagger: 0.125,
       }
     );
-    // .fromTo(heroTitle,
-    //   {
-    //     textShadow: '0px 0px 0px #12FFFF, 0px 0px 0px #FF00A2',
-    //   },
-    //   {
-    //     textShadow: '44px 0px 0px #12FFFF, -44px 0px 0px #FF00A2',
-    //     ease: 'elastic'
-    //   }, 1.25
-    // );
   }
 }

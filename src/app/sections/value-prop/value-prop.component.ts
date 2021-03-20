@@ -39,13 +39,14 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
         end: 'bottom center',
         scrub: 0.45,
         onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 4, 18);
+          const heroReveal = this.util.calculateScroll(self.progress, 8, 16);
           this.aStart = `${heroReveal.start}%`;
           this.aEnd = `${heroReveal.end}%`;
         },
       },
       yPercent: 80,
       opacity: 0,
+      scale: 0.98,
       stagger: 0.25,
     });
   }

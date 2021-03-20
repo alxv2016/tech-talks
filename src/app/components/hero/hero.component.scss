@@ -6,27 +6,53 @@
   position: relative;
   display: block;
   background-color: color('darker');
+  height: 380px;
+  @include breakpoint(lg) {
+    height: 480px;
+  }
 }
 
 .c-hero {
   &__container {
+    --progress-start: 20%;
+    --progress-end: 100%;
     position: relative;
-    display: block;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    @include breakpoint(lg) {
+      --progress-start: 30%;
+      --progress-end: 80%;
+    }
+    &:before {
+      position: absolute;
+      z-index: 2;
+      content: '';
+      height: 100%;
+      width: 100%;
+      background: radial-gradient(
+        circle,
+        rgba(color('darker'), 0) var(--progress-start),
+        rgba(color('darker'), 0.75) var(--progress-end)
+      );
+    }
   }
   &__title {
     position: relative;
     z-index: 1;
+    color: color('light');
     @include container-padding;
-    padding-top: $layout--2xl;
-    padding-bottom: $layout--md;
+    margin-bottom: $layout--sm;
     @include breakpoint(md) {
-      padding-top: $layout--2xl;
-      padding-bottom: $layout--lg;
+      margin-bottom: $layout--md;
     }
   }
 }
 
 .grads {
+  --progress-start: 40%;
+  --progress-end: 80%;
   position: absolute;
   z-index: 0;
   display: flex;
@@ -37,11 +63,23 @@
   width: 100%;
   height: 100%;
   padding-top: 68px;
+  &:before {
+    position: absolute;
+    z-index: 2;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(color('darker'), 0) var(--progress-start),
+      rgba(color('darker'), 0.85) var(--progress-end)
+    );
+  }
   &__row {
     position: relative;
     height: 6.25%;
     width: 100%;
-    @include smooth-gradient(color('carbon'));
+    @include smooth-gradient(color('lit'));
     opacity: 0.75;
   }
 }
