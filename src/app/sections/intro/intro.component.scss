@@ -120,7 +120,7 @@
     padding: $spacing--2xl;
   }
   @include frosted-glass(color('darker'), 0.75);
-  //border: 2px solid color('dark');
+  border: 3px solid rgba(color('light'), 0.0145);
   &__content {
     position: relative;
     width: 100%;

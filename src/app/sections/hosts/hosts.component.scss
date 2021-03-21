@@ -53,11 +53,11 @@
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  justify-content: flex-end;
   width: 200px;
   height: 100%;
   border-radius: $spacing--lg;
   padding: $spacing--lg;
+  border: 2px solid rgba(color('light'), 0.0275);
   @include breakpoint(md) {
     width: 100%;
   }
@@ -135,6 +135,12 @@
       rgba(color('darker'), 0) var(--progress-start),
       rgba(color('darker'), 0.75) var(--progress-end)
     );
+    mask: $noiseFilter,
+      radial-gradient(
+        circle,
+        rgba(color('darker'), 0) var(--progress-start),
+        rgba(color('darker'), 1) var(--progress-end)
+      );
   }
   &__row {
     position: relative;
