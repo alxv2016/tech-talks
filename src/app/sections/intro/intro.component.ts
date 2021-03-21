@@ -25,7 +25,8 @@ export class IntroComponent implements OnInit, AfterViewInit {
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
-  @ViewChild('introCardTrigger') introCardTrigger!: ElementRef;
+  @ViewChild('brandTrigger') brandTrigger!: ElementRef;
+  @ViewChild('cardTrigger') cardTrigger!: ElementRef;
   @ViewChild('glitch') glitch!: ElementRef;
   @ViewChild('brandLogo') brandLogo!: ElementRef;
   @ViewChild('bolt') bolt!: ElementRef;
@@ -57,9 +58,9 @@ export class IntroComponent implements OnInit, AfterViewInit {
       defaults: {},
       scrollTrigger: {
         markers: false,
-        trigger: this.element.nativeElement,
+        trigger: this.brandTrigger.nativeElement,
         start: 'top center',
-        end: 'center center',
+        end: 'bottom center',
         scrub: 0.45,
         onUpdate: (self: any) => {
           const heroReveal = this.util.calculateScroll(self.progress, 16, 20);
@@ -93,7 +94,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
       {
         scrollTrigger: {
           markers: false,
-          trigger: this.introCardTrigger.nativeElement,
+          trigger: this.cardTrigger.nativeElement,
           start: 'top center',
           end: 'bottom center',
           scrub: 0.45,

@@ -67,7 +67,7 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: $layout--sm $layout--md;
+  padding: $layout--sm $layout--2xs;
   overflow: hidden;
   margin-top: $layout--sm;
   @include breakpoint(md) {
@@ -99,11 +99,11 @@
   display: grid;
   width: 100%;
   max-width: 720px;
-  grid-gap: $spacing--lg;
-  grid-template-columns: repeat(1, 1fr);
+  grid-gap: $spacing--sm;
+  grid-template-columns: repeat(2, 1fr);
   grid-auto-rows: 80px;
   @include breakpoint(sm) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-gap: $spacing--md;
   }
 }
 
@@ -115,42 +115,66 @@
   width: 100%;
   height: 100%;
   border-radius: $spacing--lg;
-  padding: $spacing--xl;
+  padding: $spacing--lg;
+  @include breakpoint(md) {
+    padding: $spacing--2xl;
+  }
   @include frosted-glass(color('darker'), 0.75);
   //border: 2px solid color('dark');
   &__content {
     position: relative;
     width: 100%;
-    padding-bottom: $spacing--xl;
+    padding-bottom: 0;
+    @include breakpoint(md) {
+      padding-bottom: $spacing--xl;
+    }
   }
   &__title {
     font-weight: font-weight('bold');
-    font-size: $title--2;
+    font-size: $subtitle;
+    @include breakpoint(md) {
+      font-size: $title--2;
+    }
   }
   &__descr {
-    font-size: $body--1;
+    font-size: $body--2;
+    @include breakpoint(md) {
+      font-size: $body--1;
+    }
     margin: 0;
-    color: color('carbon');
+    color: color('tint');
   }
   &__title ~ &__descr {
-    margin-top: $spacing--xl;
+    margin-top: $spacing--md;
   }
 }
 
 .design-card {
-  grid-row-end: span 4;
+  grid-row-end: span 3;
+  @include breakpoint(md) {
+    grid-row-end: span 4;
+  }
 }
 
 .constraints-card {
-  grid-row-end: span 5;
+  grid-row-end: span 3;
+  @include breakpoint(md) {
+    grid-row-end: span 5;
+  }
 }
 
 .think-card {
-  grid-row-end: span 5;
+  grid-row-end: span 3;
+  @include breakpoint(md) {
+    grid-row-end: span 5;
+  }
 }
 
 .break-card {
-  grid-row-end: span 4;
+  grid-row-end: span 3;
+  @include breakpoint(md) {
+    grid-row-end: span 4;
+  }
 }
 
 .grads {
