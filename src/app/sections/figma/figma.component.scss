@@ -1,0 +1,150 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-figma) {
+  --a-start: 0%;
+  --a-end: 0%;
+  --b-start: 0%;
+  --b-end: 0%;
+  position: relative;
+  display: block;
+  background-color: color('darker');
+  margin-top: $layout--sm;
+  margin-bottom: $layout--md;
+}
+
+.c-figma {
+  &__container {
+    position: relative;
+    display: block;
+    @include container-padding;
+  }
+}
+
+.session-intro {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  margin-top: $layout--sm;
+  overflow: hidden;
+}
+
+.figma-app-demo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: $spacing--4xl;
+  margin-top: $layout--sm;
+  padding-top: $layout--sm;
+  overflow: hidden;
+}
+
+.figma-app {
+  position: relative;
+  flex-shrink: 0;
+  width: 441px;
+  height: 250px;
+  border-radius: $spacing--md;
+  overflow: hidden;
+  @include elevate-4(color('carbon'), 0.75);
+  @include breakpoint(sm) {
+    width: 706px;
+    height: 400px;
+  }
+  @include breakpoint(lg) {
+    width: 882px;
+    height: 500px;
+  }
+  &__static {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+  }
+  &__video {
+    position: relative;
+    display: block;
+    z-index: 2;
+    width: inherit;
+    height: inherit;
+  }
+}
+
+.figma-features {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  display: grid;
+  column-gap: $spacing--2xl;
+  row-gap: $spacing--3xl;
+  grid-template-columns: repeat(1, 1fr);
+  margin: auto;
+  margin-top: $layout--sm;
+  @include breakpoint(sm) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.feat-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  &__title {
+    font-weight: font-weight('bold');
+    font-size: $subtitle--2;
+    color: color('accent2');
+    margin-top: 0;
+    @include breakpoint(md) {
+      font-size: $title--3;
+    }
+  }
+  &__descr {
+    font-size: $body--2;
+    width: 100%;
+    max-width: 375px;
+    @include breakpoint(md) {
+      font-size: $body--1;
+    }
+    margin: 0;
+    color: color('tint');
+  }
+  &__title ~ &__descr {
+    margin-top: $spacing--xs;
+  }
+}
+
+.title--reveal {
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background: linear-gradient(175deg, rgba(color('darker'), 0) var(--b-start), rgba(color('darker'), 1) var(--b-end));
+    transform-origin: bottom center;
+  }
+}
+
+.demo--reveal {
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    z-index: 3;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background: linear-gradient(175deg, rgba(color('darker'), 0) var(--a-start), rgba(color('darker'), 1) var(--a-end));
+    transform-origin: bottom center;
+  }
+}

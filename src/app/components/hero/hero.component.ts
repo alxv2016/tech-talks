@@ -33,22 +33,30 @@ export class HeroComponent implements OnInit, AfterViewInit {
     const heroTitle = this.heroTitle.nativeElement;
     const grads = this.grad.map((grad) => grad.nativeElement);
 
-    gsap.to(heroTitle, {
-      yPercent: -30,
-      duration: 4.75,
-      scrollTrigger: {
-        markers: false,
-        trigger: this.element.nativeElement,
-        start: 'top top',
-        end: '+=240 top',
-        scrub: 0.45,
-        onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 3, 20);
-          this.aStart = `${heroReveal.start}%`;
-          this.aEnd = `${heroReveal.end}%`;
-        },
+    gsap.fromTo(
+      heroTitle,
+      {
+        yPercent: 0,
+        textShadow: '0px 0px 0px rgba(251,62,84,0.75), 0px 0px 0px rgba(62,228,251,1)',
       },
-    });
+      {
+        yPercent: -30,
+        textShadow: '28px 0px 0px rgba(251,62,84,0.75), -28px 0px 0px rgba(62,228,251,1)',
+        duration: 4.75,
+        scrollTrigger: {
+          markers: false,
+          trigger: this.element.nativeElement,
+          start: 'top top',
+          end: '+=240 top',
+          scrub: 0.45,
+          onUpdate: (self: any) => {
+            const heroReveal = this.util.calculateScroll(self.progress, 3, 20);
+            this.aStart = `${heroReveal.start}%`;
+            this.aEnd = `${heroReveal.end}%`;
+          },
+        },
+      }
+    );
 
     const glitch = gsap.timeline({
       defaults: {
