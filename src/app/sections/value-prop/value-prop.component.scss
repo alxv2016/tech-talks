@@ -6,6 +6,7 @@
   position: relative;
   display: block;
   background-color: color('darker');
+  margin-top: $layout--sm;
 }
 
 .c-value-prop {
@@ -13,23 +14,33 @@
     position: relative;
     display: block;
     @include container-padding;
-    margin-top: $layout--lg;
-    margin-bottom: $layout--lg;
+    padding-bottom: $layout--sm;
+    @include breakpoint(md) {
+      padding-bottom: $layout--md;
+    }
+    @include breakpoint(lg) {
+      padding-bottom: $layout--lg;
+    }
     overflow: hidden;
   }
 }
 
 .value-prop {
-  color: color('offgrey');
+  color: color('tint');
+  width: 100%;
+  max-width: 568px;
+  @include breakpoint(lg) {
+    max-width: 768px;
+  }
 }
 
 .value-prop ~ .value-prop {
-  margin-top: $spacing--3xl;
+  margin-top: $spacing--2xl;
   @include breakpoint(md) {
-    margin-top: $spacing--4xl;
+    margin-top: $spacing--3xl;
   }
   @include breakpoint(lg) {
-    margin-top: $layout--lg;
+    margin-top: $spacing--4xl;
   }
 }
 

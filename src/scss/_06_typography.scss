@@ -27,11 +27,8 @@ form legend {
   font-weight: font-weight('bold');
   line-height: 1.15;
   margin: 0;
-  @include breakpoint(sm) {
-    font-size: $large--title;
-  }
   @include breakpoint(md) {
-    font-size: $huge--title;
+    font-size: $headliner--1;
   }
   @include breakpoint(lg) {
     font-size: $headliner--2;
@@ -68,7 +65,7 @@ form legend {
 .display-3 {
   font-size: $title--3;
   line-height: 1.15;
-  font-weight: font-weight('bold');
+  font-weight: font-weight('medium');
   @include breakpoint(md) {
     font-size: $title--2;
   }
@@ -118,43 +115,17 @@ form legend {
   }
 }
 
-// .title-headline-2 {
-//   font-size: $subtitle--2;
-//   line-height: $heading-line-height;
-//   font-weight: font-weight('bold');
-//   @include breakpoint(md) {
-//     font-size: $title--2;
-//   }
-//   @include breakpoint(lg) {
-//     font-size: $title--1;
-//   }
-//   & ~ p {
-//     margin-top: $spacing--xl;
-//   }
-// }
-
-// .title-overline {
-//   font-size: $subtitle--2;
-//   font-weight: font-weight('medium');
-//   margin: 0;
-//   @include breakpoint(md) {
-//     font-size: $title--3;
-//   }
-//   & ~ h1,
-//   & ~ h2,
-//   & ~ h3,
-//   & ~ h4 {
-//     margin-top: $spacing--xs;
-//   }
-// }
-
 // modifiers
 .copy--muted {
   color: color('offgrey');
 }
 
-.copy--blue {
-  color: color('ps-blue');
+.copy--lit {
+  color: color('lit');
+}
+
+.copy--tint {
+  color: color('tint');
 }
 
 .copy--compact {

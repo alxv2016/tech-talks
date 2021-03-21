@@ -3,6 +3,8 @@
 :host-context(.c-intro) {
   --a-start: 0%;
   --a-end: 0%;
+  --b-start: 0%;
+  --b-end: 0%;
   position: relative;
   display: block;
   background-color: color('darker');
@@ -21,28 +23,188 @@
 
 .brand-reveal {
   position: relative;
-  width: 100%;
-  height: 240px;
   display: flex;
   align-items: center;
   justify-content: center;
-  &::before {
-    position: absolute;
-    content: '';
-    height: 100%;
-    width: 100%;
-    background: radial-gradient(circle, rgba(23, 22, 55, 0.95) 5%, rgba(0, 0, 27, 0) 40%);
-  }
+  padding-top: $layout--2xl;
+  padding-bottom: $layout--xl;
 }
 
 .tt-logo {
   position: relative;
   z-index: 1;
   fill: color('light');
-  height: 48px;
+  height: 28px;
   width: auto;
+  @include breakpoint(md) {
+    height: 48px;
+  }
 }
 
 .bolt {
   fill: color('lit');
+}
+
+.intro-slogan {
+  position: relative;
+  margin: auto;
+  margin-top: $layout--xl;
+  overflow: hidden;
+}
+
+.intro-cards {
+  --progress-start: 40%;
+  --progress-end: 70%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: $spacing--xl;
+  overflow: hidden;
+  margin-top: $layout--lg;
+  margin-bottom: $layout--lg;
+  @include breakpoint(md) {
+    margin-top: $layout--2xl;
+    margin-bottom: $layout--2xl;
+  }
+  &:before {
+    position: absolute;
+    z-index: 2;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(color('darker'), 0) var(--progress-start),
+      rgba(color('darker'), 1) var(--progress-end)
+    );
+  }
+}
+
+.card-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  max-width: 720px;
+  grid-gap: $spacing--lg;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-rows: 80px;
+  @include breakpoint(sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.intro-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  border-radius: $spacing--lg;
+  padding: $spacing--xl;
+  @include frosted-glass(color('darker'), 0.75);
+  //border: 2px solid color('dark');
+  &__content {
+    position: relative;
+    width: 100%;
+    padding-bottom: $spacing--xl;
+  }
+  &__title {
+    font-weight: font-weight('bold');
+    font-size: $title--2;
+  }
+  &__descr {
+    font-size: $body--1;
+    margin: 0;
+    color: color('carbon');
+  }
+  &__title ~ &__descr {
+    margin-top: $spacing--xl;
+  }
+}
+
+.design-card {
+  grid-row-end: span 4;
+}
+
+.constraints-card {
+  grid-row-end: span 5;
+}
+
+.think-card {
+  grid-row-end: span 5;
+}
+
+.break-card {
+  grid-row-end: span 4;
+}
+
+.grads {
+  --progress-start: 15%;
+  --progress-end: 60%;
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  &:before {
+    position: absolute;
+    z-index: 2;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(color('darker'), 0) var(--progress-start),
+      rgba(color('darker'), 0.75) var(--progress-end)
+    );
+    mask: $noiseFilter,
+      radial-gradient(
+        circle,
+        rgba(color('darker'), 0) var(--progress-start),
+        rgba(color('darker'), 1) var(--progress-end)
+      );
+  }
+  &__row {
+    position: relative;
+    height: 6.25%;
+    width: 100%;
+    @include smooth-gradient(color('lit'));
+    opacity: 0.75;
+  }
+}
+
+.card--reveal {
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background: linear-gradient(175deg, rgba(color('darker'), 0) var(--a-start), rgba(color('darker'), 1) var(--a-end));
+    transform-origin: bottom center;
+  }
+}
+
+.title--reveal {
+  &::before {
+    position: absolute;
+    content: '';
+    top: 0;
+    left: 0;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+    background: linear-gradient(175deg, rgba(color('darker'), 0) var(--b-start), rgba(color('darker'), 1) var(--b-end));
+    transform-origin: bottom center;
+  }
 }

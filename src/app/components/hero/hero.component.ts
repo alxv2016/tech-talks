@@ -34,8 +34,8 @@ export class HeroComponent implements OnInit, AfterViewInit {
     const grads = this.grad.map((grad) => grad.nativeElement);
 
     gsap.to(heroTitle, {
-      yPercent: -20,
-      scale: 0.98,
+      yPercent: -60,
+      duration: 4.75,
       scrollTrigger: {
         markers: false,
         trigger: this.element.nativeElement,

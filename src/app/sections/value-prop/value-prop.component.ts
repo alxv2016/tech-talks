@@ -31,23 +31,31 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const valueProps = this.valueProp.map((value) => value.nativeElement);
 
-    gsap.from(valueProps, {
-      scrollTrigger: {
-        markers: false,
-        trigger: this.element.nativeElement,
-        start: '-80% center',
-        end: 'bottom center',
-        scrub: 0.45,
-        onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 8, 16);
-          this.aStart = `${heroReveal.start}%`;
-          this.aEnd = `${heroReveal.end}%`;
-        },
+    gsap.fromTo(
+      valueProps,
+      {
+        y: 220,
+        opacity: 0,
+        textShadow: '0px 18px 0px rgba(251,62,84,0.75), 0px -18px 0px rgba(62,228,251,0.75)',
       },
-      yPercent: 80,
-      opacity: 0,
-      scale: 0.98,
-      stagger: 0.25,
-    });
+      {
+        scrollTrigger: {
+          markers: false,
+          trigger: this.element.nativeElement,
+          start: '-=400 center',
+          end: 'bottom center',
+          scrub: 0.75,
+          onUpdate: (self: any) => {
+            const heroReveal = this.util.calculateScroll(self.progress, 4, 20);
+            this.aStart = `${heroReveal.start}%`;
+            this.aEnd = `${heroReveal.end}%`;
+          },
+        },
+        y: 0,
+        opacity: 1,
+        textShadow: '0px 0px 0px rgba(251,62,84,0.75), 0px 0px 0px rgba(62,228,251,0.75)',
+        stagger: 0.175,
+      }
+    );
   }
 }
