@@ -87,6 +87,43 @@
   );
 }
 
+@mixin smooth-gradient-vert($color) {
+  background: linear-gradient(
+    180deg,
+    rgba($color, 0) 0%,
+    rgba($color, 0.019) 4.4%,
+    rgba($color, 0.07) 8.55%,
+    rgba($color, 0.138) 12.1%,
+    rgba($color, 0.212) 15.25%,
+    rgba($color, 0.291) 18.15%,
+    rgba($color, 0.373) 20.9%,
+    rgba($color, 0.455) 23.55%,
+    rgba($color, 0.538) 26.2%,
+    rgba($color, 0.62) 28.85%,
+    rgba($color, 0.701) 31.6%,
+    rgba($color, 0.781) 34.5%,
+    rgba($color, 0.857) 37.65%,
+    rgba($color, 0.925) 41.15%,
+    rgba($color, 0.978) 45.25%,
+    rgba($color, 1) 50%,
+    rgba($color, 0.978) 54.75%,
+    rgba($color, 0.925) 58.85%,
+    rgba($color, 0.857) 62.35%,
+    rgba($color, 0.781) 65.5%,
+    rgba($color, 0.701) 68.4%,
+    rgba($color, 0.62) 71.15%,
+    rgba($color, 0.538) 73.8%,
+    rgba($color, 0.455) 76.45%,
+    rgba($color, 0.373) 79.1%,
+    rgba($color, 0.291) 81.85%,
+    rgba($color, 0.212) 84.75%,
+    rgba($color, 0.138) 87.9%,
+    rgba($color, 0.07) 91.45%,
+    rgba($color, 0.019) 95.6%,
+    rgba($color, 0) 100%
+  );
+}
+
 @mixin frosted-glass($color, $opacity: false) {
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);

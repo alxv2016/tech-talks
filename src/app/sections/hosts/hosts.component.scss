@@ -1,0 +1,146 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-hosts) {
+  --a-start: 0%;
+  --a-end: 0%;
+  --b-start: 0%;
+  --b-end: 0%;
+  position: relative;
+  display: block;
+  background-color: color('darker');
+  margin-top: $layout--sm;
+  margin-bottom: $layout--md;
+}
+
+.c-hosts {
+  &__container {
+    position: relative;
+    display: block;
+    @include container-padding;
+    overflow: hidden;
+  }
+}
+
+.hosts-container {
+  position: relative;
+  overflow: hidden;
+  @include container-padding;
+}
+
+.hosts {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  //max-width: 768px;
+  margin: auto;
+  margin-top: $layout--sm;
+  overflow: hidden;
+}
+
+.host-grid {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: $spacing--md;
+  padding: $layout--sm 0;
+  overflow-y: auto;
+}
+
+.intro-card {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 200px;
+  height: 100%;
+  border-radius: $spacing--lg;
+  padding: $spacing--lg;
+  @include breakpoint(md) {
+    width: 100%;
+  }
+  @include frosted-glass(color('darker'), 0.75);
+  &__content {
+    position: relative;
+    width: 100%;
+  }
+  &__avatar {
+    position: relative;
+    height: 88px;
+    width: 88px;
+    border-radius: 900px;
+    background-color: grey;
+  }
+
+  &__title {
+    font-weight: font-weight('medium');
+    font-size: $subtitle--2;
+    color: color('accent1');
+    margin: 0;
+    @include breakpoint(md) {
+      font-size: $title--3;
+    }
+  }
+
+  &__descr {
+    font-size: $body--2;
+    @include breakpoint(md) {
+      font-size: $body--1;
+    }
+    margin: 0;
+    color: color('tint');
+  }
+  &__title ~ &__descr {
+    margin-top: $spacing--xs;
+  }
+  &__avatar ~ &__title {
+    margin-top: $spacing--md;
+  }
+}
+
+.grads-container {
+  --progress-start: 10%;
+  --progress-end: 50%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.grads {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  max-width: 720px;
+  height: 100%;
+  margin: auto;
+  &:before {
+    position: absolute;
+    z-index: 2;
+    content: '';
+    height: 100%;
+    width: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(color('darker'), 0) var(--progress-start),
+      rgba(color('darker'), 0.75) var(--progress-end)
+    );
+  }
+  &__row {
+    position: relative;
+    height: 80%;
+    width: 8.33%;
+    @include smooth-gradient-vert(color('lit'));
+    opacity: 0.75;
+  }
+}
