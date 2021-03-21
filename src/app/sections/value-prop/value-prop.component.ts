@@ -34,9 +34,9 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
     gsap.fromTo(
       valueProps,
       {
-        y: 220,
+        y: 90,
         opacity: 0,
-        textShadow: '0px 18px 0px rgba(251,62,84,0.75), 0px -18px 0px rgba(62,228,251,0.75)',
+        textShadow: '18px 0px 0px rgba(251,62,84,0.75), -18px 0px 0px rgba(62,228,251,0.75)',
       },
       {
         scrollTrigger: {

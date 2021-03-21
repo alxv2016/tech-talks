@@ -26,6 +26,8 @@
 }
 
 .value-prop {
+  --progress-start: 10%;
+  --progress-end: 80%;
   color: color('tint');
   width: 100%;
   max-width: 568px;

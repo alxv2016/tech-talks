@@ -8,6 +8,8 @@
   position: relative;
   display: block;
   background-color: color('darker');
+  margin-top: $layout--sm;
+  margin-bottom: $layout--md;
 }
 
 .c-intro {
@@ -15,8 +17,6 @@
     position: relative;
     display: block;
     @include container-padding;
-    margin-top: $layout--lg;
-    margin-bottom: $layout--lg;
     overflow: hidden;
   }
 }
@@ -26,8 +26,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: $layout--2xl;
-  padding-bottom: $layout--xl;
+  padding: $layout--sm 0;
+  @include breakpoint(md) {
+    padding: $layout--lg 0;
+  }
+  @include breakpoint(lg) {
+    padding: $layout--xl 0;
+  }
 }
 
 .tt-logo {
@@ -47,26 +52,26 @@
 
 .intro-slogan {
   position: relative;
+  width: 100%;
+  max-width: 720px;
   margin: auto;
-  margin-top: $layout--xl;
+  margin-top: $layout--sm;
   overflow: hidden;
 }
 
 .intro-cards {
-  --progress-start: 40%;
-  --progress-end: 70%;
+  --progress-start: 20%;
+  --progress-end: 60%;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: $spacing--xl;
+  padding: $layout--sm $layout--md;
   overflow: hidden;
-  margin-top: $layout--lg;
-  margin-bottom: $layout--lg;
+  margin-top: $layout--sm;
   @include breakpoint(md) {
-    margin-top: $layout--2xl;
-    margin-bottom: $layout--2xl;
+    padding: $layout--lg;
   }
   &:before {
     position: absolute;
@@ -79,6 +84,12 @@
       rgba(color('darker'), 0) var(--progress-start),
       rgba(color('darker'), 1) var(--progress-end)
     );
+    mask: $noiseFilter,
+      radial-gradient(
+        circle,
+        rgba(color('darker'), 0) var(--progress-start),
+        rgba(color('darker'), 1) var(--progress-end)
+      );
   }
 }
 
@@ -143,8 +154,8 @@
 }
 
 .grads {
-  --progress-start: 15%;
-  --progress-end: 60%;
+  --progress-start: 10%;
+  --progress-end: 50%;
   position: absolute;
   z-index: 1;
   overflow: hidden;
@@ -163,16 +174,10 @@
       rgba(color('darker'), 0) var(--progress-start),
       rgba(color('darker'), 0.75) var(--progress-end)
     );
-    mask: $noiseFilter,
-      radial-gradient(
-        circle,
-        rgba(color('darker'), 0) var(--progress-start),
-        rgba(color('darker'), 1) var(--progress-end)
-      );
   }
   &__row {
     position: relative;
-    height: 6.25%;
+    height: 8.83%;
     width: 100%;
     @include smooth-gradient(color('lit'));
     opacity: 0.75;

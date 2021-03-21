@@ -87,7 +87,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
     gsap.fromTo(
       this.glitch.nativeElement,
       {
-        yPercent: -15,
+        scale: 0.85,
         opacity: 0.25,
       },
       {
@@ -103,7 +103,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
             this.aEnd = `${heroReveal.end}%`;
           },
         },
-        yPercent: 15,
+        scale: 1,
         opacity: 1,
       }
     );
@@ -121,13 +121,13 @@ export class IntroComponent implements OnInit, AfterViewInit {
     glitch.fromTo(
       grads,
       {
-        xPercent: -14,
-        opacity: 0.75,
+        xPercent: -18,
+        opacity: 0.45,
       },
       {
-        xPercent: 14,
+        xPercent: 18,
         opacity: 1,
-        stagger: 0.125,
+        stagger: 0.175,
       }
     );
   }
