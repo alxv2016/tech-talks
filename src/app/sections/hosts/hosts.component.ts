@@ -25,8 +25,7 @@ export class HostsComponent implements OnInit, AfterViewInit {
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
-  @ViewChild('brandTrigger') brandTrigger!: ElementRef;
-  @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
+  @ViewChild('hostTitle') hostTitle!: ElementRef;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
 
@@ -34,6 +33,26 @@ export class HostsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const grads = this.grad.map((grad) => grad.nativeElement);
+
+    gsap.from(this.hostTitle.nativeElement, {
+      y: 20,
+      opacity: 0,
+      scrollTrigger: {
+        markers: true,
+        trigger: this.element.nativeElement,
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 0.45,
+        onUpdate: (self: any) => {
+          const heroReveal = this.util.calculateScroll(self.progress, 4, 8);
+          this.aStart = `${heroReveal.start}%`;
+          this.aEnd = `${heroReveal.end}%`;
+          this.bStart = `${heroReveal.start}%`;
+          this.bEnd = `${heroReveal.end}%`;
+        },
+      },
+    });
+
     const glitch = gsap.timeline({
       defaults: {
         yoyo: true,

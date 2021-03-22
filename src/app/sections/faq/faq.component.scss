@@ -1,0 +1,13 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-faq) {
+  --a-start: 0%;
+  --a-end: 0%;
+  --b-start: 0%;
+  --b-end: 0%;
+  position: relative;
+  display: block;
+  background-color: color('darker');
+  margin-top: $layout--sm;
+  margin-bottom: $layout--md;
+}
