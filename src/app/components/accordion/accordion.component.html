@@ -1,10 +1,14 @@
-<h2 class="c-accordion__header">
-  <button><span>test</span></button>
-</h2>
-<div class="c-accordion__panel">
-  <div class="c-accordion__panel-container">
-    <div class="c-accordion-content">
-      <p>test</p>
+<ng-container *ngFor="let item of faqData; index as i">
+  <h2 class="c-accordion__header">
+    <button #accordionHeader (click)="togglePanel($event, i)">
+      {{ item.title }}<span class="c-accordion-icon"></span>
+    </button>
+  </h2>
+  <div #accordionPanel class="c-accordion__panel">
+    <div class="c-accordion__panel-container">
+      <div class="c-accordion-content">
+        <p>{{ item.descr }}</p>
+      </div>
     </div>
   </div>
-</div>
+</ng-container>

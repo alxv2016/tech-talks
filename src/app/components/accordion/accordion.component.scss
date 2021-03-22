@@ -32,7 +32,7 @@
       line-height: 1.25;
       &:focus,
       &:hover {
-        color: color('exercise');
+        color: color('lit');
       }
       @include breakpoint(lg) {
         padding: $spacing--xl 0;
@@ -43,7 +43,7 @@
     button:hover {
       .c-accordion-icon::after,
       .c-accordion-icon::before {
-        background-color: color('exercise');
+        background-color: color('lit');
       }
     }
 
