@@ -11,3 +11,11 @@
   margin-top: $layout--sm;
   margin-bottom: $layout--md;
 }
+
+.c-faq {
+  &__container {
+    position: relative;
+    display: block;
+    @include container-padding;
+  }
+}

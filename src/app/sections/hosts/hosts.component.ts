@@ -38,7 +38,7 @@ export class HostsComponent implements OnInit, AfterViewInit {
       y: 20,
       opacity: 0,
       scrollTrigger: {
-        markers: true,
+        markers: false,
         trigger: this.element.nativeElement,
         start: 'top center',
         end: 'bottom center',
