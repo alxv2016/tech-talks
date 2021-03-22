@@ -62,8 +62,8 @@ export class FaqComponent implements OnInit, AfterViewInit {
       scrollTrigger: {
         markers: false,
         trigger: this.element.nativeElement,
-        start: 'top center',
-        end: 'bottom center',
+        start: 'top 90%',
+        end: 'bottom 90%',
         scrub: 0.45,
         onUpdate: (self: any) => {
           const heroReveal = this.util.calculateScroll(self.progress, 4, 8);

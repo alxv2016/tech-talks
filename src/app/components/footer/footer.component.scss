@@ -1,0 +1,46 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-footer) {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  background-color: color('darker');
+  margin-top: $layout--xl;
+  @include breakpoint(lg) {
+    margin-top: $layout--2xl;
+  }
+  footer {
+    position: relative;
+    width: 100%;
+  }
+}
+
+.c-footer {
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: $max-width;
+    @include container-padding;
+    padding-top: $spacing--3xl !important;
+    padding-bottom: $spacing--3xl !important;
+  }
+  &__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: 124px;
+  }
+}
+
+.tt-logo {
+  height: inherit;
+  width: inherit;
+  fill: color('light');
+}
