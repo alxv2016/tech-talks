@@ -64,6 +64,7 @@
     transition: all 225ms ease;
     border: 1px solid transparent;
     pointer-events: none;
+    margin-left: $spacing--sm;
     &:after,
     &:before {
       transition: background 225ms ease;

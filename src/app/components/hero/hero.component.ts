@@ -46,8 +46,8 @@ export class HeroComponent implements OnInit, AfterViewInit {
         scrollTrigger: {
           markers: false,
           trigger: this.element.nativeElement,
-          start: 'top top',
-          end: '+=240 top',
+          start: '+=200 top',
+          end: '120% top',
           scrub: 0.45,
           onUpdate: (self: any) => {
             const heroReveal = this.util.calculateScroll(self.progress, 3, 20);

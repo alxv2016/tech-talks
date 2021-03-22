@@ -59,8 +59,8 @@ export class IntroComponent implements OnInit, AfterViewInit {
       scrollTrigger: {
         markers: false,
         trigger: this.brandTrigger.nativeElement,
-        start: 'top center',
-        end: 'bottom center',
+        start: 'top 75%',
+        end: 'bottom 75%',
         scrub: 0.45,
         onUpdate: (self: any) => {
           const heroReveal = this.util.calculateScroll(self.progress, 16, 20);
@@ -75,15 +75,11 @@ export class IntroComponent implements OnInit, AfterViewInit {
         scale: 0.94,
         opacity: 0,
       })
-      .from(
-        titles,
-        {
-          y: 20,
-          opacity: 0,
-          stagger: 0.125,
-        },
-        0.125
-      );
+      .from(titles, {
+        y: 20,
+        opacity: 0,
+        stagger: 0.125,
+      });
 
     gsap.fromTo(
       this.glitch.nativeElement,

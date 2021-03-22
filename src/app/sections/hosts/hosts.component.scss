@@ -86,7 +86,7 @@
   margin: auto;
   grid-template-columns: repeat(3, 1fr);
   padding: $spacing--sm;
-  overflow-x: auto;
+  overflow-x: scroll;
   scroll-snap-type: x proximity;
   &::-webkit-scrollbar {
     display: none;
@@ -97,6 +97,7 @@
 
   &__item {
     width: 200px;
+    height: auto;
     padding: 0 $spacing--sm;
     &:last-child,
     :last-of-type {
