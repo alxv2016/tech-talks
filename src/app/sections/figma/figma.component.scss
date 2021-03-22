@@ -7,7 +7,6 @@
   --b-end: 0%;
   position: relative;
   display: block;
-  background-color: color('darker');
   margin-top: $layout--sm;
   margin-bottom: $layout--md;
 }
@@ -28,16 +27,21 @@
   margin-top: $layout--sm;
   overflow: hidden;
 }
+.session-outro {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  margin-top: $layout--sm;
+}
 
 .figma-app-demo {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: $spacing--4xl;
-  margin-top: $layout--sm;
-  padding-top: $layout--sm;
-  overflow: hidden;
+  padding-bottom: $spacing--lg;
+  padding-top: $spacing--lg;
 }
 
 .figma-app {

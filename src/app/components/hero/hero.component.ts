@@ -63,7 +63,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
         yoyo: true,
         yoyoEase: true,
         repeat: -1,
-        duration: 4.75,
+        duration: 3.95,
         ease: 'back',
       },
     });

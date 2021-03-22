@@ -12,6 +12,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {AccordionComponent} from 'src/app/components/accordion/accordion.component';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -19,7 +20,7 @@ import {UtilityService} from 'src/app/services/utility.service';
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.scss'],
 })
-export class FaqComponent implements OnInit {
+export class FaqComponent implements OnInit, AfterViewInit {
   demoData: any = [];
 
   @HostBinding('class') class = 'c-intro l-content--reveal';
@@ -27,8 +28,8 @@ export class FaqComponent implements OnInit {
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
-  @ViewChild('brandTrigger') brandTrigger!: ElementRef;
-  @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
+  @ViewChild('faqTitle') faqTitle!: ElementRef;
+  @ViewChild('faqAccordion') faqAccordion!: ElementRef;
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
 
   ngOnInit(): void {
@@ -54,5 +55,35 @@ export class FaqComponent implements OnInit {
           "We know the seats are limited to 10 people, however we will be recording this session so if you couldn't attend you can still watch the recording and stay tuned for the next Tech Talks.",
       },
     ];
+  }
+
+  ngAfterViewInit(): void {
+    const faqReveal = gsap.timeline({
+      scrollTrigger: {
+        markers: false,
+        trigger: this.element.nativeElement,
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 0.45,
+        onUpdate: (self: any) => {
+          const heroReveal = this.util.calculateScroll(self.progress, 4, 8);
+          this.aStart = `${heroReveal.start}%`;
+          this.aEnd = `${heroReveal.end}%`;
+        },
+      },
+    });
+
+    faqReveal
+      .from(this.faqTitle.nativeElement, {
+        y: 40,
+        opacity: 0,
+      })
+      .from(
+        this.faqAccordion.nativeElement,
+        {
+          opacity: 0,
+        },
+        0.125
+      );
   }
 }

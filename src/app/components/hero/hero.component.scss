@@ -8,14 +8,14 @@
   position: relative;
   display: block;
   background-color: color('darker');
-  height: 65vh;
+  height: 440px;
   @include breakpoint(md) {
-    height: 45vh;
+    height: 460px;
   }
   @include breakpoint(lg) {
     --progress-start: 30%;
     --progress-end: 80%;
-    height: 52vh;
+    height: 50vh;
   }
   &:before {
     position: absolute;

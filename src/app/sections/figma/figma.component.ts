@@ -29,7 +29,7 @@ export class FigmaComponent implements OnInit, AfterViewInit {
   @ViewChild('figmaDemoTrigger') figmaDemoTrigger!: ElementRef;
   @ViewChild('figmaApp') figmaApp!: ElementRef;
   @ViewChild('figmaVideo') figmaVideo!: ElementRef;
-  @ViewChild('features') features!: ElementRef;
+  @ViewChild('introCopy') introCopy!: ElementRef;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
 
@@ -81,8 +81,8 @@ export class FigmaComponent implements OnInit, AfterViewInit {
       },
     });
 
-    gsap.from(this.features.nativeElement, {
-      y: 20,
+    gsap.from(this.introCopy.nativeElement, {
+      y: -20,
       opacity: 0,
       scrollTrigger: {
         markers: false,

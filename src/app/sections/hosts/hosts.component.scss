@@ -14,11 +14,8 @@
 
 .section-title {
   position: relative;
-  width: 100%;
-  max-width: $max-width;
-  padding: $spacing--lg;
-  margin: auto;
-  overflow-x: hidden;
+  @include container-padding;
+  overflow: hidden;
 }
 
 .intro-card {
@@ -30,7 +27,6 @@
   height: 100%;
   border-radius: $spacing--lg;
   padding: $spacing--lg;
-  border: 2px solid rgba(color('light'), 0.02);
   @include breakpoint(md) {
     width: 100%;
   }
@@ -90,10 +86,13 @@
   margin: auto;
   grid-template-columns: repeat(3, 1fr);
   padding: $spacing--sm;
-  overflow-x: scroll;
+  overflow-x: auto;
   scroll-snap-type: x proximity;
   &::-webkit-scrollbar {
     display: none;
+  }
+  @include breakpoint(lg) {
+    padding: $spacing--sm $spacing--xl;
   }
 
   &__item {
@@ -184,6 +183,7 @@
   &::before {
     position: absolute;
     content: '';
+    pointer-events: none;
     top: 0;
     left: 0;
     z-index: 3;
