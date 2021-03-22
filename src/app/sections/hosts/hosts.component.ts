@@ -40,18 +40,18 @@ export class HostsComponent implements OnInit, AfterViewInit {
         yoyoEase: true,
         repeat: -1,
         ease: 'back',
-        duration: 0.65,
+        duration: 0.5,
       },
     });
 
     glitch.fromTo(
       grads,
       {
-        yPercent: -1,
+        yPercent: -8,
         opacity: 0.45,
       },
       {
-        yPercent: 1,
+        yPercent: 8,
         opacity: 1,
         stagger: {
           each: 0.125,

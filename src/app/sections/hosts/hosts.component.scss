@@ -8,44 +8,16 @@
   position: relative;
   display: block;
   background-color: color('darker');
-  margin-top: $layout--sm;
-  margin-bottom: $layout--md;
+  margin-top: $layout--xl;
+  margin-bottom: $layout--sm;
 }
 
-.c-hosts {
-  &__container {
-    position: relative;
-    display: block;
-    @include container-padding;
-    overflow: hidden;
-  }
-}
-
-.hosts-container {
+.section-title {
   position: relative;
-  overflow: hidden;
-  @include container-padding;
-}
-
-.hosts {
-  position: relative;
-  z-index: 2;
   width: 100%;
-  //max-width: 768px;
+  max-width: $max-width;
+  padding: $spacing--lg;
   margin: auto;
-  margin-top: $layout--sm;
-  overflow: hidden;
-}
-
-.host-grid {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: $spacing--md;
-  padding: $layout--sm 0;
-  overflow-y: auto;
 }
 
 .intro-card {
@@ -53,11 +25,11 @@
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
-  width: 200px;
+  width: 100%;
   height: 100%;
   border-radius: $spacing--lg;
   padding: $spacing--lg;
-  border: 2px solid rgba(color('light'), 0.0275);
+  border: 2px solid rgba(color('light'), 0.02);
   @include breakpoint(md) {
     width: 100%;
   }
@@ -100,9 +72,50 @@
   }
 }
 
+.scroller {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: $layout--sm;
+}
+
+.scroll-container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  width: 100%;
+  max-width: $max-width;
+  margin: auto;
+  grid-template-columns: repeat(3, 1fr);
+  padding: $spacing--sm;
+  overflow-x: scroll;
+  scroll-snap-type: x proximity;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__item {
+    width: 200px;
+    padding: 0 $spacing--sm;
+    &:last-child,
+    :last-of-type {
+      padding-right: $spacing--lg;
+    }
+
+    @include breakpoint(sm) {
+      width: 100%;
+      &:last-child,
+      :last-of-type {
+        padding-right: $spacing--sm;
+      }
+    }
+  }
+}
+
 .grads-container {
   --progress-start: 10%;
-  --progress-end: 50%;
+  --progress-end: 90%;
   position: absolute;
   display: flex;
   align-items: center;
@@ -121,8 +134,8 @@
   align-items: center;
   overflow: hidden;
   width: 100%;
-  max-width: 720px;
   height: 100%;
+  max-width: $max-width;
   margin: auto;
   &:before {
     position: absolute;
@@ -133,7 +146,7 @@
     background: radial-gradient(
       circle,
       rgba(color('darker'), 0) var(--progress-start),
-      rgba(color('darker'), 0.75) var(--progress-end)
+      rgba(color('darker'), 1) var(--progress-end)
     );
     mask: $noiseFilter,
       radial-gradient(
@@ -145,7 +158,7 @@
   &__row {
     position: relative;
     height: 80%;
-    width: 8.33%;
+    width: 5.56%;
     @include smooth-gradient-vert(color('lit'));
     opacity: 0.75;
   }
