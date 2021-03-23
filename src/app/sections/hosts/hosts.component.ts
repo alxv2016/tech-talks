@@ -40,8 +40,8 @@ export class HostsComponent implements OnInit, AfterViewInit {
       scrollTrigger: {
         markers: false,
         trigger: this.element.nativeElement,
-        start: 'top center',
-        end: 'bottom center',
+        start: 'top 75%',
+        end: 'bottom 75%',
         scrub: 0.45,
         onUpdate: (self: any) => {
           const heroReveal = this.util.calculateScroll(self.progress, 4, 8);

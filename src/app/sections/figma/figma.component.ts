@@ -45,8 +45,8 @@ export class FigmaComponent implements OnInit, AfterViewInit {
       scrollTrigger: {
         markers: false,
         trigger: this.sessionIntroTrigger.nativeElement,
-        start: 'top center',
-        end: 'bottom center',
+        start: 'top 80%',
+        end: 'bottom 80%',
         scrub: 0.45,
         onUpdate: (self: any) => {
           const heroReveal = this.util.calculateScroll(self.progress, 16, 20);
@@ -63,8 +63,8 @@ export class FigmaComponent implements OnInit, AfterViewInit {
       scrollTrigger: {
         markers: false,
         trigger: this.figmaDemoTrigger.nativeElement,
-        start: 'top center',
-        end: 'bottom center',
+        start: 'top 75%',
+        end: 'bottom 75%',
         scrub: 0.45,
         onUpdate: (self: any) => {
           const heroReveal = this.util.calculateScroll(self.progress, 6);
