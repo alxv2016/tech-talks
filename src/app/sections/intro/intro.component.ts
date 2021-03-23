@@ -40,6 +40,25 @@ export class IntroComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const grads = this.grad.map((grad) => grad.nativeElement);
     const titles = this.introTitle.map((title) => title.nativeElement);
+    const cards = this.introCard.map((card) => card.nativeElement);
+
+    gsap.from(cards, {
+      rotateY: '-14deg',
+      rotateX: '14deg',
+      y: -70,
+      scrollTrigger: {
+        markers: false,
+        trigger: this.cardTrigger.nativeElement,
+        start: 'top center',
+        end: 'bottom center',
+        scrub: 0.45,
+        onUpdate: (self: any) => {
+          const heroReveal = this.util.calculateScroll(self.progress, 4, 8);
+          this.aStart = `${heroReveal.start}%`;
+          this.aEnd = `${heroReveal.end}%`;
+        },
+      },
+    });
 
     gsap.fromTo(
       this.bolt.nativeElement,
@@ -55,7 +74,6 @@ export class IntroComponent implements OnInit, AfterViewInit {
     );
 
     const introReveal = gsap.timeline({
-      defaults: {},
       scrollTrigger: {
         markers: false,
         trigger: this.brandTrigger.nativeElement,
