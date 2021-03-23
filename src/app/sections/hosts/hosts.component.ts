@@ -66,14 +66,14 @@ export class HostsComponent implements OnInit, AfterViewInit {
     glitch.fromTo(
       grads,
       {
-        scaleY: 0.25,
-        opacity: 0.45,
+        scaleY: 0.45,
+        opacity: 0.25,
       },
       {
-        scaleY: 1.125,
+        scaleY: 1.145,
         opacity: 1,
         stagger: {
-          each: 0.145,
+          each: 0.175,
           from: 'random',
         },
       }

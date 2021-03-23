@@ -7,7 +7,7 @@
   min-height: 68px;
   display: flex;
   align-items: center;
-  background-color: color('darker');
+  background-color: color('dark');
   margin-top: $layout--xl;
   @include breakpoint(lg) {
     margin-top: $layout--2xl;
@@ -34,13 +34,38 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: auto;
-    width: 124px;
+    height: 14px;
+    width: auto;
+    @include breakpoint(md) {
+      height: 16px;
+    }
+    @include breakpoint(lg) {
+      height: 18px;
+    }
   }
 }
 
-.tt-logo {
+.personal-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 14px;
+  width: auto;
+  @include breakpoint(md) {
+    height: 16px;
+  }
+  @include breakpoint(lg) {
+    height: 18px;
+  }
+}
+
+.tt-logo,
+.alxv-logo {
   height: inherit;
   width: inherit;
-  fill: color('light');
+  fill: color('carbon');
+}
+
+.alxv-logo {
+  fill: color('carbon');
 }
