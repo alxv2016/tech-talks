@@ -39,17 +39,14 @@ form legend {
 }
 
 .display-2 {
-  font-size: $title--1;
+  font-size: $title--3;
   line-height: 1.15;
   font-weight: font-weight('bold');
-  @include breakpoint(sm) {
-    font-size: $large--title;
-  }
   @include breakpoint(md) {
-    font-size: $huge--title;
+    font-size: $title--2;
   }
   @include breakpoint(lg) {
-    font-size: $headliner--1;
+    font-size: $title--1;
   }
   & ~ h2,
   & ~ h2,
@@ -63,14 +60,14 @@ form legend {
 }
 
 .display-3 {
-  font-size: $title--3;
+  font-size: $title--1;
   line-height: 1.15;
-  font-weight: font-weight('medium');
+  font-weight: font-weight('bold');
   @include breakpoint(md) {
-    font-size: $title--2;
+    font-size: $large--title;
   }
   @include breakpoint(lg) {
-    font-size: $large--title;
+    font-size: $huge--title;
   }
   & ~ h2,
   & ~ h2,
@@ -83,9 +80,25 @@ form legend {
   }
 }
 
+.sub-headline {
+  font-size: $subtitle;
+  font-weight: font-weight('medium');
+  line-height: 1.45;
+  margin: 0;
+  @include breakpoint(md) {
+    font-size: $subtitle--2;
+  }
+  & ~ h1,
+  & ~ h2,
+  & ~ h3,
+  & ~ h4 {
+    margin-top: $spacing--2xs;
+  }
+}
+
 .headline {
   font-size: $subtitle--2;
-  font-weight: font-weight('medium');
+  font-weight: font-weight('bold');
   line-height: 1.45;
   margin: 0;
   @include breakpoint(md) {
@@ -95,14 +108,14 @@ form legend {
   & ~ h2,
   & ~ h3,
   & ~ h4 {
-    margin-top: $spacing--xs;
+    margin-top: $spacing--2xs;
   }
 }
 
 .large-print {
   font-size: $subtitle;
   line-height: 1.45;
-  font-weight: font-weight('medium');
+  font-weight: font-weight('regular');
   @include breakpoint(md) {
     font-size: $subtitle--2;
   }

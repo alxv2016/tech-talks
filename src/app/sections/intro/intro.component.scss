@@ -8,8 +8,6 @@
   position: relative;
   display: block;
   background-color: color('darker');
-  margin-top: $layout--sm;
-  margin-bottom: $layout--md;
 }
 
 .c-intro {
@@ -26,12 +24,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: $layout--sm 0;
+  width: 100%;
+  height: 160px;
   @include breakpoint(md) {
-    padding: $layout--lg 0;
+    height: 260px;
   }
   @include breakpoint(lg) {
-    padding: $layout--xl 0;
+    height: 320px;
   }
 }
 
@@ -55,7 +54,6 @@
   width: 100%;
   max-width: 720px;
   margin: auto;
-  margin-top: $layout--sm;
   overflow: hidden;
 }
 
@@ -234,5 +232,12 @@
     border-radius: inherit;
     background: linear-gradient(175deg, rgba(color('darker'), 0) var(--b-start), rgba(color('darker'), 1) var(--b-end));
     transform-origin: bottom center;
+  }
+}
+
+.l-margin--top-lg {
+  margin-top: $layout--md;
+  @include breakpoint(md) {
+    margin-top: $layout--xl;
   }
 }

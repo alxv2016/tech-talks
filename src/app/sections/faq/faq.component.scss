@@ -8,8 +8,6 @@
   position: relative;
   display: block;
   background-color: color('darker');
-  margin-top: $layout--sm;
-  margin-bottom: $layout--md;
 }
 
 .c-faq {
@@ -22,12 +20,13 @@
 
 .section-title {
   position: relative;
-  margin-bottom: $layout--sm;
-  margin-top: $layout--lg;
   overflow: hidden;
-  @include breakpoint(lg) {
+  margin-bottom: $layout--sm;
+  @include breakpoint(md) {
     margin-bottom: $layout--md;
-    margin-top: $layout--xl;
+  }
+  h2 {
+    margin: 0;
   }
 }
 

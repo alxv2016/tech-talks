@@ -7,8 +7,7 @@
   --b-end: 0%;
   position: relative;
   display: block;
-  margin-top: $layout--sm;
-  margin-bottom: $layout--md;
+  background-color: color('darker');
 }
 
 .c-figma {
@@ -24,7 +23,6 @@
   width: 100%;
   max-width: 720px;
   margin: auto;
-  margin-top: $layout--sm;
   overflow: hidden;
 }
 .session-outro {
@@ -40,8 +38,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-bottom: $spacing--lg;
-  padding-top: $spacing--lg;
+  margin-top: $layout--xs;
 }
 
 .figma-app {
@@ -74,21 +71,6 @@
     z-index: 2;
     width: inherit;
     height: inherit;
-  }
-}
-
-.figma-features {
-  position: relative;
-  width: 100%;
-  max-width: 720px;
-  display: grid;
-  column-gap: $spacing--2xl;
-  row-gap: $spacing--3xl;
-  grid-template-columns: repeat(1, 1fr);
-  margin: auto;
-  margin-top: $layout--sm;
-  @include breakpoint(sm) {
-    grid-template-columns: repeat(3, 1fr);
   }
 }
 

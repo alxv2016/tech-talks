@@ -36,7 +36,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
 
   ngOnInit(): void {}
-
+  //
   ngAfterViewInit(): void {
     const grads = this.grad.map((grad) => grad.nativeElement);
     const titles = this.introTitle.map((title) => title.nativeElement);

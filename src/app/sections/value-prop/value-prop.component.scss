@@ -6,7 +6,6 @@
   position: relative;
   display: block;
   background-color: color('darker');
-  margin-top: $layout--sm;
 }
 
 .c-value-prop {
@@ -14,13 +13,8 @@
     position: relative;
     display: block;
     @include container-padding;
-    padding-bottom: $layout--sm;
-    @include breakpoint(md) {
-      padding-bottom: $layout--md;
-    }
-    @include breakpoint(lg) {
-      padding-bottom: $layout--lg;
-    }
+    padding-top: $layout--xs !important;
+    padding-bottom: $layout--xs !important;
     overflow: hidden;
   }
 }
@@ -33,6 +27,9 @@
   max-width: 568px;
   @include breakpoint(lg) {
     max-width: 768px;
+  }
+  p {
+    margin: 0;
   }
 }
 

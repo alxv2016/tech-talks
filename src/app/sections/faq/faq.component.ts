@@ -23,7 +23,7 @@ import {UtilityService} from 'src/app/services/utility.service';
 export class FaqComponent implements OnInit, AfterViewInit {
   demoData: any = [];
 
-  @HostBinding('class') class = 'c-intro l-content--reveal';
+  @HostBinding('class') class = 'c-faq l-content--reveal';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
