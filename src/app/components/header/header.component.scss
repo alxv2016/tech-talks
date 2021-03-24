@@ -36,9 +36,33 @@
       height: 18px;
     }
   }
+  &__sub-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 22px;
+    width: auto;
+    @include breakpoint(md) {
+      height: 28px;
+    }
+    @include breakpoint(lg) {
+      height: 32px;
+    }
+  }
+  &__sub-brand ~ &__brand {
+    margin-left: $spacing--md;
+  }
 }
 
 .tt-logo {
+  height: inherit;
+  width: inherit;
+  fill: color('light');
+}
+
+.avanade-logo {
+  position: relative;
+  top: -1px;
   height: inherit;
   width: inherit;
   fill: color('light');

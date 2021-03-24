@@ -41,7 +41,17 @@
     height: 88px;
     width: 88px;
     border-radius: 900px;
-    background-color: grey;
+    background-color: color('darker');
+    overflow: hidden;
+    filter: grayscale(1) contrast(1.25);
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: inherit;
+      width: inherit;
+      border-radius: inherit;
+    }
   }
 
   &__title {
@@ -101,14 +111,14 @@
     height: auto;
     padding: 0 $spacing--sm;
     &:last-child,
-    :last-of-type {
+    &:last-of-type {
       padding-right: $spacing--lg;
     }
 
     @include breakpoint(sm) {
       width: 100%;
       &:last-child,
-      :last-of-type {
+      &:last-of-type {
         padding-right: $spacing--sm;
       }
     }

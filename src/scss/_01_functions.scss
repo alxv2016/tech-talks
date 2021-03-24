@@ -1,7 +1,7 @@
 // Accessibility color function, takes a color input and outputs
 // the proper contrast color base on the input.
 // NOTE: color must not contain any opacity (RGBA) values
-@function contrast($color) {
+@function contrast-check($color) {
   $r: red($color);
   $g: green($color);
   $b: blue($color);
