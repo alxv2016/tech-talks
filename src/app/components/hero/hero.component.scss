@@ -24,12 +24,6 @@
       rgba(color('darker'), 0) var(--progress-start),
       rgba(color('darker'), 0.75) var(--progress-end)
     );
-    mask: $noiseFilter,
-      radial-gradient(
-        circle,
-        rgba(color('darker'), 0) var(--progress-start),
-        rgba(color('darker'), 1) var(--progress-end)
-      );
   }
 }
 

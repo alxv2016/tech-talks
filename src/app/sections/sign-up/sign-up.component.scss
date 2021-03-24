@@ -19,6 +19,14 @@
   }
 }
 
+.signup-intro {
+  position: relative;
+  width: 100%;
+  max-width: 720px;
+  margin: auto;
+  overflow: hidden;
+}
+
 .signup-form {
   position: relative;
   display: flex;
@@ -26,6 +34,17 @@
   width: 100%;
   max-width: 568px;
   margin: auto;
+  margin-top: $layout--md;
+  .btn {
+    width: 100%;
+  }
+  @include breakpoint(md) {
+    margin-top: $layout--xl;
+    .btn {
+      max-width: 160px;
+      margin-left: auto;
+    }
+  }
 }
 
 .form-control {
