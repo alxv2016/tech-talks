@@ -59,22 +59,22 @@ export class HostsComponent implements OnInit, AfterViewInit {
         yoyoEase: true,
         repeat: -1,
         ease: 'back',
-        duration: 0.65,
+        duration: 1.75,
       },
     });
 
     glitch.fromTo(
       grads,
       {
-        scaleY: 0.45,
-        opacity: 0.25,
+        scaleY: 0.125,
+        opacity: 0.175,
       },
       {
-        scaleY: 1.145,
+        scaleY: 1.25,
         opacity: 1,
         stagger: {
           each: 0.175,
-          from: 'random',
+          from: 'start',
         },
       }
     );

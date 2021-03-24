@@ -26,7 +26,7 @@
   width: 100%;
   max-width: 568px;
   @include breakpoint(lg) {
-    max-width: 768px;
+    max-width: 698px;
   }
   p {
     margin: 0;
@@ -34,12 +34,12 @@
 }
 
 .value-prop ~ .value-prop {
-  margin-top: $spacing--2xl;
+  margin-top: $spacing--3xl;
   @include breakpoint(md) {
-    margin-top: $spacing--3xl;
+    margin-top: $layout--md;
   }
   @include breakpoint(lg) {
-    margin-top: $spacing--4xl;
+    margin-top: $layout--lg;
   }
 }
 

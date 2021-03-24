@@ -58,8 +58,8 @@
 }
 
 .intro-cards {
-  --progress-start: 20%;
-  --progress-end: 60%;
+  --progress-start: 10%;
+  --progress-end: 40%;
   position: relative;
   display: flex;
   align-items: center;
@@ -80,7 +80,7 @@
     background: radial-gradient(
       circle,
       rgba(color('darker'), 0) var(--progress-start),
-      rgba(color('darker'), 1) var(--progress-end)
+      rgba(color('darker'), 0.94) var(--progress-end)
     );
     mask: $noiseFilter,
       radial-gradient(
@@ -198,7 +198,7 @@
   }
   &__row {
     position: relative;
-    height: 8.83%;
+    height: 8.33%;
     width: 100%;
     @include smooth-gradient(color('lit'));
     opacity: 0.75;

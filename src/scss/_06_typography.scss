@@ -27,6 +27,9 @@ form legend {
   font-weight: font-weight('bold');
   line-height: 1.15;
   margin: 0;
+  @include breakpoint(sm) {
+    font-size: $huge--title;
+  }
   @include breakpoint(md) {
     font-size: $headliner--1;
   }

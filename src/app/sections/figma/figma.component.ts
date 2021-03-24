@@ -38,38 +38,19 @@ export class FigmaComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const titles = this.title.map((el) => el.nativeElement);
 
-    gsap.from(titles, {
-      y: 20,
-      opacity: 0,
-      stagger: 0.125,
+    const sessionReveal = gsap.timeline({
       scrollTrigger: {
         markers: false,
         trigger: this.sessionIntroTrigger.nativeElement,
-        start: 'top 80%',
-        end: 'bottom 80%',
+        start: 'top 60%',
+        end: '70% 60%',
         scrub: 0.45,
         onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 16, 20);
-          this.bStart = `${heroReveal.start}%`;
-          this.bEnd = `${heroReveal.end}%`;
-        },
-      },
-    });
-
-    gsap.from(this.figmaApp.nativeElement, {
-      y: 50,
-      opacity: 0,
-      scale: 0.94,
-      scrollTrigger: {
-        markers: false,
-        trigger: this.figmaDemoTrigger.nativeElement,
-        start: 'top 75%',
-        end: 'bottom 75%',
-        scrub: 0.45,
-        onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 6);
+          const heroReveal = this.util.calculateScroll(self.progress, 6, 6);
           this.aStart = `${heroReveal.start}%`;
           this.aEnd = `${heroReveal.end}%`;
+          this.bStart = `${heroReveal.start}%`;
+          this.bEnd = `${heroReveal.end}%`;
         },
         onEnter: ({isActive}) => {
           if (isActive) {
@@ -81,17 +62,28 @@ export class FigmaComponent implements OnInit, AfterViewInit {
       },
     });
 
-    gsap.from(this.introCopy.nativeElement, {
-      y: -20,
-      opacity: 0,
-      scrollTrigger: {
-        markers: false,
-        trigger: this.figmaDemoTrigger.nativeElement,
-        start: 'center center',
-        end: 'bottom center',
-        scrub: 0.45,
-      },
-    });
+    sessionReveal
+      .from(titles, {
+        y: 40,
+        opacity: 0,
+        stagger: 0.165,
+      })
+      .from(
+        this.figmaApp.nativeElement,
+        {
+          y: 40,
+          opacity: 0,
+          scale: 0.96,
+        },
+        0.125
+      )
+      .from(
+        this.introCopy.nativeElement,
+        {
+          opacity: 0,
+        },
+        0.145
+      );
   }
 
   hideVideo(ev: any) {

@@ -22,7 +22,8 @@ export class HeroComponent implements OnInit, AfterViewInit {
   @HostBinding('class') class = 'c-hero l-content--hide';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
-  @ViewChild('heroTitle') heroTitle!: ElementRef;
+  //@ViewChild('heroTitle') heroTitle!: ElementRef;
+  @ViewChildren('heroTitle', {read: ElementRef}) heroTitle!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
 
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
@@ -30,11 +31,11 @@ export class HeroComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit(): void {
-    const heroTitle = this.heroTitle.nativeElement;
+    const heroTitles = this.heroTitle.map((title) => title.nativeElement);
     const grads = this.grad.map((grad) => grad.nativeElement);
 
     gsap.fromTo(
-      heroTitle,
+      heroTitles,
       {
         yPercent: 0,
         textShadow: '0px 0px 0px rgba(251,62,84,0.75), 0px 0px 0px rgba(62,228,251,1)',
@@ -43,10 +44,11 @@ export class HeroComponent implements OnInit, AfterViewInit {
         yPercent: -30,
         textShadow: '28px 0px 0px rgba(251,62,84,0.75), -28px 0px 0px rgba(62,228,251,1)',
         duration: 4.75,
+        stagger: 0.175,
         scrollTrigger: {
           markers: false,
           trigger: this.element.nativeElement,
-          start: '+=200 top',
+          start: 'top top',
           end: '120% top',
           scrub: 0.45,
           onUpdate: (self: any) => {

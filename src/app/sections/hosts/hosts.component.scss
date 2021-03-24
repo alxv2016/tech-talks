@@ -117,7 +117,7 @@
 
 .grads-container {
   --progress-start: 10%;
-  --progress-end: 90%;
+  --progress-end: 100%;
   position: absolute;
   display: flex;
   align-items: center;
@@ -137,7 +137,7 @@
   overflow: hidden;
   width: 100%;
   height: 100%;
-  max-width: 940px;
+  max-width: 1024px;
   margin: auto;
   &:before {
     position: absolute;
@@ -162,7 +162,6 @@
     height: 80%;
     width: 5.56%;
     @include smooth-gradient-vert(color('lit'));
-    opacity: 0.75;
   }
 }
 
