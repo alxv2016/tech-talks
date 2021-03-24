@@ -1,0 +1,105 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-sign-up) {
+  --a-start: 0%;
+  --a-end: 0%;
+  --b-start: 0%;
+  --b-end: 0%;
+  position: relative;
+  display: block;
+  background-color: color('darker');
+}
+
+.c-sign-up {
+  &__container {
+    position: relative;
+    display: block;
+    @include container-padding;
+    overflow: hidden;
+  }
+}
+
+.signup-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-control,
+.radio-control {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  &__label {
+    font-weight: font-weight('medium');
+    font-size: $subtitle;
+  }
+}
+
+.form-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  &__label {
+    font-weight: font-weight('medium');
+    font-size: $subtitle;
+  }
+}
+
+.radio-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.form-control ~ .form-control,
+.form-control ~ .form-group {
+  margin-top: $spacing--lg;
+}
+
+.radio-control {
+  position: relative;
+  border-radius: $spacing--sm;
+  height: 68px;
+  width: 33.33%;
+  &__label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing--lg;
+    height: 100%;
+    width: 100%;
+    @include frosted-glass(color('darker'), 0.65);
+    border-radius: inherit;
+    white-space: nowrap;
+    user-select: none;
+    cursor: pointer;
+  }
+  &__input {
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    opacity: 0;
+    visibility: none;
+  }
+}
+
+.radio-control input[type='radio']:checked + label {
+  background-color: color('lit');
+  color: color('darker');
+}
+
+.radio-control input[type='radio']:focus + label {
+  background-color: color('accent1');
+  color: color('darker');
+}
+
+.radio-control input[type='radio']:active + label {
+  background-color: color('accent1');
+  color: color('darker');
+}
+
+.radio-control ~ .radio-control {
+  margin-left: $spacing--md;
+}
