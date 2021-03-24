@@ -52,6 +52,7 @@
     @include breakpoint(md) {
       font-size: $subtitle;
       padding: 0 $spacing--lg;
+      height: 52px;
     }
     &::placeholder {
       color: color('carbon');
@@ -105,7 +106,8 @@
 }
 
 .form-control ~ .form-control,
-.form-control ~ .form-group {
+.form-control ~ .form-group,
+.form-control ~ .btn {
   margin-top: $spacing--xl;
   @include breakpoint(md) {
     margin-top: $spacing--3xl;
@@ -115,9 +117,13 @@
 .radio-control {
   position: relative;
   border-radius: $spacing--sm;
-  height: 68px;
+  height: 58px;
   width: 33.33%;
+  @include breakpoint(md) {
+    height: 68px;
+  }
   &__label {
+    transition: all 375ms ease;
     position: relative;
     display: flex;
     align-items: center;
@@ -130,6 +136,22 @@
     white-space: nowrap;
     user-select: none;
     cursor: pointer;
+    color: color('carbon');
+    font-size: $body--2;
+    font-weight: font-weight('medium');
+    text-transform: uppercase;
+    border: 2px solid rgba(color('carbon'), 0.25);
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: '';
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      opacity: 0;
+      @include elevate-4(color('accent1'), 0.175);
+    }
   }
   &__input {
     position: absolute;
@@ -142,6 +164,9 @@
 .radio-control input[type='radio']:checked + label {
   background-color: color('accent1');
   color: color('darker');
+  &::before {
+    opacity: 1;
+  }
 }
 
 .radio-control input[type='radio']:focus + label {
@@ -156,4 +181,29 @@
 
 .radio-control ~ .radio-control {
   margin-left: $spacing--md;
+}
+
+.btn {
+  position: relative;
+  @include button-reset;
+  color: color('dark');
+  background-color: color('lit');
+  padding: 0 $spacing--md;
+  min-height: 58px;
+  border-radius: $spacing--xs;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: font-weight('medium');
+  font-size: $body--1;
+  border: 0;
+  @include breakpoint(md) {
+    font-size: $subtitle;
+  }
+  outline: none;
+
+  &:focus,
+  &:active {
+    //
+  }
 }
