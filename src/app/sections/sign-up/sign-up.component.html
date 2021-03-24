@@ -7,6 +7,7 @@
         id="username"
         type="text"
         name="textfield"
+        placeholder="Your first name"
         aria-describedby="username-help-text"
         aria-invalid="true"
       />
@@ -19,6 +20,7 @@
         id="username"
         type="text"
         name="textfield"
+        placeholder="Your last name"
         aria-describedby="username-help-text"
         aria-invalid="true"
       />
@@ -42,8 +44,16 @@
       </div>
     </fieldset>
     <div class="form-control">
-      <label class="form-control__label" for="comments">What do you want to really learn about Figma?</label>
-      <textarea class="form-control__textarea" id="comments" name="comments"></textarea>
+      <label class="form-control__label" for="comments">What do you want to learn about Figma?</label>
+      <textarea
+        class="form-control__textarea"
+        id="comments"
+        name="comments"
+        placeholder="Your input is valuable"
+      ></textarea>
+      <span class="form-control__helper" id="username-help-text"
+        >This is optional but it will help us provide content tailored to you.</span
+      >
     </div>
     <input type="submit" value="Submit" />
   </form>

@@ -23,16 +23,61 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 568px;
+  margin: auto;
 }
 
-.form-control,
-.radio-control {
+.form-control {
   position: relative;
   display: flex;
   flex-direction: column;
   &__label {
     font-weight: font-weight('medium');
-    font-size: $subtitle;
+    font-size: $body--1;
+    @include breakpoint(md) {
+      font-size: $subtitle;
+    }
+  }
+  &__input,
+  &__textarea {
+    position: relative;
+    height: 42px;
+    border-radius: $spacing--xs;
+    background-color: color('dark');
+    border: 1px solid color('carbon');
+    color: color('accent1');
+    padding: 0 $spacing--md;
+    font-size: $body--1;
+    @include breakpoint(md) {
+      font-size: $subtitle;
+      padding: 0 $spacing--lg;
+    }
+    &::placeholder {
+      color: color('carbon');
+    }
+  }
+  &__textarea {
+    min-height: 140px;
+    overflow: auto;
+    padding: $spacing--md;
+    @include breakpoint(md) {
+      min-height: 180px;
+      padding: $spacing--lg;
+    }
+  }
+
+  &__helper {
+    font-size: $body--2;
+    color: color('carbon');
+  }
+  &__label ~ &__input,
+  &__label ~ &__textarea {
+    margin-top: $spacing--sm;
+  }
+  &__input ~ &__helper,
+  &__textarea ~ &__helper {
+    margin-top: $spacing--xs;
   }
 }
 
@@ -43,7 +88,13 @@
   border: none;
   &__label {
     font-weight: font-weight('medium');
-    font-size: $subtitle;
+    font-size: $body--1;
+    @include breakpoint(md) {
+      font-size: $subtitle;
+    }
+  }
+  &__label ~ .radio-group {
+    margin-top: $spacing--sm;
   }
 }
 
@@ -55,7 +106,10 @@
 
 .form-control ~ .form-control,
 .form-control ~ .form-group {
-  margin-top: $spacing--lg;
+  margin-top: $spacing--xl;
+  @include breakpoint(md) {
+    margin-top: $spacing--3xl;
+  }
 }
 
 .radio-control {
@@ -86,7 +140,7 @@
 }
 
 .radio-control input[type='radio']:checked + label {
-  background-color: color('lit');
+  background-color: color('accent1');
   color: color('darker');
 }
 

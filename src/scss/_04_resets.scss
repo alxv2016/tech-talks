@@ -47,3 +47,9 @@ select,
 textarea {
   font: inherit;
 }
+
+input,
+textarea {
+  -webkit-appearance: none;
+  border: 0;
+}
