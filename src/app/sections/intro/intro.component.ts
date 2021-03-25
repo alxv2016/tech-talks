@@ -66,11 +66,11 @@ export class IntroComponent implements OnInit, AfterViewInit {
     });
 
     cardReveal
-      .from(cards, {
-        rotateY: '-14deg',
-        rotateX: '14deg',
-        y: -70,
-      })
+      // .from(cards, {
+      //   rotateY: '-14deg',
+      //   rotateX: '14deg',
+      //   y: -70,
+      // })
       .from(cardReveals, {
         opacity: 1,
         stagger: 0.125,
