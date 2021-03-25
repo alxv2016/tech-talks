@@ -37,22 +37,22 @@ export class FaqComponent implements OnInit, AfterViewInit {
       {
         title: 'How long is this Tech Talks session?',
         descr:
-          'This session will be 1 hour 15 minutes long as we will be diving into Figma to design and prototype an app to learn the core features of Figma. You will have 15 minutes at the end for a Q and A session.',
+          "This session will be 1 hour 15 minutes long as we will be collaboratively diving into Figma to design and prototype an app while learning Figma's core features. You will have 15 minutes at the end for a Q and A session.",
       },
       {
         title: 'Do I need to install Figma?',
         descr:
-          'Figma is cross platform and can also run in the web browser.  While you do not need to install Figma, we highly suggest that you do because it will run alot better than the web app.',
+          'Figma is cross platform and can also run in the web browser. While you do not need to install Figma, we highly suggest that you do because it will run a lot better than the web app.',
       },
       {
         title: 'What if I already know how to use Figma?',
         descr:
-          'This session is geared towards designers who are new to Figma, however Tech Talks sessions are aim to combine development practices into design so you may still learn some new things.',
+          'This session is geared towards designers who are new to Figma, however Tech Talks sessions aim to combine development practices into design so you may still learn something new.',
       },
       {
         title: "What if I can't join this session?",
         descr:
-          "We know the seats are limited to 10 people, however we will be recording this session so if you couldn't attend you can still watch the recording and stay tuned for the next Tech Talks.",
+          "We know the seats are limited to 10 people, so we will be recording the session. If you can't attend the live event, you can still watch the recording at any time and stay tuned for the next Tech Talks.",
       },
     ];
   }
