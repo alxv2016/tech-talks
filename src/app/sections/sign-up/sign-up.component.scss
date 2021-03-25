@@ -39,6 +39,26 @@
   .btn {
     width: 100%;
   }
+  &__name-group {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    @include breakpoint(md) {
+      flex-direction: row;
+    }
+    .form-control {
+      width: 100%;
+    }
+    .form-control ~ .form-control {
+      margin-top: $spacing--xl;
+      @include breakpoint(md) {
+        margin-top: 0;
+        margin-left: $spacing--md;
+      }
+    }
+  }
   @include breakpoint(md) {
     margin-top: $layout--xl;
     .btn {
@@ -128,18 +148,9 @@
   }
 }
 
-.radio-group {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.radio-group ~ .form-control__helper {
-  margin-top: $spacing--xs;
-}
-
 .form-control ~ .form-control,
-.form-control ~ .form-group,
+.signup-form__name-group ~ .form-group,
+.form-group ~ .form-control,
 .form-control ~ .btn {
   margin-top: $spacing--xl;
   @include breakpoint(md) {
@@ -147,12 +158,27 @@
   }
 }
 
+.radio-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  @include breakpoint(md) {
+    flex-direction: row;
+  }
+}
+
+.radio-group ~ .form-control__helper {
+  margin-top: $spacing--xs;
+}
+
 .radio-control {
   position: relative;
   border-radius: $spacing--sm;
   height: 58px;
-  width: 33.33%;
+  width: 100%;
   @include breakpoint(md) {
+    width: 33.33%;
     height: 68px;
   }
   &__label {
@@ -194,6 +220,14 @@
   }
 }
 
+.radio-control ~ .radio-control {
+  margin-top: $spacing--md;
+  @include breakpoint(md) {
+    margin-top: 0;
+    margin-left: $spacing--md;
+  }
+}
+
 .radio-control input[type='radio']:checked + label {
   background-color: color('accent1');
   color: color('darker');
@@ -210,10 +244,6 @@
 .radio-control input[type='radio']:active + label {
   background-color: color('accent1');
   color: color('darker');
-}
-
-.radio-control ~ .radio-control {
-  margin-left: $spacing--md;
 }
 
 .btn {
@@ -235,7 +265,9 @@
     font-size: $subtitle;
   }
   outline: none;
-
+  &:hover {
+    background-color: color('littint');
+  }
   &:focus,
   &:active {
     box-shadow: 0 0 0 0.25rem rgba(color('lit'), 0.45);

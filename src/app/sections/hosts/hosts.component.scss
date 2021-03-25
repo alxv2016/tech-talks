@@ -172,6 +172,7 @@
     height: 80%;
     width: 5.56%;
     @include smooth-gradient-vert(color('lit'));
+    will-change: transform;
   }
 }
 
@@ -187,6 +188,7 @@
     border-radius: inherit;
     background: linear-gradient(175deg, rgba(color('darker'), 0) var(--b-start), rgba(color('darker'), 1) var(--b-end));
     transform-origin: bottom center;
+    will-change: transform;
   }
 }
 
@@ -203,5 +205,6 @@
     border-radius: inherit;
     background: linear-gradient(175deg, rgba(color('darker'), 0) var(--a-start), rgba(color('darker'), 1) var(--a-end));
     transform-origin: bottom center;
+    will-change: transform;
   }
 }

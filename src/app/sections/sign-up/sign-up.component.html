@@ -8,37 +8,39 @@
     </p>
   </div>
   <form [formGroup]="signupForm" class="signup-form" (ngSubmit)="signUp()">
-    <div class="form-control">
-      <label class="form-control__label" for="username">First name</label>
-      <input
-        class="form-control__input"
-        id="username"
-        type="text"
-        name="textfield"
-        placeholder="Your first name"
-        aria-describedby="username-help-text"
-        aria-invalid="true"
-        formControlName="firstName"
-      />
-      <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.firstName"
-        >This field is required.</span
-      >
-    </div>
-    <div class="form-control">
-      <label class="form-control__label" for="username">Last name</label>
-      <input
-        class="form-control__input"
-        id="username"
-        type="text"
-        name="textfield"
-        placeholder="Your last name"
-        aria-describedby="username-help-text"
-        aria-invalid="true"
-        formControlName="lastName"
-      />
-      <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.lastName"
-        >This field is required.</span
-      >
+    <div class="signup-form__name-group">
+      <div class="form-control">
+        <label class="form-control__label" for="username">First name</label>
+        <input
+          class="form-control__input"
+          id="username"
+          type="text"
+          name="textfield"
+          placeholder="Your first name"
+          aria-describedby="username-help-text"
+          aria-invalid="true"
+          formControlName="firstName"
+        />
+        <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.firstName"
+          >This field is required.</span
+        >
+      </div>
+      <div class="form-control">
+        <label class="form-control__label" for="username">Last name</label>
+        <input
+          class="form-control__input"
+          id="username"
+          type="text"
+          name="textfield"
+          placeholder="Your last name"
+          aria-describedby="username-help-text"
+          aria-invalid="true"
+          formControlName="lastName"
+        />
+        <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.lastName"
+          >This field is required.</span
+        >
+      </div>
     </div>
     <fieldset class="form-group">
       <legend class="form-group__label">How would you rate your knowlege in Figma?</legend>
@@ -87,7 +89,7 @@
         class="form-control__textarea"
         id="comments"
         name="comments"
-        placeholder="Your input is valuable"
+        placeholder="Please leave a comment"
         formControlName="comments"
       ></textarea>
       <span class="form-control__helper" id="username-help-text"

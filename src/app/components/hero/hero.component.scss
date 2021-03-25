@@ -85,6 +85,7 @@
     width: 100%;
     @include smooth-gradient(color('lit'));
     opacity: 0.75;
+    will-change: transform;
   }
 }
 
@@ -98,5 +99,6 @@
     height: 100%;
     width: 100%;
     background: linear-gradient(355deg, rgba(color('darker'), 1) var(--a-start), rgba(color('darker'), 0) var(--a-end));
+    will-change: transform;
   }
 }
