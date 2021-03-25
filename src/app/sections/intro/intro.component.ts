@@ -21,8 +21,6 @@ import {UtilityService} from 'src/app/services/utility.service';
 })
 export class IntroComponent implements OnInit, AfterViewInit {
   @HostBinding('class') class = 'c-intro l-content--reveal';
-  @HostBinding('style.--a-start') @Input() aStart: string = '0%';
-  @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
   @ViewChild('brandTrigger') brandTrigger!: ElementRef;
@@ -31,6 +29,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
   @ViewChild('brandLogo') brandLogo!: ElementRef;
   @ViewChild('bolt') bolt!: ElementRef;
   @ViewChildren('introCard', {read: ElementRef}) introCard!: QueryList<ElementRef>;
+  @ViewChildren('cardReveal', {read: ElementRef}) cardReveal!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
   @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
@@ -41,6 +40,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
     const grads = this.grad.map((grad) => grad.nativeElement);
     const titles = this.introTitle.map((title) => title.nativeElement);
     const cards = this.introCard.map((card) => card.nativeElement);
+    const cardReveals = this.cardReveal.map((rev) => rev.nativeElement);
 
     gsap.fromTo(
       this.bolt.nativeElement,
@@ -55,23 +55,26 @@ export class IntroComponent implements OnInit, AfterViewInit {
       }
     );
 
-    gsap.from(cards, {
-      rotateY: '-14deg',
-      rotateX: '14deg',
-      y: -70,
+    const cardReveal = gsap.timeline({
       scrollTrigger: {
         markers: false,
         trigger: this.cardTrigger.nativeElement,
         start: 'top center',
         end: '80% center',
         scrub: 0.45,
-        onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 6, 18);
-          this.aStart = `${heroReveal.start}%`;
-          this.aEnd = `${heroReveal.end}%`;
-        },
       },
     });
+
+    cardReveal
+      .from(cards, {
+        rotateY: '-14deg',
+        rotateX: '14deg',
+        y: -70,
+      })
+      .from(cardReveals, {
+        opacity: 1,
+        stagger: 0.125,
+      });
 
     const introReveal = gsap.timeline({
       scrollTrigger: {

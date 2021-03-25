@@ -43,7 +43,6 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.checkLocalStorage());
     this.signupForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.pattern(/^[a-z ,.'-]+$/i), this.validateSpaces]],
       lastName: ['', [Validators.required, Validators.pattern(/^[a-z ,.'-]+$/i), this.validateSpaces]],
@@ -60,7 +59,6 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   signUp() {
-    console.clear();
     for (const k in this.signupForm.controls) {
       this.errors[k] = this.checkError(k);
     }
