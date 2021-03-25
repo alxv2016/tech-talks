@@ -7,7 +7,7 @@
       session.
     </p>
   </div>
-  <form class="signup-form">
+  <form [formGroup]="signupForm" class="signup-form" (ngSubmit)="signUp()">
     <div class="form-control">
       <label class="form-control__label" for="username">First name</label>
       <input
@@ -18,8 +18,11 @@
         placeholder="Your first name"
         aria-describedby="username-help-text"
         aria-invalid="true"
+        formControlName="firstName"
       />
-      <span class="form-control__helper" id="username-help-text">There was an error with the input above.</span>
+      <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.firstName"
+        >This field is required.</span
+      >
     </div>
     <div class="form-control">
       <label class="form-control__label" for="username">Last name</label>
@@ -31,25 +34,52 @@
         placeholder="Your last name"
         aria-describedby="username-help-text"
         aria-invalid="true"
+        formControlName="lastName"
       />
-      <span class="form-control__helper" id="username-help-text">There was an error with the input above.</span>
+      <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.lastName"
+        >This field is required.</span
+      >
     </div>
     <fieldset class="form-group">
       <legend class="form-group__label">How would you rate your knowlege in Figma?</legend>
       <div class="radio-group">
         <div class="radio-control">
-          <input class="radio-control__input" type="radio" name="level" id="beginner" value="beginner" />
+          <input
+            class="radio-control__input"
+            type="radio"
+            name="skillLevel"
+            id="beginner"
+            value="beginner"
+            formControlName="skillLevel"
+          />
           <label class="radio-control__label" for="beginner">beginner</label>
         </div>
         <div class="radio-control">
-          <input class="radio-control__input" type="radio" name="level" id="intermediate" value="intermediate" />
+          <input
+            class="radio-control__input"
+            type="radio"
+            name="skillLevel"
+            id="intermediate"
+            value="intermediate"
+            formControlName="skillLevel"
+          />
           <label class="radio-control__label" for="intermediate">Intermediate</label>
         </div>
         <div class="radio-control">
-          <input class="radio-control__input" type="radio" name="level" id="advance" value="advance" />
+          <input
+            class="radio-control__input"
+            type="radio"
+            name="skillLevel"
+            id="advance"
+            value="advance"
+            formControlName="skillLevel"
+          />
           <label class="radio-control__label" for="advance">Advance</label>
         </div>
       </div>
+      <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.skillLevel"
+        >Please select one.</span
+      >
     </fieldset>
     <div class="form-control">
       <label class="form-control__label" for="comments">What do you want to learn about Figma?</label>
@@ -58,6 +88,7 @@
         id="comments"
         name="comments"
         placeholder="Your input is valuable"
+        formControlName="comments"
       ></textarea>
       <span class="form-control__helper" id="username-help-text"
         >This is optional but it will help us provide content tailored to you.</span

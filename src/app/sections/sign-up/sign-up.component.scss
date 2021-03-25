@@ -32,9 +32,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 568px;
+  max-width: 720px;
   margin: auto;
   margin-top: $layout--md;
+  padding: $spacing--lg;
   .btn {
     width: 100%;
   }
@@ -62,12 +63,14 @@
   &__textarea {
     position: relative;
     height: 42px;
+    transition: all 75ms ease;
     border-radius: $spacing--xs;
     background-color: color('dark');
     border: 1px solid color('carbon');
     color: color('accent1');
     padding: 0 $spacing--md;
     font-size: $body--1;
+    outline: none;
     @include breakpoint(md) {
       font-size: $subtitle;
       padding: 0 $spacing--lg;
@@ -75,6 +78,10 @@
     }
     &::placeholder {
       color: color('carbon');
+    }
+    &:focus,
+    &:active {
+      box-shadow: 0 0 0 0.25rem rgba(color('carbon'), 0.45);
     }
   }
   &__textarea {
@@ -90,6 +97,9 @@
   &__helper {
     font-size: $body--2;
     color: color('carbon');
+    &--error {
+      color: color('error');
+    }
   }
   &__label ~ &__input,
   &__label ~ &__textarea {
@@ -122,6 +132,10 @@
   position: relative;
   display: flex;
   align-items: center;
+}
+
+.radio-group ~ .form-control__helper {
+  margin-top: $spacing--xs;
 }
 
 .form-control ~ .form-control,
@@ -216,6 +230,7 @@
   font-weight: font-weight('medium');
   font-size: $body--1;
   border: 0;
+  transition: all 75ms ease;
   @include breakpoint(md) {
     font-size: $subtitle;
   }
@@ -223,6 +238,6 @@
 
   &:focus,
   &:active {
-    //
+    box-shadow: 0 0 0 0.25rem rgba(color('lit'), 0.45);
   }
 }
