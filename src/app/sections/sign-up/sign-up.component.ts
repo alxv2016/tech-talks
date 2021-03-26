@@ -25,9 +25,9 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   signupForm: FormGroup;
   reserved = false;
   errors = {
-    firstName: false,
-    lastName: false,
-    skillLevel: false,
+    first_name: false,
+    last_name: false,
+    skill_level: false,
   };
   @HostBinding('class') class = 'c-sign-up l-content--reveal';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
@@ -62,9 +62,13 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   signUp(): void {
+    //this.techTalks.checkReservations(10).subscribe(info => console.log(info));
+
     for (const k in this.signupForm.controls) {
       this.errors[k] = this.checkError(k);
     }
+
+    //console.log(this.errors);
     if (this.signupForm.status === 'VALID') {
       console.log('Valid store local storage and submit');
       this.reserved = true;
@@ -73,7 +77,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   checkError(field: string): boolean {
-    return this.signupForm.get(field).errors !== null;
+    return this.signupForm.get(field).errors !== null ? true : false;
   }
 
   checkLocalStorage(): boolean {

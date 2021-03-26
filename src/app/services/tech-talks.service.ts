@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {forkJoin, Observable, of} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
-import {GuestList, ReservedSeats, SignupInfo} from './models/tach-talks.interface';
+import {Alerts, GuestList, ReservedSeats, SignupInfo, UserAlerts} from './models/tach-talks.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,31 +12,50 @@ export class TechTalksService {
   private ep = environment.API_URL;
   constructor(private http: HttpClient) {}
 
+  // check if user signed up already
+  checkSelf() {}
+
   checkReservations(limit: number): Observable<any> {
     const signUpClosed = {
       guests: [],
+      errorMsg: null,
+      alerts: null,
       closed: true,
       error: false,
     };
     return this.http
-      .get<ReservedSeats>(`${this.ep}/sign_up`, {responseType: 'json'})
+      .get<Alerts>(`${this.ep}/user_alerts`, {responseType: 'json'})
       .pipe(
-        map((seats) => {
-          signUpClosed.guests = seats.data;
-          if (seats.data.length !== 0 && seats.data.length <= limit) {
-            signUpClosed.closed = false;
-            return signUpClosed;
-          }
-          return signUpClosed;
+        switchMap((userAlerts) => {
+          return this.http
+            .get<ReservedSeats>(`${this.ep}/sign_up`, {responseType: 'json'})
+            .pipe(
+              map((seats) => {
+                signUpClosed.alerts = userAlerts.data[0].user_alerts;
+                signUpClosed.guests = seats.data;
+                if (seats.data.length !== 0 && seats.data.length <= limit) {
+                  signUpClosed.closed = false;
+                  return signUpClosed;
+                }
+                signUpClosed.errorMsg = userAlerts.data[0].user_alerts.no_seats_left;
+                return signUpClosed;
+              }),
+              catchError((error) => {
+                signUpClosed.errorMsg = userAlerts.data[0].user_alerts.generic_error;
+                signUpClosed.error = true;
+                return of(signUpClosed);
+              })
+            );
         }),
         catchError((error) => {
-          signUpClosed.error = true;
+          // Hard coded backup
+          signUpClosed.errorMsg = `Uh oh! Something went wrong, please try again later.`;
           return of(signUpClosed);
         })
       );
   }
 
-  checkGuestList(signupInfo: SignupInfo): Observable<any> {
+  private checkGuestList(signupInfo: SignupInfo): Observable<any> {
     const canadaStudio = {
       guestList: [],
       onList: false,
@@ -75,15 +94,17 @@ export class TechTalksService {
             .post<ReservedSeats>(`${this.ep}/sign_up`, signupInfo, {responseType: 'json'})
             .pipe(
               map((data) => {
+                // sign up success
                 return data;
               }),
               catchError((error) => {
                 // If user already signed up
+                guestList.error = true;
                 if (error.error.error.code === 204) {
-                  return of('Already signed up');
+                  return of(guestList);
                 }
                 // API error
-                return of(error.error.error.code);
+                return of(guestList);
               })
             );
         }
