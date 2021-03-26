@@ -19,7 +19,7 @@
           placeholder="Your first name"
           aria-describedby="username-help-text"
           aria-invalid="true"
-          formControlName="firstName"
+          formControlName="first_name"
         />
         <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.firstName"
           >This field is required.</span
@@ -35,7 +35,7 @@
           placeholder="Your last name"
           aria-describedby="username-help-text"
           aria-invalid="true"
-          formControlName="lastName"
+          formControlName="last_name"
         />
         <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.lastName"
           >This field is required.</span
@@ -49,10 +49,10 @@
           <input
             class="radio-control__input"
             type="radio"
-            name="skillLevel"
+            name="skill_level"
             id="beginner"
             value="beginner"
-            formControlName="skillLevel"
+            formControlName="skill_level"
           />
           <label class="radio-control__label" for="beginner">beginner</label>
         </div>
@@ -60,10 +60,10 @@
           <input
             class="radio-control__input"
             type="radio"
-            name="skillLevel"
+            name="skill_level"
             id="intermediate"
             value="intermediate"
-            formControlName="skillLevel"
+            formControlName="skill_level"
           />
           <label class="radio-control__label" for="intermediate">Intermediate</label>
         </div>
@@ -71,10 +71,10 @@
           <input
             class="radio-control__input"
             type="radio"
-            name="skillLevel"
+            name="skill_level"
             id="advance"
             value="advance"
-            formControlName="skillLevel"
+            formControlName="skill_level"
           />
           <label class="radio-control__label" for="advance">Advance</label>
         </div>

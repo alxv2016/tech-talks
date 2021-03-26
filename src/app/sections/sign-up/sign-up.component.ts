@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {gsap} from 'gsap';
+import {TechTalksService} from 'src/app/services/tech-talks.service';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -39,15 +40,17 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     private element: ElementRef,
     private render: Renderer2,
     private util: UtilityService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private techTalks: TechTalksService
   ) {}
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.pattern(/^[a-z ,.'-]+$/i), this.validateSpaces]],
-      lastName: ['', [Validators.required, Validators.pattern(/^[a-z ,.'-]+$/i), this.validateSpaces]],
-      skillLevel: ['', [Validators.required]],
+      first_name: ['', [Validators.required, Validators.pattern(/^[a-z ,.'-]+$/i), this.validateSpaces]],
+      last_name: ['', [Validators.required, Validators.pattern(/^[a-z ,.'-]+$/i), this.validateSpaces]],
+      skill_level: ['', [Validators.required]],
       comments: '',
+      reserved: 1,
     });
   }
 
@@ -58,13 +61,14 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     return valid ? null : {whitespace: true};
   }
 
-  signUp() {
+  signUp(): void {
     for (const k in this.signupForm.controls) {
       this.errors[k] = this.checkError(k);
     }
     if (this.signupForm.status === 'VALID') {
       console.log('Valid store local storage and submit');
       this.reserved = true;
+      this.techTalks.signUp(this.signupForm.value).subscribe((data) => console.log(data));
     }
   }
 
