@@ -153,16 +153,13 @@
   padding: 0 $spacing--lg;
   margin: auto;
   @include breakpoint(md) {
-    padding: 0 $spacing--xl;
+    padding: 0 $spacing--3xl;
     max-width: 768px;
   }
   @include breakpoint(lg) {
     padding: 0 $spacing--3xl;
     max-width: $max-width;
   }
-  // @include breakpoint(xl) {
-  //   max-width: $max-width;
-  // }
 }
 
 // Material elevations
