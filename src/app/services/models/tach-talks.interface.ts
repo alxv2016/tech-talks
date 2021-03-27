@@ -9,7 +9,7 @@ export interface SignupInfo {
   reserved: number;
 }
 
-export interface ReservedSeats {
+export interface Signups {
   data: SignupInfo[];
 }
 

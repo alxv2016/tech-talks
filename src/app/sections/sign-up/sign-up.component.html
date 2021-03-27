@@ -1,4 +1,17 @@
 <div class="c-sign-up__container">
+  <ng-container *ngIf="signupClosed; else signupOpen">
+    <div class="signup-intro title--reveal">
+      <div #introTitle class="sub-headline copy--lit">Reserve your seat</div>
+      <h2 #introTitle class="display-3">Limited seats available, sign up today.</h2>
+      <p #introTitle class="large-print copy--tint">
+        Tech Talks' A deep dive into Figma is coming soon. Sign up today and we’ll keep you posted on the upcoming
+        session.
+      </p>
+    </div>
+  </ng-container>
+</div>
+<!-- Template -->
+<ng-template #signupOpen>
   <div class="signup-intro title--reveal">
     <div #introTitle class="sub-headline copy--lit">Reserve your seat</div>
     <h2 #introTitle class="display-3">Limited seats available, sign up today.</h2>
@@ -21,8 +34,11 @@
           aria-invalid="true"
           formControlName="first_name"
         />
-        <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.first_name"
-          >This field is required.</span
+        <span
+          class="form-control__helper form-control__helper--error"
+          id="username-help-text"
+          *ngIf="errors.first_name.error"
+          >{{ errors.first_name.errorMsg }}</span
         >
       </div>
       <div class="form-control">
@@ -37,8 +53,11 @@
           aria-invalid="true"
           formControlName="last_name"
         />
-        <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.last_name"
-          >This field is required.</span
+        <span
+          class="form-control__helper form-control__helper--error"
+          id="username-help-text"
+          *ngIf="errors.last_name.error"
+          >{{ errors.first_name.errorMsg }}</span
         >
       </div>
     </div>
@@ -79,8 +98,11 @@
           <label class="radio-control__label" for="advance">Advance</label>
         </div>
       </div>
-      <span class="form-control__helper form-control__helper--error" id="username-help-text" *ngIf="errors.skill_level"
-        >Please select one.</span
+      <span
+        class="form-control__helper form-control__helper--error"
+        id="username-help-text"
+        *ngIf="errors.skill_level.error"
+        >{{ errors.skill_level.errorMsg }}</span
       >
     </fieldset>
     <div class="form-control">
@@ -98,4 +120,4 @@
     </div>
     <input class="btn" type="submit" value="Submit" />
   </form>
-</div>
+</ng-template>

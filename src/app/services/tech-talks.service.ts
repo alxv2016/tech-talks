@@ -1,9 +1,9 @@
 import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {forkJoin, Observable, of} from 'rxjs';
-import {catchError, map, switchMap} from 'rxjs/operators';
+import {combineLatest, concat, forkJoin, Observable, of, zip} from 'rxjs';
+import {catchError, concatMap, map, switchMap} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
-import {Alerts, GuestList, ReservedSeats, SignupInfo, UserAlerts} from './models/tach-talks.interface';
+import {Alerts, Guest, GuestList, SignupInfo, Signups, UserAlerts} from './models/tach-talks.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,100 +15,96 @@ export class TechTalksService {
   // check if user signed up already
   checkSelf() {}
 
-  checkReservations(limit: number): Observable<any> {
-    const signUpClosed = {
-      guests: [],
-      errorMsg: null,
-      alerts: null,
-      closed: true,
-      error: false,
-    };
+  alerts(): Observable<Alerts> {
     return this.http
       .get<Alerts>(`${this.ep}/user_alerts`, {responseType: 'json'})
       .pipe(
-        switchMap((userAlerts) => {
-          return this.http
-            .get<ReservedSeats>(`${this.ep}/sign_up`, {responseType: 'json'})
-            .pipe(
-              map((seats) => {
-                signUpClosed.alerts = userAlerts.data[0].user_alerts;
-                signUpClosed.guests = seats.data;
-                if (seats.data.length !== 0 && seats.data.length <= limit) {
-                  signUpClosed.closed = false;
-                  return signUpClosed;
-                }
-                signUpClosed.errorMsg = userAlerts.data[0].user_alerts.no_seats_left;
-                return signUpClosed;
-              }),
-              catchError((error) => {
-                signUpClosed.errorMsg = userAlerts.data[0].user_alerts.generic_error;
-                signUpClosed.error = true;
-                return of(signUpClosed);
-              })
-            );
-        }),
         catchError((error) => {
-          // Hard coded backup
-          signUpClosed.errorMsg = `Uh oh! Something went wrong, please try again later.`;
-          return of(signUpClosed);
+          return of({data: []});
         })
       );
   }
 
-  private checkGuestList(signupInfo: SignupInfo): Observable<any> {
-    const canadaStudio = {
-      guestList: [],
-      onList: false,
-      error: true,
-    };
+  private signUps(): Observable<Signups> {
+    return this.http
+      .get<Signups>(`${this.ep}/sign_up`, {responseType: 'json'})
+      .pipe(
+        catchError((error) => {
+          return of({data: []});
+        })
+      );
+  }
+
+  private guestList(): Observable<GuestList> {
     return this.http
       .get<GuestList>(`${this.ep}/guest_list`, {responseType: 'json'})
       .pipe(
-        map((guestList) => {
-          if (
-            guestList.data.length !== 0 &&
-            guestList.data.some((guest) => guest.first_name === signupInfo.first_name) &&
-            guestList.data.some((guest) => guest.last_name === signupInfo.last_name)
-          ) {
-            canadaStudio.guestList = guestList.data;
-            canadaStudio.onList = true;
-            canadaStudio.error = false;
-            return canadaStudio;
-          }
-          canadaStudio.guestList = guestList.data;
-          canadaStudio.error = false;
-          return canadaStudio;
-        }),
         catchError((error) => {
-          return of(canadaStudio);
+          return of({data: []});
         })
       );
   }
 
+  signupStatus(limit: number): Observable<boolean> {
+    return this.signUps().pipe(
+      map((signUps) => {
+        return signUps.data.length === limit ? true : false;
+      })
+    );
+  }
+
+  private validateSignups(signupInfo: SignupInfo): Observable<any> {
+    return this.guestList().pipe(
+      map((data) => {
+        const validateData = {
+          status: {
+            onGuestList: false,
+            reserved: false,
+            success: false,
+            error: false,
+          },
+        };
+        if (
+          data.data.some((guest) => guest.first_name.toLowerCase() === signupInfo.first_name.toLowerCase()) &&
+          data.data.some((guest) => guest.last_name.toLowerCase() === signupInfo.last_name.toLowerCase())
+        ) {
+          validateData.status.onGuestList = true;
+        }
+
+        return validateData;
+      })
+    );
+  }
+
   signUp(signupInfo: SignupInfo): Observable<any> {
-    const $guestList = this.checkGuestList(signupInfo);
-    return $guestList.pipe(
-      switchMap((guestList) => {
-        if (!guestList.error && guestList.onList) {
+    return this.validateSignups(signupInfo).pipe(
+      switchMap((validateData) => {
+        if (validateData.status.onGuestList) {
           return this.http
-            .post<ReservedSeats>(`${this.ep}/sign_up`, signupInfo, {responseType: 'json'})
+            .post<Signups>(`${this.ep}/sign_up`, signupInfo, {responseType: 'json'})
             .pipe(
               map((data) => {
                 // sign up success
-                return data;
+                validateData.status.success = true;
+                return validateData;
               }),
               catchError((error) => {
+                // Error
+                if (error.error.error.code === 4) {
+                  validateData.status.error = true;
+                  return of(validateData);
+                }
                 // If user already signed up
-                guestList.error = true;
                 if (error.error.error.code === 204) {
-                  return of(guestList);
+                  validateData.status.reserved = true;
+                  return of(validateData);
                 }
                 // API error
-                return of(guestList);
+                return of(validateData);
               })
             );
         }
-        return of(guestList);
+        return of(validateData);
       })
     );
   }

@@ -13,6 +13,8 @@ import {
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {gsap} from 'gsap';
+import {of} from 'rxjs';
+import {map, switchMap} from 'rxjs/operators';
 import {TechTalksService} from 'src/app/services/tech-talks.service';
 import {UtilityService} from 'src/app/services/utility.service';
 
@@ -24,10 +26,20 @@ import {UtilityService} from 'src/app/services/utility.service';
 export class SignUpComponent implements OnInit, AfterViewInit {
   signupForm: FormGroup;
   reserved = false;
+  signupClosed = true;
   errors = {
-    first_name: false,
-    last_name: false,
-    skill_level: false,
+    first_name: {
+      error: false,
+      errorMsg: null,
+    },
+    last_name: {
+      error: false,
+      errorMsg: null,
+    },
+    skill_level: {
+      error: false,
+      errorMsg: null,
+    },
   };
   @HostBinding('class') class = 'c-sign-up l-content--reveal';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
@@ -52,6 +64,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       comments: '',
       reserved: 1,
     });
+    this.techTalks.signupStatus(10).subscribe((bool) => {
+      console.log(bool);
+      this.signupClosed = bool;
+    });
   }
 
   ngAfterViewInit(): void {}
@@ -62,18 +78,43 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   signUp(): void {
-    //this.techTalks.checkReservations(10).subscribe(info => console.log(info));
-
-    for (const k in this.signupForm.controls) {
-      this.errors[k] = this.checkError(k);
-    }
-
-    //console.log(this.errors);
-    if (this.signupForm.status === 'VALID') {
-      console.log('Valid store local storage and submit');
-      this.reserved = true;
-      this.techTalks.signUp(this.signupForm.value).subscribe((data) => console.log(data));
-    }
+    this.techTalks
+      .alerts()
+      .pipe(
+        switchMap((alerts) => {
+          const alertMsgs = alerts.data[0].user_alerts;
+          for (const k in this.errors) {
+            this.errors[k].error = this.checkError(k);
+            if (k === 'first_name' && this.checkError(k)) {
+              this.errors[k].errorMsg = alertMsgs.first_name_error;
+            }
+            if (k === 'last_name' && this.checkError(k)) {
+              this.errors[k].errorMsg = alertMsgs.last_name_error;
+            }
+            if (k === 'skill_level' && this.checkError(k)) {
+              this.errors[k].errorMsg = alertMsgs.skill_level_error;
+            }
+          }
+          if (this.signupForm.status === 'VALID') {
+            return this.techTalks.signUp(this.signupForm.value).pipe(
+              map((data) => {
+                console.log(data);
+                if (!data.status.onGuestList) {
+                  console.log(alertMsgs.guest_list);
+                }
+                if (data.status.reserved) {
+                  console.log(alertMsgs.reserved_error);
+                }
+                if (data.status.success) {
+                  console.log(alertMsgs.signup_success);
+                }
+              })
+            );
+          }
+          return of(null);
+        })
+      )
+      .subscribe();
   }
 
   checkError(field: string): boolean {
