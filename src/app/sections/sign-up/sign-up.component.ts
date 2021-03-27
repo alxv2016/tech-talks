@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  Injector,
   Input,
   OnInit,
   QueryList,
@@ -12,9 +13,11 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {HotToastService} from '@ngneat/hot-toast';
 import {gsap} from 'gsap';
 import {of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
+import {DialogComponent} from 'src/app/components/dialog/dialog.component';
 import {TechTalksService} from 'src/app/services/tech-talks.service';
 import {UtilityService} from 'src/app/services/utility.service';
 
@@ -27,6 +30,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   signupForm: FormGroup;
   reserved = false;
   signupClosed = true;
+  checkPlay: GSAPTimeline;
   errors = {
     first_name: {
       error: false,
@@ -46,14 +50,16 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
-  @ViewChild('brandTrigger') brandTrigger!: ElementRef;
+  @ViewChild('check') check!: ElementRef;
+  @ViewChild('checkLoader') checkLoader!: ElementRef;
   @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
   constructor(
     private element: ElementRef,
     private render: Renderer2,
     private util: UtilityService,
     private fb: FormBuilder,
-    private techTalks: TechTalksService
+    private techTalks: TechTalksService,
+    private toast: HotToastService
   ) {}
 
   ngOnInit(): void {
@@ -64,13 +70,58 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       comments: '',
       reserved: 1,
     });
-    this.techTalks.signupStatus(10).subscribe((bool) => {
-      console.log(bool);
+    this.techTalks.signupStatus(2).subscribe((bool) => {
       this.signupClosed = bool;
     });
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void {
+    this.checkPlay = gsap.timeline({
+      defaults: {
+        ease: 'power2',
+      },
+    });
+    this.checkPlay.pause();
+    this.checkPlay
+      .fromTo(
+        this.checkLoader.nativeElement,
+        {
+          strokeDasharray: 360,
+          strokeDashoffset: 0,
+          rotate: '0deg',
+          stroke: '#fb3e54',
+          opacity: 0,
+        },
+        {
+          strokeDashoffset: -720,
+          rotate: '360deg',
+          duration: 2.45,
+          transformOrigin: '50%',
+          stroke: '#e0fb3e',
+          opacity: 1,
+        }
+      )
+      .fromTo(
+        this.check.nativeElement,
+        {
+          strokeDasharray: 110,
+          strokeDashoffset: -110,
+          stroke: '#fb3e54',
+          opacity: 0,
+        },
+        {
+          strokeDashoffset: 0,
+          duration: 0.45,
+          stroke: '#e0fb3e',
+          opacity: 1,
+        },
+        0.65
+      );
+  }
+
+  replay() {
+    this.checkPlay.restart();
+  }
 
   private validateSpaces(control: FormControl) {
     const valid = (control.value || '').trim().length !== 0;
@@ -78,6 +129,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   signUp(): void {
+    console.clear();
     this.techTalks
       .alerts()
       .pipe(
@@ -85,14 +137,22 @@ export class SignUpComponent implements OnInit, AfterViewInit {
           const alertMsgs = alerts.data[0].user_alerts;
           for (const k in this.errors) {
             this.errors[k].error = this.checkError(k);
-            if (k === 'first_name' && this.checkError(k)) {
-              this.errors[k].errorMsg = alertMsgs.first_name_error;
-            }
-            if (k === 'last_name' && this.checkError(k)) {
-              this.errors[k].errorMsg = alertMsgs.last_name_error;
-            }
-            if (k === 'skill_level' && this.checkError(k)) {
-              this.errors[k].errorMsg = alertMsgs.skill_level_error;
+            if (this.signupForm.get(k).errors !== null) {
+              if (k === 'first_name' && this.checkError(k)) {
+                this.errors[k].errorMsg = alertMsgs.first_name_error;
+              }
+              if (k === 'first_name' && this.signupForm.get(k).errors.pattern) {
+                this.errors[k].errorMsg = alertMsgs.invalid_name;
+              }
+              if (k === 'last_name' && this.checkError(k)) {
+                this.errors[k].errorMsg = alertMsgs.last_name_error;
+              }
+              if (k === 'last_name' && this.signupForm.get(k).errors.pattern) {
+                this.errors[k].errorMsg = alertMsgs.invalid_name;
+              }
+              if (k === 'skill_level' && this.checkError(k)) {
+                this.errors[k].errorMsg = alertMsgs.skill_level_error;
+              }
             }
           }
           if (this.signupForm.status === 'VALID') {
@@ -101,6 +161,11 @@ export class SignUpComponent implements OnInit, AfterViewInit {
                 console.log(data);
                 if (!data.status.onGuestList) {
                   console.log(alertMsgs.guest_list);
+                  this.toast.show<any>(DialogComponent, {
+                    data: {
+                      message: alertMsgs.guest_list,
+                    },
+                  });
                 }
                 if (data.status.reserved) {
                   console.log(alertMsgs.reserved_error);
@@ -114,7 +179,9 @@ export class SignUpComponent implements OnInit, AfterViewInit {
           return of(null);
         })
       )
-      .subscribe();
+      .subscribe((data) => {
+        // this.signupForm.reset();
+      });
   }
 
   checkError(field: string): boolean {

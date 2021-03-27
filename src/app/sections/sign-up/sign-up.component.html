@@ -1,13 +1,50 @@
 <div class="c-sign-up__container">
   <ng-container *ngIf="signupClosed; else signupOpen">
     <div class="signup-intro title--reveal">
-      <div #introTitle class="sub-headline copy--lit">Reserve your seat</div>
-      <h2 #introTitle class="display-3">Limited seats available, sign up today.</h2>
+      <div class="checkmark">
+        <svg
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xml:space="preserve"
+          x="0px"
+          y="0px"
+          viewBox="0, 0, 100, 100"
+          id="checkmark"
+        >
+          <g transform="">
+            <circle
+              #checkLoader
+              fill="none"
+              stroke="currentColor"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-miterlimit="10"
+              cx="50"
+              cy="50"
+              r="44"
+            />
+            <polyline
+              #check
+              fill="none"
+              stroke="currentColor"
+              stroke-width="6"
+              stroke-linecap="round"
+              stroke-miterlimit="10"
+              points="70,35 45,65 30,52  "
+            />
+          </g>
+        </svg>
+      </div>
+      <div #introTitle class="sub-headline copy--lit">Thanks for signing up!</div>
+      <h2 #introTitle class="display-3">You've reserved your spot.</h2>
       <p #introTitle class="large-print copy--tint">
-        Tech Talks' A deep dive into Figma is coming soon. Sign up today and we’ll keep you posted on the upcoming
-        session.
+        Hang tight, we'll be sending you an email with all the details regarding this's months Tech Talks session once
+        the we're ready. See you soon!
       </p>
     </div>
+    <button (click)="replay()">play</button>
+    <div class="signup-success"></div>
   </ng-container>
 </div>
 <!-- Template -->
@@ -57,7 +94,7 @@
           class="form-control__helper form-control__helper--error"
           id="username-help-text"
           *ngIf="errors.last_name.error"
-          >{{ errors.first_name.errorMsg }}</span
+          >{{ errors.last_name.errorMsg }}</span
         >
       </div>
     </div>

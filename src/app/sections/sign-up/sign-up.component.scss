@@ -273,3 +273,11 @@
     box-shadow: 0 0 0 0.25rem rgba(color('lit'), 0.45);
   }
 }
+
+.checkmark {
+  position: relative;
+  height: 184px;
+  width: 184px;
+  margin: auto;
+  margin-bottom: $layout--xl;
+}
