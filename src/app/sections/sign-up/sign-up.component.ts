@@ -30,6 +30,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   signupForm: FormGroup;
   reserved = false;
   signupClosed = true;
+  signedUp = false;
   checkPlay: GSAPTimeline;
   errors = {
     first_name: {
@@ -52,6 +53,8 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
   @ViewChild('check') check!: ElementRef;
   @ViewChild('checkLoader') checkLoader!: ElementRef;
+  @ViewChild('target') target!: ElementRef;
+  @ViewChild('signupSuccess') signupSuccess!: ElementRef;
   @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
   constructor(
     private element: ElementRef,
@@ -70,7 +73,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       comments: '',
       reserved: 1,
     });
-    this.techTalks.signupStatus(2).subscribe((bool) => {
+    this.techTalks.signupStatus(12).subscribe((bool) => {
       this.signupClosed = bool;
     });
   }
@@ -81,7 +84,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
         ease: 'power2',
       },
     });
-    this.checkPlay.pause();
+    //this.checkPlay.pause();
     this.checkPlay
       .fromTo(
         this.checkLoader.nativeElement,
@@ -180,7 +183,9 @@ export class SignUpComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe((data) => {
-        // this.signupForm.reset();
+        this.signedUp = true;
+        //this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
+        this.checkPlay.play();
       });
   }
 

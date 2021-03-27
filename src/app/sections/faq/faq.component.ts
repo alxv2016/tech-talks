@@ -20,7 +20,7 @@ import {UtilityService} from 'src/app/services/utility.service';
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.scss'],
 })
-export class FaqComponent implements OnInit, AfterViewInit {
+export class FaqComponent implements OnInit {
   demoData: any = [];
 
   @HostBinding('class') class = 'c-faq l-content--reveal';
@@ -57,33 +57,33 @@ export class FaqComponent implements OnInit, AfterViewInit {
     ];
   }
 
-  ngAfterViewInit(): void {
-    const faqReveal = gsap.timeline({
-      scrollTrigger: {
-        markers: false,
-        trigger: this.element.nativeElement,
-        start: 'top 90%',
-        end: 'bottom 90%',
-        scrub: 0.45,
-        onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 4, 8);
-          this.aStart = `${heroReveal.start}%`;
-          this.aEnd = `${heroReveal.end}%`;
-        },
-      },
-    });
+  // ngAfterViewInit(): void {
+  //   const faqReveal = gsap.timeline({
+  //     scrollTrigger: {
+  //       markers: false,
+  //       trigger: this.element.nativeElement,
+  //       start: 'top 90%',
+  //       end: 'bottom 90%',
+  //       scrub: 0.45,
+  //       onUpdate: (self: any) => {
+  //         const heroReveal = this.util.calculateScroll(self.progress, 4, 8);
+  //         this.aStart = `${heroReveal.start}%`;
+  //         this.aEnd = `${heroReveal.end}%`;
+  //       },
+  //     },
+  //   });
 
-    faqReveal
-      .from(this.faqTitle.nativeElement, {
-        y: 40,
-        opacity: 0,
-      })
-      .from(
-        this.faqAccordion.nativeElement,
-        {
-          opacity: 0,
-        },
-        0.125
-      );
-  }
+  //   faqReveal
+  //     .from(this.faqTitle.nativeElement, {
+  //       y: 40,
+  //       opacity: 0,
+  //     })
+  //     .from(
+  //       this.faqAccordion.nativeElement,
+  //       {
+  //         opacity: 0,
+  //       },
+  //       0.125
+  //     );
+  // }
 }

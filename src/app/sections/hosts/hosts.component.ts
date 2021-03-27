@@ -34,24 +34,24 @@ export class HostsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     const grads = this.grad.map((grad) => grad.nativeElement);
 
-    gsap.from(this.hostTitle.nativeElement, {
-      y: 20,
-      opacity: 0,
-      scrollTrigger: {
-        markers: false,
-        trigger: this.element.nativeElement,
-        start: 'top 75%',
-        end: 'bottom 75%',
-        scrub: 0.45,
-        onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 4, 8);
-          this.aStart = `${heroReveal.start}%`;
-          this.aEnd = `${heroReveal.end}%`;
-          this.bStart = `${heroReveal.start}%`;
-          this.bEnd = `${heroReveal.end}%`;
-        },
-      },
-    });
+    // gsap.from(this.hostTitle.nativeElement, {
+    //   y: 20,
+    //   opacity: 0,
+    //   scrollTrigger: {
+    //     markers: false,
+    //     trigger: this.element.nativeElement,
+    //     start: 'top 75%',
+    //     end: 'bottom 75%',
+    //     scrub: 0.45,
+    //     onUpdate: (self: any) => {
+    //       const heroReveal = this.util.calculateScroll(self.progress, 4, 8);
+    //       this.aStart = `${heroReveal.start}%`;
+    //       this.aEnd = `${heroReveal.end}%`;
+    //       this.bStart = `${heroReveal.start}%`;
+    //       this.bEnd = `${heroReveal.end}%`;
+    //     },
+    //   },
+    // });
 
     const glitch = gsap.timeline({
       defaults: {
