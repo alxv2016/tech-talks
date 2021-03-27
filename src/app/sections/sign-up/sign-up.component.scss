@@ -44,7 +44,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     @include breakpoint(md) {
       flex-direction: row;
     }
@@ -151,6 +151,8 @@
 .form-control ~ .form-control,
 .signup-form__name-group ~ .form-group,
 .form-group ~ .form-control,
+.form-control ~ c-dialog,
+.form-control ~ c-warning,
 .form-control ~ .btn {
   margin-top: $spacing--xl;
   @include breakpoint(md) {
@@ -236,14 +238,9 @@
   }
 }
 
-.radio-control input[type='radio']:focus + label {
-  background-color: color('accent1');
-  color: color('darker');
-}
-
+.radio-control input[type='radio']:focus + label,
 .radio-control input[type='radio']:active + label {
-  background-color: color('accent1');
-  color: color('darker');
+  box-shadow: 0 0 0 0.25rem rgba(color('carbon'), 0.45);
 }
 
 .btn {

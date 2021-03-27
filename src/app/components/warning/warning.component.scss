@@ -1,0 +1,35 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-warning) {
+  position: relative;
+  display: block;
+}
+
+.alert {
+  position: relative;
+  height: 24px;
+  width: 24px;
+  flex-shrink: 0;
+  margin-right: $spacing--md;
+  svg {
+    stroke: color('accent1');
+  }
+}
+
+.signup-success {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: $spacing--md;
+  border-radius: $spacing--sm;
+  background-color: color('dark-navy');
+  border: 4px solid rgba(color('accent1'), 0.025);
+  &__content {
+    position: relative;
+    width: 100%;
+    p {
+      margin: 0;
+      font-size: $body--2;
+    }
+  }
+}

@@ -12,6 +12,8 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
+import {trigger, state, style, animate, transition} from '@angular/animations';
+
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {gsap} from 'gsap';
 import {of} from 'rxjs';
@@ -23,6 +25,12 @@ import {UtilityService} from 'src/app/services/utility.service';
   selector: 'c-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss'],
+  animations: [
+    trigger('enterAnimation', [
+      transition(':enter', [style({opacity: 0}), animate('275ms', style({opacity: 1}))]),
+      transition(':leave', [style({opacity: 1}), animate('275ms', style({opacity: 0}))]),
+    ]),
+  ],
 })
 export class SignUpComponent implements OnInit, AfterViewInit {
   signupForm: FormGroup;
@@ -30,6 +38,20 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   signupClosed = true;
   signedUp = false;
   checkPlay: GSAPTimeline;
+  alerts = {
+    guestList: {
+      error: false,
+      errorMsg: null,
+    },
+    signedUp: {
+      error: false,
+      errorMsg: null,
+    },
+    success: {
+      error: false,
+      errorMsg: null,
+    },
+  };
   errors = {
     first_name: {
       error: false,
@@ -130,6 +152,9 @@ export class SignUpComponent implements OnInit, AfterViewInit {
 
   signUp(): void {
     console.clear();
+    this.alerts.signedUp.error = false;
+    this.alerts.guestList.error = false;
+    this.alerts.success.error = false;
     this.techTalks
       .alerts()
       .pipe(
@@ -161,12 +186,21 @@ export class SignUpComponent implements OnInit, AfterViewInit {
                 console.log(data);
                 if (!data.status.onGuestList) {
                   console.log(alertMsgs.guest_list);
+                  this.alerts.signedUp.errorMsg = alertMsgs.guest_list;
+                  this.alerts.guestList.error = true;
+                  this.signupForm.reset();
                 }
                 if (data.status.reserved) {
                   console.log(alertMsgs.reserved_error);
+                  this.alerts.signedUp.errorMsg = alertMsgs.reserved_error;
+                  this.alerts.signedUp.error = true;
+                  this.signupForm.reset();
                 }
                 if (data.status.success) {
                   console.log(alertMsgs.signup_success);
+                  this.alerts.success.errorMsg = alertMsgs.signup_success;
+                  this.alerts.success.error = true;
+                  this.signupForm.reset();
                 }
               })
             );
@@ -175,12 +209,6 @@ export class SignUpComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe((data) => {
-        this.signedUp = true;
-        // this.toast.show<any>(DialogComponent, {
-        //   data: {
-        //     message: 'hello',
-        //   },
-        // });
         //this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
       });
   }
