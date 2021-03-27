@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {HotToastRef} from '@ngneat/hot-toast';
 
 @Component({
   selector: 'app-dialog',
@@ -7,9 +6,7 @@ import {HotToastRef} from '@ngneat/hot-toast';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
-  constructor(@Inject(HotToastRef) public message: HotToastRef<any>) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.message.data.message);
-  }
+  ngOnInit(): void {}
 }

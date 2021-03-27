@@ -13,11 +13,9 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {HotToastService} from '@ngneat/hot-toast';
 import {gsap} from 'gsap';
 import {of} from 'rxjs';
 import {map, switchMap} from 'rxjs/operators';
-import {DialogComponent} from 'src/app/components/dialog/dialog.component';
 import {TechTalksService} from 'src/app/services/tech-talks.service';
 import {UtilityService} from 'src/app/services/utility.service';
 
@@ -61,8 +59,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     private render: Renderer2,
     private util: UtilityService,
     private fb: FormBuilder,
-    private techTalks: TechTalksService,
-    private toast: HotToastService
+    private techTalks: TechTalksService
   ) {}
 
   ngOnInit(): void {
@@ -164,11 +161,6 @@ export class SignUpComponent implements OnInit, AfterViewInit {
                 console.log(data);
                 if (!data.status.onGuestList) {
                   console.log(alertMsgs.guest_list);
-                  this.toast.show<any>(DialogComponent, {
-                    data: {
-                      message: alertMsgs.guest_list,
-                    },
-                  });
                 }
                 if (data.status.reserved) {
                   console.log(alertMsgs.reserved_error);
@@ -184,8 +176,12 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       )
       .subscribe((data) => {
         this.signedUp = true;
+        // this.toast.show<any>(DialogComponent, {
+        //   data: {
+        //     message: 'hello',
+        //   },
+        // });
         //this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
-        this.checkPlay.play();
       });
   }
 

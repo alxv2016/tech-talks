@@ -1,0 +1,31 @@
+@import '../../../scss/00_imports';
+
+.checkmark {
+  position: relative;
+  height: 164px;
+  width: 164px;
+  margin: auto;
+  margin-bottom: $layout--lg;
+}
+
+.sign-up-success {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  margin: $layout--lg 0;
+  @include breakpoint(md) {
+    margin: $layout--xl 0;
+  }
+  &__container {
+    position: relative;
+    padding: $spacing--2xl 0;
+    width: 100%;
+    max-width: 568px;
+    @include breakpoint(lg) {
+      max-width: 720px;
+    }
+  }
+}
