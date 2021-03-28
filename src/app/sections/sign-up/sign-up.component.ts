@@ -81,11 +81,6 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   @ViewChild('target') target!: ElementRef;
   @ViewChild('signupSuccess') signupSuccess!: ElementRef;
   @ViewChild('successTrigger') successTrigger!: ElementRef;
-  @ViewChild('toCheck') set toCheck(ev: ElementRef) {
-    if (ev) {
-      this.initGsap();
-    }
-  }
   @ViewChildren('successCopy', {read: ElementRef}) successCopy!: QueryList<ElementRef>;
   @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
   constructor(
@@ -126,7 +121,8 @@ export class SignUpComponent implements OnInit, AfterViewInit {
         trigger: this.successTrigger.nativeElement,
         start: 'top 75%',
         end: 'bottom 75%',
-        scrub: 0.45,
+        toggleActions: 'play none none reset',
+        // scrub: 0.45,
       },
     });
 
@@ -256,11 +252,11 @@ export class SignUpComponent implements OnInit, AfterViewInit {
         })
       )
       .subscribe((data) => {
-        //this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
+        this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
         this.signupClosed = true;
-        // setTimeout(() => {
-        //   this.initGsap();
-        // }, 3000);
+        setTimeout(() => {
+          this.initGsap();
+        }, 0);
       });
   }
 
