@@ -1,14 +1,19 @@
 import {
+  AfterContentChecked,
+  AfterViewChecked,
   AfterViewInit,
   ChangeDetectionStrategy,
   Component,
+  DoCheck,
   ElementRef,
   HostBinding,
   Injector,
   Input,
+  OnChanges,
   OnInit,
   QueryList,
   Renderer2,
+  SimpleChanges,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
@@ -35,9 +40,8 @@ import {UtilityService} from 'src/app/services/utility.service';
 export class SignUpComponent implements OnInit, AfterViewInit {
   signupForm: FormGroup;
   reserved = false;
-  signupClosed = true;
+  signupClosed = false;
   signedUp = false;
-  checkPlay: GSAPTimeline;
   alerts = {
     guestList: {
       error: false,
@@ -73,8 +77,16 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
   @ViewChild('check') check!: ElementRef;
   @ViewChild('checkLoader') checkLoader!: ElementRef;
+  @ViewChild('checkPath') checkPath!: ElementRef;
   @ViewChild('target') target!: ElementRef;
   @ViewChild('signupSuccess') signupSuccess!: ElementRef;
+  @ViewChild('successTrigger') successTrigger!: ElementRef;
+  @ViewChild('toCheck') set toCheck(ev: ElementRef) {
+    if (ev) {
+      this.initGsap();
+    }
+  }
+  @ViewChildren('successCopy', {read: ElementRef}) successCopy!: QueryList<ElementRef>;
   @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
   constructor(
     private element: ElementRef,
@@ -84,6 +96,11 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     private techTalks: TechTalksService
   ) {}
 
+  private validateSpaces(control: FormControl) {
+    const valid = (control.value || '').trim().length !== 0;
+    return valid ? null : {whitespace: true};
+  }
+
   ngOnInit(): void {
     this.signupForm = this.fb.group({
       first_name: ['', [Validators.required, Validators.pattern(/^[a-z ,.'-]+$/i), this.validateSpaces]],
@@ -92,31 +109,56 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       comments: '',
       reserved: 1,
     });
-    this.techTalks.signupStatus(12).subscribe((bool) => {
-      this.signupClosed = bool;
+    this.techTalks.signupStatus(1).subscribe((bool) => {
+      //this.signupClosed = bool;
+      console.log(this.signupClosed);
     });
   }
 
-  ngAfterViewInit(): void {
-    this.checkPlay = gsap.timeline({
+  initGsap() {
+    const titles = this.successCopy.map((el) => el.nativeElement);
+    const checkmark = gsap.timeline({
       defaults: {
         ease: 'power2',
       },
+      scrollTrigger: {
+        markers: false,
+        trigger: this.successTrigger.nativeElement,
+        start: 'top 75%',
+        end: 'bottom 75%',
+        scrub: 0.45,
+      },
     });
-    //this.checkPlay.pause();
-    this.checkPlay
+
+    checkmark
       .fromTo(
         this.checkLoader.nativeElement,
         {
           strokeDasharray: 360,
-          strokeDashoffset: 0,
+          strokeDashoffset: 720,
           rotate: '0deg',
           stroke: '#fb3e54',
           opacity: 0,
         },
         {
-          strokeDashoffset: -720,
+          strokeDashoffset: 0,
           rotate: '360deg',
+          duration: 2.45,
+          transformOrigin: '50%',
+          stroke: '#e0fb3e',
+          opacity: 1,
+        }
+      )
+      .fromTo(
+        this.checkPath.nativeElement,
+        {
+          strokeDasharray: 360,
+          strokeDashoffset: 360,
+          stroke: '#fb3e54',
+          opacity: 0,
+        },
+        {
+          strokeDashoffset: 0,
           duration: 2.45,
           transformOrigin: '50%',
           stroke: '#e0fb3e',
@@ -127,31 +169,35 @@ export class SignUpComponent implements OnInit, AfterViewInit {
         this.check.nativeElement,
         {
           strokeDasharray: 110,
-          strokeDashoffset: -110,
+          strokeDashoffset: 110,
           stroke: '#fb3e54',
           opacity: 0,
         },
         {
           strokeDashoffset: 0,
-          duration: 0.45,
+          duration: 2.45,
           stroke: '#e0fb3e',
           opacity: 1,
         },
-        0.65
+        0.75
+      )
+      .from(
+        titles,
+        {
+          y: 24,
+          opacity: 0,
+          stagger: 0.165,
+        },
+        0.75
       );
   }
 
-  replay() {
-    this.checkPlay.restart();
-  }
-
-  private validateSpaces(control: FormControl) {
-    const valid = (control.value || '').trim().length !== 0;
-    return valid ? null : {whitespace: true};
+  ngAfterViewInit(): void {
+    this.initGsap();
   }
 
   signUp(): void {
-    console.clear();
+    //console.clear();
     this.alerts.signedUp.error = false;
     this.alerts.guestList.error = false;
     this.alerts.success.error = false;
@@ -162,6 +208,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
           const alertMsgs = alerts.data[0].user_alerts;
           for (const k in this.errors) {
             this.errors[k].error = this.checkError(k);
+
             if (this.signupForm.get(k).errors !== null) {
               if (k === 'first_name' && this.checkError(k)) {
                 this.errors[k].errorMsg = alertMsgs.first_name_error;
@@ -210,6 +257,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       )
       .subscribe((data) => {
         //this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
+        this.signupClosed = true;
+        // setTimeout(() => {
+        //   this.initGsap();
+        // }, 3000);
       });
   }
 
