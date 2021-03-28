@@ -175,7 +175,6 @@
     <!-- Errors -->
     <c-warning *ngIf="alerts.guestList.error" @enterAnimation [warningMsg]="alerts.guestList.errorMsg"></c-warning>
     <c-warning *ngIf="alerts.signedUp.error" @enterAnimation [warningMsg]="alerts.signedUp.errorMsg"></c-warning>
-    <c-dialog *ngIf="alerts.success.error" @enterAnimation></c-dialog>
     <input class="btn" type="submit" value="Submit" [disabled]="reserved" />
   </form>
 </ng-template>

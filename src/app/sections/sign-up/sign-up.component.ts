@@ -51,10 +51,6 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       error: false,
       errorMsg: null,
     },
-    success: {
-      error: false,
-      errorMsg: null,
-    },
   };
   errors = {
     first_name: {
@@ -196,7 +192,6 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     //console.clear();
     this.alerts.signedUp.error = false;
     this.alerts.guestList.error = false;
-    this.alerts.success.error = false;
     this.techTalks
       .alerts()
       .pipe(
@@ -241,8 +236,11 @@ export class SignUpComponent implements OnInit, AfterViewInit {
                 }
                 if (data.status.success) {
                   console.log(alertMsgs.signup_success);
-                  this.alerts.success.errorMsg = alertMsgs.signup_success;
-                  this.alerts.success.error = true;
+                  this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
+                  this.signupClosed = true;
+                  setTimeout(() => {
+                    this.initGsap();
+                  }, 0);
                   this.signupForm.reset();
                 }
               })
@@ -251,13 +249,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
           return of(null);
         })
       )
-      .subscribe((data) => {
-        this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
-        this.signupClosed = true;
-        setTimeout(() => {
-          this.initGsap();
-        }, 0);
-      });
+      .subscribe();
   }
 
   checkError(field: string): boolean {
