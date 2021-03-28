@@ -1,4 +1,13 @@
-export interface SignupInfo {
+export interface SignUpState {
+  guestList: Guest[];
+  alerts: Alerts[];
+  closed: boolean;
+  allowed: boolean;
+  success: boolean;
+  reserved: boolean;
+}
+
+export interface UserInfo {
   id?: number;
   sort?: null;
   created_on?: string;
@@ -9,8 +18,8 @@ export interface SignupInfo {
   reserved: number;
 }
 
-export interface Signups {
-  data: SignupInfo[];
+export interface SignUpList {
+  data: UserInfo[];
 }
 
 export interface Guest {
@@ -25,16 +34,16 @@ export interface GuestList {
   data: Guest[];
 }
 
-export interface Alerts {
-  data: UserAlerts[];
-}
-
 export interface UserAlerts {
-  id: number;
-  user_alerts: UserAlert;
+  data: Alerts[];
 }
 
-export interface UserAlert {
+export interface Alerts {
+  id: number;
+  user_alerts: AlertMsgs;
+}
+
+export interface AlertMsgs {
   guest_list: string;
   signup_success: string;
   generic_error: string;

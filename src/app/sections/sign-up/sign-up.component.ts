@@ -1,30 +1,24 @@
 import {
-  AfterContentChecked,
-  AfterViewChecked,
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
-  DoCheck,
   ElementRef,
   HostBinding,
-  Injector,
   Input,
-  OnChanges,
+  OnDestroy,
   OnInit,
   QueryList,
   Renderer2,
-  SimpleChanges,
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import {trigger, state, style, animate, transition} from '@angular/animations';
+import {trigger, style, animate, transition} from '@angular/animations';
 
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {gsap} from 'gsap';
-import {of} from 'rxjs';
-import {map, switchMap} from 'rxjs/operators';
-import {TechTalksService} from 'src/app/services/tech-talks.service';
+import {forkJoin, of, Subject} from 'rxjs';
+import {map, switchMap, take, takeUntil, tap} from 'rxjs/operators';
 import {UtilityService} from 'src/app/services/utility.service';
+import {SignUpService} from 'src/app/services/sign-up.service';
 
 @Component({
   selector: 'c-sign-up',
@@ -32,16 +26,16 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./sign-up.component.scss'],
   animations: [
     trigger('enterAnimation', [
-      transition(':enter', [style({opacity: 0}), animate('275ms', style({opacity: 1}))]),
-      transition(':leave', [style({opacity: 1}), animate('275ms', style({opacity: 0}))]),
+      transition(':enter', [style({opacity: 0}), animate('175ms', style({opacity: 1}))]),
+      transition(':leave', [style({opacity: 1}), animate('175ms', style({opacity: 0}))]),
     ]),
   ],
 })
-export class SignUpComponent implements OnInit, AfterViewInit {
+export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
+  private unsubscribe$ = new Subject();
   signupForm: FormGroup;
-  reserved = false;
+  signedUpSuccess = false;
   signupClosed = false;
-  signedUp = false;
   alerts = {
     guestList: {
       error: false,
@@ -66,7 +60,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       errorMsg: null,
     },
   };
-  @HostBinding('class') class = 'c-sign-up l-content--reveal';
+  @HostBinding('class') class = 'c-sign-up';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
@@ -84,7 +78,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     private render: Renderer2,
     private util: UtilityService,
     private fb: FormBuilder,
-    private techTalks: TechTalksService
+    private signUpService: SignUpService
   ) {}
 
   private validateSpaces(control: FormControl) {
@@ -100,13 +94,13 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       comments: '',
       reserved: 1,
     });
-    this.techTalks.signupStatus(1).subscribe((bool) => {
-      //this.signupClosed = bool;
-      console.log(this.signupClosed);
+
+    this.signUpService.signUpState$.subscribe((s) => {
+      this.signedUpSuccess = s.success;
     });
   }
 
-  initGsap() {
+  private initGsap() {
     const titles = this.successCopy.map((el) => el.nativeElement);
     const checkmark = gsap.timeline({
       defaults: {
@@ -185,21 +179,22 @@ export class SignUpComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initGsap();
+    if (this.signedUpSuccess) {
+      this.initGsap();
+    }
   }
 
   signUp(): void {
-    //console.clear();
     this.alerts.signedUp.error = false;
     this.alerts.guestList.error = false;
-    this.techTalks
-      .alerts()
+    this.signUpService
+      .signUp(this.signupForm.value)
       .pipe(
-        switchMap((alerts) => {
-          const alertMsgs = alerts.data[0].user_alerts;
+        tap((state) => {
+          const alertMsgs = state.alerts[0].user_alerts;
           for (const k in this.errors) {
             this.errors[k].error = this.checkError(k);
-
+            console.log(this.signupForm.get(k).errors);
             if (this.signupForm.get(k).errors !== null) {
               if (k === 'first_name' && this.checkError(k)) {
                 this.errors[k].errorMsg = alertMsgs.first_name_error;
@@ -219,44 +214,37 @@ export class SignUpComponent implements OnInit, AfterViewInit {
             }
           }
           if (this.signupForm.status === 'VALID') {
-            return this.techTalks.signUp(this.signupForm.value).pipe(
-              map((data) => {
-                console.log(data);
-                if (!data.status.onGuestList) {
-                  console.log(alertMsgs.guest_list);
-                  this.alerts.signedUp.errorMsg = alertMsgs.guest_list;
-                  this.alerts.guestList.error = true;
-                  this.signupForm.reset();
-                }
-                if (data.status.reserved) {
-                  console.log(alertMsgs.reserved_error);
-                  this.alerts.signedUp.errorMsg = alertMsgs.reserved_error;
-                  this.alerts.signedUp.error = true;
-                  this.signupForm.reset();
-                }
-                if (data.status.success) {
-                  console.log(alertMsgs.signup_success);
-                  this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
-                  this.signupClosed = true;
-                  setTimeout(() => {
-                    this.initGsap();
-                  }, 0);
-                  this.signupForm.reset();
-                }
-              })
-            );
+            if (!state.allowed) {
+              console.log(alertMsgs.guest_list);
+              this.alerts.guestList.errorMsg = alertMsgs.guest_list;
+              this.alerts.guestList.error = true;
+            }
+            if (state.reserved) {
+              console.log(alertMsgs.reserved_error);
+              this.alerts.signedUp.errorMsg = alertMsgs.reserved_error;
+              this.alerts.signedUp.error = true;
+            }
+            if (state.success) {
+              this.signedUpSuccess = state.success;
+              localStorage.setItem('reserved', JSON.stringify(state.success));
+              this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
+              setTimeout(() => {
+                this.initGsap();
+              }, 0);
+            }
+            this.signupForm.reset();
           }
-          return of(null);
         })
       )
-      .subscribe();
+      .subscribe((d) => console.log(d));
   }
 
   checkError(field: string): boolean {
     return this.signupForm.get(field).errors !== null ? true : false;
   }
 
-  checkLocalStorage(): boolean {
-    return localStorage.getItem('reserved') === null ? false : true;
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }

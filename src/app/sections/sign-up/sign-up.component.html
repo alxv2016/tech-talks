@@ -1,5 +1,5 @@
 <div #target class="c-sign-up__container">
-  <ng-container #toCheck *ngIf="signupClosed; else signupOpen">
+  <ng-container *ngIf="signedUpSuccess; else signupOpen">
     <div #successTrigger class="sign-up-success" @enterAnimation>
       <div class="sign-up-success__container">
         <div class="signup-intro">
