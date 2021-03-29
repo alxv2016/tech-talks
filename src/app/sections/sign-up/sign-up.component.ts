@@ -15,7 +15,7 @@ import {trigger, style, animate, transition} from '@angular/animations';
 
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {gsap} from 'gsap';
-import {forkJoin, of, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {map, switchMap, take, takeUntil, tap} from 'rxjs/operators';
 import {UtilityService} from 'src/app/services/utility.service';
 import {SignUpService} from 'src/app/services/sign-up.service';
@@ -65,14 +65,14 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
-  @ViewChild('check') check!: ElementRef;
-  @ViewChild('checkLoader') checkLoader!: ElementRef;
-  @ViewChild('checkPath') checkPath!: ElementRef;
-  @ViewChild('target') target!: ElementRef;
+  @ViewChild('checkMark') checkMark!: ElementRef;
+  @ViewChild('checkMarkCircle1') checkMarkCircle1!: ElementRef;
+  @ViewChild('checkMarkCircle2') checkMarkCircle2!: ElementRef;
+  @ViewChild('scrollTarget') scrollTarget!: ElementRef;
   @ViewChild('signupSuccess') signupSuccess!: ElementRef;
   @ViewChild('successTrigger') successTrigger!: ElementRef;
   @ViewChildren('successCopy', {read: ElementRef}) successCopy!: QueryList<ElementRef>;
-  @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
+  @ViewChildren('formTitle', {read: ElementRef}) formTitle!: QueryList<ElementRef>;
   constructor(
     private element: ElementRef,
     private render: Renderer2,
@@ -118,7 +118,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
 
     checkmark
       .fromTo(
-        this.checkLoader.nativeElement,
+        this.checkMarkCircle1.nativeElement,
         {
           strokeDasharray: 360,
           strokeDashoffset: 720,
@@ -136,7 +136,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
       .fromTo(
-        this.checkPath.nativeElement,
+        this.checkMarkCircle2.nativeElement,
         {
           strokeDasharray: 360,
           strokeDashoffset: 360,
@@ -152,7 +152,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       )
       .fromTo(
-        this.check.nativeElement,
+        this.checkMark.nativeElement,
         {
           strokeDasharray: 110,
           strokeDashoffset: 110,
@@ -184,7 +184,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  signUp(): void {
+  reserveSeat(): void {
     this.alerts.signedUp.error = false;
     this.alerts.guestList.error = false;
     this.signUpService
@@ -227,7 +227,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
             if (state.success) {
               this.signedUpSuccess = state.success;
               localStorage.setItem('reserved', JSON.stringify(state.success));
-              this.target.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
+              this.scrollTarget.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
               setTimeout(() => {
                 this.initGsap();
               }, 0);
@@ -236,10 +236,10 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         })
       )
-      .subscribe((d) => console.log(d));
+      .subscribe();
   }
 
-  checkError(field: string): boolean {
+  private checkError(field: string): boolean {
     return this.signupForm.get(field).errors !== null ? true : false;
   }
 

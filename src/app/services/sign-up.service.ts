@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {BehaviorSubject, forkJoin, Observable, of} from 'rxjs';
 import {catchError, map, switchMap} from 'rxjs/operators';
 import {environment} from 'src/environments/environment';
-import {Alerts, GuestList, SignUpList, SignUpState, UserAlerts, UserInfo} from './models/tach-talks.interface';
+import {GuestList, SignUpList, SignUpState, UserAlerts, UserInfo} from './models/tach-talks.interface';
 
 const initialState: SignUpState = {
   guestList: [],

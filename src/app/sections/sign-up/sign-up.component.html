@@ -1,5 +1,5 @@
-<div #target class="c-sign-up__container">
-  <ng-container *ngIf="signedUpSuccess; else signupOpen">
+<div #scrollTarget class="c-sign-up__container">
+  <ng-container *ngIf="signedUpSuccess; else signUpForm">
     <div #successTrigger class="sign-up-success" @enterAnimation>
       <div class="sign-up-success__container">
         <div class="signup-intro">
@@ -12,11 +12,10 @@
               x="0px"
               y="0px"
               viewBox="0, 0, 100, 100"
-              id="checkmark"
             >
               <g transform="">
                 <circle
-                  #checkLoader
+                  #checkMarkCircle1
                   fill="none"
                   stroke="currentColor"
                   stroke-width="4"
@@ -27,7 +26,7 @@
                   r="44"
                 />
                 <circle
-                  #checkPath
+                  #checkMarkCircle2
                   fill="none"
                   stroke="currentColor"
                   stroke-width="4"
@@ -38,8 +37,7 @@
                   r="44"
                 />
                 <polyline
-                  #check
-                  class="checks"
+                  #checkMark
                   fill="none"
                   stroke="currentColor"
                   stroke-width="6"
@@ -62,32 +60,32 @@
   </ng-container>
 </div>
 <!-- Template -->
-<ng-template #signupOpen>
+<ng-template #signUpForm>
   <div class="signup-intro title--reveal">
-    <div #introTitle class="sub-headline copy--lit">Reserve your seat</div>
-    <h2 #introTitle class="display-3">Limited seats available, sign up today.</h2>
-    <p #introTitle class="large-print copy--tint">
+    <div #formTitle class="sub-headline copy--lit">Reserve your seat</div>
+    <h2 #formTitle class="display-3">Limited seats available, sign up today.</h2>
+    <p #formTitle class="large-print copy--tint">
       Tech Talks' A deep dive into Figma is coming soon. Sign up today and we’ll keep you posted on the upcoming
       session.
     </p>
   </div>
-  <form [formGroup]="signupForm" class="signup-form" (ngSubmit)="signUp()">
+  <form [formGroup]="signupForm" class="signup-form" (ngSubmit)="reserveSeat()">
     <div class="signup-form__name-group">
       <div class="form-control">
-        <label class="form-control__label" for="username">First name</label>
+        <label class="form-control__label" for="first-name">First name</label>
         <input
           class="form-control__input"
-          id="username"
+          id="first-name"
           type="text"
           name="textfield"
           placeholder="Your first name"
-          aria-describedby="username-help-text"
-          aria-invalid="true"
+          aria-describedby="firstname-help-text"
+          [aria-invalid]="errors.first_name.error"
           formControlName="first_name"
         />
         <span
           class="form-control__helper form-control__helper--error"
-          id="username-help-text"
+          id="firstname-help-text"
           @enterAnimation
           *ngIf="errors.first_name.error"
           >{{ errors.first_name.errorMsg }}</span
@@ -101,13 +99,13 @@
           type="text"
           name="textfield"
           placeholder="Your last name"
-          aria-describedby="username-help-text"
-          aria-invalid="true"
+          aria-describedby="lastname-help-text"
+          [aria-invalid]="errors.last_name.error"
           formControlName="last_name"
         />
         <span
           class="form-control__helper form-control__helper--error"
-          id="username-help-text"
+          id="lastname-help-text"
           @enterAnimation
           *ngIf="errors.last_name.error"
           >{{ errors.last_name.errorMsg }}</span
@@ -151,13 +149,9 @@
           <label class="radio-control__label" for="advance">Advance</label>
         </div>
       </div>
-      <span
-        class="form-control__helper form-control__helper--error"
-        id="username-help-text"
-        @enterAnimation
-        *ngIf="errors.skill_level.error"
-        >{{ errors.skill_level.errorMsg }}</span
-      >
+      <span class="form-control__helper form-control__helper--error" @enterAnimation *ngIf="errors.skill_level.error">{{
+        errors.skill_level.errorMsg
+      }}</span>
     </fieldset>
     <div class="form-control">
       <label class="form-control__label" for="comments">What do you want to learn about Figma?</label>
@@ -166,9 +160,10 @@
         id="comments"
         name="comments"
         placeholder="Please leave a comment"
+        aria-describedby="comments-help-text"
         formControlName="comments"
       ></textarea>
-      <span class="form-control__helper" id="username-help-text"
+      <span class="form-control__helper" id="comments-help-text"
         >This is optional but it will help us provide content tailored to you.</span
       >
     </div>
