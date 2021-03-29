@@ -28,7 +28,17 @@ export class HostsComponent implements OnInit, AfterViewInit {
 
   initGsap(): void {
     const grads = this.grad.map((grad) => grad.nativeElement);
-    gsap.fromTo(
+    const glitch = gsap.timeline({
+      defaults: {
+        yoyo: true,
+        yoyoEase: true,
+        repeat: -1,
+        ease: 'back',
+        duration: 1.75,
+      },
+    });
+
+    glitch.fromTo(
       grads,
       {
         scaleY: 0.125,

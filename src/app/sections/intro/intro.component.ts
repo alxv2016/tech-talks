@@ -91,7 +91,17 @@ export class IntroComponent implements OnInit, AfterViewInit {
         0.125
       );
 
-    gsap.fromTo(
+    const glitch = gsap.timeline({
+      defaults: {
+        yoyo: true,
+        yoyoEase: true,
+        repeat: -1,
+        ease: 'back',
+        duration: 1.95,
+      },
+    });
+
+    glitch.fromTo(
       grads,
       {
         scaleX: 0.175,
@@ -104,11 +114,6 @@ export class IntroComponent implements OnInit, AfterViewInit {
           each: 0.175,
           from: 'end',
         },
-        yoyo: true,
-        yoyoEase: true,
-        repeat: -1,
-        ease: 'back',
-        duration: 1.95,
       }
     );
   }
