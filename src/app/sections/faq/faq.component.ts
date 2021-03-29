@@ -66,6 +66,24 @@ export class FaqComponent implements OnInit, AfterViewInit {
 
     bolt
       .fromTo(
+        this.bolt.nativeElement,
+        {
+          strokeDasharray: 90,
+          strokeDashoffset: 360,
+          strokeWidth: 0.75,
+          stroke: '#ffffff',
+          opacity: 0,
+        },
+        {
+          strokeDasharray: 180,
+          strokeDashoffset: 0,
+          duration: 0.75,
+          stroke: '#ffffff',
+          strokeWidth: 6,
+          opacity: 1,
+        }
+      )
+      .fromTo(
         this.boltSpark1.nativeElement,
         {
           strokeDasharray: 80,
@@ -81,7 +99,8 @@ export class FaqComponent implements OnInit, AfterViewInit {
           stroke: '#e0fb3e',
           strokeWidth: 6,
           opacity: 1,
-        }
+        },
+        0.125
       )
       .fromTo(
         this.boltSpark2.nativeElement,

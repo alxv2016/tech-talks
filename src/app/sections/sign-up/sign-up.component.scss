@@ -281,11 +281,16 @@
 
 .tt-bolt {
   stroke: color('accent2');
-  filter: drop-shadow(0 2px 12px rgba(color('accent2'), 0.75));
+  filter: drop-shadow(0 2px 12px rgba(color('accent2'), 0.95));
+}
+
+.tt-bolt-light {
+  stroke: color('light');
 }
 
 .tt-bolt-spark {
-  filter: drop-shadow(0 2px 12px rgba(color('accent1'), 0.75));
+  stroke: color('light');
+  filter: drop-shadow(0 2px 12px rgba(color('light'), 0.75));
 }
 
 .sign-up-success {

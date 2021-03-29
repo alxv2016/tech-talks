@@ -96,8 +96,13 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.signUpService.signUpState$.subscribe((s) => {
-      this.signUpSuccess = s.reserved;
-      this.signUpClosed = s.closed;
+      if (s.reserved && !s.closed) {
+        this.signUpSuccess = s.reserved;
+      }
+      if (s.closed) {
+        this.signUpClosed = s.closed;
+        this.signUpSuccess = false;
+      }
     });
   }
 
@@ -113,29 +118,48 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
 
       bolt
         .fromTo(
+          this.bolt.nativeElement,
+          {
+            strokeDasharray: 90,
+            strokeDashoffset: 360,
+            strokeWidth: 0.75,
+            stroke: '#ffffff',
+            opacity: 0,
+          },
+          {
+            strokeDasharray: 180,
+            strokeDashoffset: 0,
+            duration: 0.75,
+            stroke: '#ffffff',
+            strokeWidth: 6,
+            opacity: 1,
+          }
+        )
+        .fromTo(
           this.boltSpark1.nativeElement,
           {
             strokeDasharray: 80,
             strokeDashoffset: 360,
             strokeWidth: 0.75,
-            stroke: '#fb3e54',
+            stroke: '#44ffdd',
             opacity: 0,
           },
           {
             strokeDasharray: 110,
             strokeDashoffset: 0,
             duration: 0.75,
-            stroke: '#e0fb3e',
-            strokeWidth: 6,
+            stroke: '#f8f8f9',
+            strokeWidth: 8,
             opacity: 1,
-          }
+          },
+          0.125
         )
         .fromTo(
           this.boltSpark2.nativeElement,
           {
             strokeDasharray: 60,
             strokeDashoffset: 360,
-            stroke: '#fb3e54',
+            stroke: '#44ffdd',
             strokeWidth: 0.75,
             opacity: 0,
           },
@@ -144,7 +168,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
             strokeDashoffset: 0,
             strokeWidth: 8,
             duration: 0.95,
-            stroke: '#e0fb3e',
+            stroke: '#f8f8f9',
             opacity: 1,
           },
           0.145
@@ -243,7 +267,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
           markers: false,
           trigger: this.element.nativeElement,
           start: 'top 75%',
-          end: '70% 75%',
+          end: '58% 75%',
           scrub: 0.45,
         },
       });
@@ -254,7 +278,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
           {
             y: 24,
             opacity: 0,
-            stagger: 0.165,
+            stagger: 0.175,
           },
           0.75
         )
