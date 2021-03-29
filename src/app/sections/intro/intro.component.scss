@@ -1,8 +1,6 @@
 @import '../../../scss/00_imports';
 
 :host-context(.c-intro) {
-  --b-start: 0%;
-  --b-end: 0%;
   position: relative;
   display: block;
   background-color: color('darker');
@@ -222,21 +220,21 @@
   pointer-events: none;
 }
 
-.title--reveal {
-  &::before {
-    position: absolute;
-    content: '';
-    top: 0;
-    left: 0;
-    z-index: 2;
-    height: 100%;
-    width: 100%;
-    border-radius: inherit;
-    background: linear-gradient(175deg, rgba(color('darker'), 0) var(--b-start), rgba(color('darker'), 1) var(--b-end));
-    transform-origin: bottom center;
-    will-change: transform;
-  }
-}
+// .title--reveal {
+//   &::before {
+//     position: absolute;
+//     content: '';
+//     top: 0;
+//     left: 0;
+//     z-index: 2;
+//     height: 100%;
+//     width: 100%;
+//     border-radius: inherit;
+//     background: linear-gradient(175deg, rgba(color('darker'), 0) var(--b-start), rgba(color('darker'), 1) var(--b-end));
+//     transform-origin: bottom center;
+//     will-change: transform;
+//   }
+// }
 
 .l-margin--top-lg {
   margin-top: $layout--md;

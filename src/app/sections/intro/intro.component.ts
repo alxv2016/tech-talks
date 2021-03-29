@@ -20,14 +20,13 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./intro.component.scss'],
 })
 export class IntroComponent implements OnInit, AfterViewInit {
-  @HostBinding('class') class = 'c-intro l-content--reveal';
-  @HostBinding('style.--b-start') @Input() bStart: string = '0%';
-  @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
+  @HostBinding('class') class = 'c-intro';
   @ViewChild('brandTrigger') brandTrigger!: ElementRef;
   @ViewChild('cardTrigger') cardTrigger!: ElementRef;
   @ViewChild('glitch') glitch!: ElementRef;
   @ViewChild('brandLogo') brandLogo!: ElementRef;
   @ViewChild('bolt') bolt!: ElementRef;
+  @ViewChild('introContent') introContent!: ElementRef;
   @ViewChildren('introCard', {read: ElementRef}) introCard!: QueryList<ElementRef>;
   @ViewChildren('cardReveal', {read: ElementRef}) cardReveal!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
@@ -36,10 +35,10 @@ export class IntroComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
   //
-  ngAfterViewInit(): void {
+
+  initGsap() {
     const grads = this.grad.map((grad) => grad.nativeElement);
     const titles = this.introTitle.map((title) => title.nativeElement);
-    const cards = this.introCard.map((card) => card.nativeElement);
     const cardReveals = this.cardReveal.map((rev) => rev.nativeElement);
 
     gsap.fromTo(
@@ -55,7 +54,9 @@ export class IntroComponent implements OnInit, AfterViewInit {
       }
     );
 
-    const cardReveal = gsap.timeline({
+    gsap.from(cardReveals, {
+      opacity: 1,
+      stagger: 0.125,
       scrollTrigger: {
         markers: false,
         trigger: this.cardTrigger.nativeElement,
@@ -65,17 +66,6 @@ export class IntroComponent implements OnInit, AfterViewInit {
       },
     });
 
-    cardReveal
-      // .from(cards, {
-      //   rotateY: '-14deg',
-      //   rotateX: '14deg',
-      //   y: -70,
-      // })
-      .from(cardReveals, {
-        opacity: 1,
-        stagger: 0.125,
-      });
-
     const introReveal = gsap.timeline({
       scrollTrigger: {
         markers: false,
@@ -83,11 +73,6 @@ export class IntroComponent implements OnInit, AfterViewInit {
         start: 'top 65%',
         end: '80% 65%',
         scrub: 0.45,
-        onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 8, 20);
-          this.bStart = `${heroReveal.start}%`;
-          this.bEnd = `${heroReveal.end}%`;
-        },
       },
     });
 
@@ -106,17 +91,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
         0.125
       );
 
-    const glitch = gsap.timeline({
-      defaults: {
-        yoyo: true,
-        yoyoEase: true,
-        repeat: -1,
-        ease: 'back',
-        duration: 1.95,
-      },
-    });
-
-    glitch.fromTo(
+    gsap.fromTo(
       grads,
       {
         scaleX: 0.175,
@@ -129,7 +104,16 @@ export class IntroComponent implements OnInit, AfterViewInit {
           each: 0.175,
           from: 'end',
         },
+        yoyo: true,
+        yoyoEase: true,
+        repeat: -1,
+        ease: 'back',
+        duration: 1.95,
       }
     );
+  }
+
+  ngAfterViewInit(): void {
+    this.initGsap();
   }
 }

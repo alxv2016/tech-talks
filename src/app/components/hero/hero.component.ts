@@ -22,7 +22,6 @@ export class HeroComponent implements OnInit, AfterViewInit {
   @HostBinding('class') class = 'c-hero l-content--hide';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
-  //@ViewChild('heroTitle') heroTitle!: ElementRef;
   @ViewChildren('heroTitle', {read: ElementRef}) heroTitle!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
 
@@ -30,7 +29,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
+  private initGsap() {
     const heroTitles = this.heroTitle.map((title) => title.nativeElement);
     const grads = this.grad.map((grad) => grad.nativeElement);
 
@@ -74,11 +73,17 @@ export class HeroComponent implements OnInit, AfterViewInit {
       grads,
       {
         xPercent: -58,
+        opacity: 0.75,
       },
       {
         xPercent: 58,
         stagger: 0.125,
+        opacity: 1,
       }
     );
+  }
+
+  ngAfterViewInit(): void {
+    this.initGsap();
   }
 }

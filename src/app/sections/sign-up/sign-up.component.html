@@ -118,14 +118,14 @@
 <!-- Template -->
 <ng-template #signUpForm>
   <div class="signup-intro title--reveal">
-    <div #formTitle class="sub-headline copy--lit">Reserve your seat</div>
-    <h2 #formTitle class="display-3">Limited seats available, sign up today.</h2>
-    <p #formTitle class="large-print copy--tint">
+    <div #formCopy class="sub-headline copy--lit">Reserve your seat</div>
+    <h2 #formCopy class="display-3">Limited seats available, sign up today.</h2>
+    <p #formCopy class="large-print copy--tint">
       Tech Talks' A deep dive into Figma is coming soon. Sign up today and we’ll keep you posted on the upcoming
       session.
     </p>
   </div>
-  <form [formGroup]="signupForm" class="signup-form" (ngSubmit)="reserveSeat()">
+  <form #theForm [formGroup]="signupForm" class="signup-form" (ngSubmit)="reserveSeat()">
     <div class="signup-form__name-group">
       <div class="form-control">
         <label class="form-control__label" for="first-name">First name</label>

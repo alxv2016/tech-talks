@@ -84,8 +84,14 @@
     height: 6.25%;
     width: 100%;
     @include smooth-gradient(color('lit'));
-    opacity: 0.75;
+    opacity: 0.075;
     will-change: transform;
+    // &:nth-child(even) {
+    //   transform: translateX(8%);
+    // }
+    // &:nth-child(odd) {
+    //   transform: translateX(16%);
+    // }
   }
 }
 

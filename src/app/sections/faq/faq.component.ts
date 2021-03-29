@@ -23,15 +23,10 @@ import {UtilityService} from 'src/app/services/utility.service';
 export class FaqComponent implements OnInit, AfterViewInit {
   demoData: any = [];
 
-  @HostBinding('class') class = 'c-faq l-content--reveal';
-  @HostBinding('style.--a-start') @Input() aStart: string = '0%';
-  @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
-  @HostBinding('style.--b-start') @Input() bStart: string = '0%';
-  @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
+  @HostBinding('class') class = 'c-faq';
   @ViewChild('bolt') bolt!: ElementRef;
   @ViewChild('boltSpark1') boltSpark1!: ElementRef;
   @ViewChild('boltSpark2') boltSpark2!: ElementRef;
-  @ViewChild('faqTitle') faqTitle!: ElementRef;
   @ViewChild('faqAccordion') faqAccordion!: ElementRef;
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
 
@@ -112,34 +107,4 @@ export class FaqComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.initBoltGsap();
   }
-
-  // ngAfterViewInit(): void {
-  //   const faqReveal = gsap.timeline({
-  //     scrollTrigger: {
-  //       markers: false,
-  //       trigger: this.element.nativeElement,
-  //       start: 'top 90%',
-  //       end: 'bottom 90%',
-  //       scrub: 0.45,
-  //       onUpdate: (self: any) => {
-  //         const heroReveal = this.util.calculateScroll(self.progress, 4, 8);
-  //         this.aStart = `${heroReveal.start}%`;
-  //         this.aEnd = `${heroReveal.end}%`;
-  //       },
-  //     },
-  //   });
-
-  //   faqReveal
-  //     .from(this.faqTitle.nativeElement, {
-  //       y: 40,
-  //       opacity: 0,
-  //     })
-  //     .from(
-  //       this.faqAccordion.nativeElement,
-  //       {
-  //         opacity: 0,
-  //       },
-  //       0.125
-  //     );
-  // }
 }

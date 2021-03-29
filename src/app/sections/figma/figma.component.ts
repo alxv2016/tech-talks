@@ -20,11 +20,7 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./figma.component.scss'],
 })
 export class FigmaComponent implements OnInit, AfterViewInit {
-  @HostBinding('class') class = 'c-figma l-content--reveal';
-  @HostBinding('style.--a-start') @Input() aStart: string = '0%';
-  @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
-  @HostBinding('style.--b-start') @Input() bStart: string = '0%';
-  @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
+  @HostBinding('class') class = 'c-figma';
   @ViewChild('sessionIntroTrigger') sessionIntroTrigger!: ElementRef;
   @ViewChild('figmaDemoTrigger') figmaDemoTrigger!: ElementRef;
   @ViewChild('figmaApp') figmaApp!: ElementRef;
@@ -35,7 +31,7 @@ export class FigmaComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
+  initGsap(): void {
     const titles = this.title.map((el) => el.nativeElement);
 
     const sessionReveal = gsap.timeline({
@@ -45,13 +41,6 @@ export class FigmaComponent implements OnInit, AfterViewInit {
         start: 'top 60%',
         end: '70% 60%',
         scrub: 0.45,
-        onUpdate: (self: any) => {
-          const heroReveal = this.util.calculateScroll(self.progress, 6, 6);
-          this.aStart = `${heroReveal.start}%`;
-          this.aEnd = `${heroReveal.end}%`;
-          this.bStart = `${heroReveal.start}%`;
-          this.bEnd = `${heroReveal.end}%`;
-        },
         onEnter: ({isActive}) => {
           if (isActive) {
             this.figmaVideo.nativeElement.muted = true;
@@ -64,9 +53,9 @@ export class FigmaComponent implements OnInit, AfterViewInit {
 
     sessionReveal
       .from(titles, {
-        y: 40,
+        y: 45,
         opacity: 0,
-        stagger: 0.165,
+        stagger: 0.145,
       })
       .from(
         this.figmaApp.nativeElement,
@@ -84,6 +73,10 @@ export class FigmaComponent implements OnInit, AfterViewInit {
         },
         0.145
       );
+  }
+
+  ngAfterViewInit(): void {
+    this.initGsap();
   }
 
   hideVideo(ev: any) {

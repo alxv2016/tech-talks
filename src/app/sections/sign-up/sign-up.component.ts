@@ -61,10 +61,6 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   };
   @HostBinding('class') class = 'c-sign-up';
-  @HostBinding('style.--a-start') @Input() aStart: string = '0%';
-  @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
-  @HostBinding('style.--b-start') @Input() bStart: string = '0%';
-  @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
   @ViewChild('checkMark') checkMark!: ElementRef;
   @ViewChild('checkMarkCircle1') checkMarkCircle1!: ElementRef;
   @ViewChild('checkMarkCircle2') checkMarkCircle2!: ElementRef;
@@ -74,8 +70,9 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('scrollTarget') scrollTarget!: ElementRef;
   @ViewChild('signupSuccess') signupSuccess!: ElementRef;
   @ViewChild('successTrigger') successTrigger!: ElementRef;
+  @ViewChild('theForm') theForm!: ElementRef;
   @ViewChildren('successCopy', {read: ElementRef}) successCopy!: QueryList<ElementRef>;
-  @ViewChildren('formTitle', {read: ElementRef}) formTitle!: QueryList<ElementRef>;
+  @ViewChildren('formCopy', {read: ElementRef}) formCopy!: QueryList<ElementRef>;
   constructor(
     private element: ElementRef,
     private render: Renderer2,
@@ -153,7 +150,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
       );
   }
 
-  private initGsap() {
+  private initSuccessGsap() {
     const titles = this.successCopy.map((el) => el.nativeElement);
     const checkmark = gsap.timeline({
       defaults: {
@@ -231,12 +228,46 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
       );
   }
 
+  private initFormGsap() {
+    const titles = this.formCopy.map((el) => el.nativeElement);
+    const formAnime = gsap.timeline({
+      defaults: {
+        ease: 'power2',
+      },
+      scrollTrigger: {
+        markers: false,
+        trigger: this.element.nativeElement,
+        start: 'top 75%',
+        end: '70% 75%',
+        scrub: 0.45,
+      },
+    });
+
+    formAnime
+      .from(
+        titles,
+        {
+          y: 24,
+          opacity: 0,
+          stagger: 0.165,
+        },
+        0.75
+      )
+      .from(this.theForm.nativeElement, {
+        y: 24,
+        opacity: 0,
+      });
+  }
+
   ngAfterViewInit(): void {
     if (this.signUpSuccess) {
-      this.initGsap();
+      this.initSuccessGsap();
     }
     if (this.signUpClosed) {
       this.initBoltGsap();
+    }
+    if (!this.signUpClosed || !this.signUpSuccess) {
+      this.initFormGsap();
     }
   }
 
@@ -285,7 +316,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
               localStorage.setItem('reserved', JSON.stringify(state.success));
               this.scrollTarget.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
               setTimeout(() => {
-                this.initGsap();
+                this.initSuccessGsap();
               }, 0);
             }
             this.signupForm.reset();

@@ -20,7 +20,7 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./value-prop.component.scss'],
 })
 export class ValuePropComponent implements OnInit, AfterViewInit {
-  @HostBinding('class') class = 'c-value-prop l-content--reveal';
+  @HostBinding('class') class = 'c-value-prop';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @ViewChildren('valueProp', {read: ElementRef}) valueProp!: QueryList<ElementRef>;
@@ -28,8 +28,9 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {}
 
-  ngAfterViewInit(): void {
+  initGsap(): void {
     const valueProps = this.valueProp.map((value) => value.nativeElement);
+    this.render.addClass(this.element.nativeElement, 'l-content--reveal');
 
     gsap.fromTo(
       valueProps,
@@ -43,10 +44,10 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
           markers: false,
           trigger: this.element.nativeElement,
           start: 'top center',
-          end: 'bottom center',
+          end: '120% center',
           scrub: 0.75,
           onUpdate: (self: any) => {
-            const heroReveal = this.util.calculateScroll(self.progress, 6, 20);
+            const heroReveal = this.util.calculateScroll(self.progress, 6, 24);
             this.aStart = `${heroReveal.start}%`;
             this.aEnd = `${heroReveal.end}%`;
           },
@@ -77,5 +78,9 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
         },
       }
     );
+  }
+
+  ngAfterViewInit(): void {
+    this.initGsap();
   }
 }
