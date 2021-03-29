@@ -34,8 +34,8 @@ import {SignUpService} from 'src/app/services/sign-up.service';
 export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   private unsubscribe$ = new Subject();
   signupForm: FormGroup;
-  signedUpSuccess = false;
-  signupClosed = false;
+  signUpSuccess = false;
+  signUpClosed = true;
   alerts = {
     guestList: {
       error: false,
@@ -68,6 +68,9 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('checkMark') checkMark!: ElementRef;
   @ViewChild('checkMarkCircle1') checkMarkCircle1!: ElementRef;
   @ViewChild('checkMarkCircle2') checkMarkCircle2!: ElementRef;
+  @ViewChild('bolt') bolt!: ElementRef;
+  @ViewChild('boltSpark1') boltSpark1!: ElementRef;
+  @ViewChild('boltSpark2') boltSpark2!: ElementRef;
   @ViewChild('scrollTarget') scrollTarget!: ElementRef;
   @ViewChild('signupSuccess') signupSuccess!: ElementRef;
   @ViewChild('successTrigger') successTrigger!: ElementRef;
@@ -96,8 +99,53 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.signUpService.signUpState$.subscribe((s) => {
-      this.signedUpSuccess = s.success;
+      this.signUpSuccess = s.success;
     });
+  }
+
+  private initBoltGsap() {
+    const bolt = gsap.timeline({
+      defaults: {
+        ease: 'back',
+        repeat: -1,
+        yoyo: true,
+      },
+    });
+
+    bolt
+      .fromTo(
+        this.boltSpark1.nativeElement,
+        {
+          strokeDasharray: 80,
+          strokeDashoffset: 360,
+          stroke: '#fb3e54',
+          opacity: 0,
+        },
+        {
+          strokeDasharray: 110,
+          strokeDashoffset: 0,
+          duration: 0.75,
+          stroke: '#e0fb3e',
+          opacity: 1,
+        }
+      )
+      .fromTo(
+        this.boltSpark2.nativeElement,
+        {
+          strokeDasharray: 60,
+          strokeDashoffset: 360,
+          stroke: '#fb3e54',
+          opacity: 0,
+        },
+        {
+          strokeDasharray: 120,
+          strokeDashoffset: 0,
+          duration: 0.95,
+          stroke: '#e0fb3e',
+          opacity: 1,
+        },
+        0.145
+      );
   }
 
   private initGsap() {
@@ -179,8 +227,11 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    if (this.signedUpSuccess) {
+    if (this.signUpSuccess) {
       this.initGsap();
+    }
+    if (this.signUpClosed) {
+      this.initBoltGsap();
     }
   }
 
@@ -225,7 +276,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
               this.alerts.signedUp.error = true;
             }
             if (state.success) {
-              this.signedUpSuccess = state.success;
+              this.signUpSuccess = state.success;
               localStorage.setItem('reserved', JSON.stringify(state.success));
               this.scrollTarget.nativeElement.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'start'});
               setTimeout(() => {

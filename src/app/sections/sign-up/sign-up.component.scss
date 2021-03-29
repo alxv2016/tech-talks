@@ -277,6 +277,19 @@
   width: 164px;
   margin: auto;
   margin-bottom: $layout--lg;
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.tt-bolt {
+  stroke: color('accent2');
+  filter: drop-shadow(0 2px 12px rgba(color('accent2'), 0.75));
+}
+
+.tt-bolt-spark {
+  filter: drop-shadow(0 2px 12px rgba(color('accent1'), 0.75));
 }
 
 .sign-up-success {

@@ -1,62 +1,118 @@
 <div #scrollTarget class="c-sign-up__container">
-  <ng-container *ngIf="signedUpSuccess; else signUpForm">
-    <div #successTrigger class="sign-up-success" @enterAnimation>
-      <div class="sign-up-success__container">
-        <div class="signup-intro">
-          <div class="checkmark">
-            <svg
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xml:space="preserve"
-              x="0px"
-              y="0px"
-              viewBox="0, 0, 100, 100"
-            >
-              <g transform="">
-                <circle
-                  #checkMarkCircle1
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="4"
-                  stroke-linecap="round"
-                  stroke-miterlimit="10"
-                  cx="50"
-                  cy="50"
-                  r="44"
-                />
-                <circle
-                  #checkMarkCircle2
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="4"
-                  stroke-linecap="round"
-                  stroke-miterlimit="10"
-                  cx="50"
-                  cy="50"
-                  r="44"
-                />
-                <polyline
-                  #checkMark
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="6"
-                  stroke-linecap="round"
-                  stroke-miterlimit="10"
-                  points="70,35 45,65 30,52  "
-                />
-              </g>
-            </svg>
+  <ng-container *ngIf="signUpSuccess || signUpClosed; else signUpForm">
+    <ng-container *ngIf="signUpSuccess">
+      <div #successTrigger class="sign-up-success" @enterAnimation>
+        <div class="sign-up-success__container">
+          <div class="signup-intro">
+            <div class="checkmark">
+              <svg
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xml:space="preserve"
+                x="0px"
+                y="0px"
+                viewBox="0, 0, 100, 100"
+              >
+                <g transform="">
+                  <circle
+                    #checkMarkCircle1
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    cx="50"
+                    cy="50"
+                    r="44"
+                  />
+                  <circle
+                    #checkMarkCircle2
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    cx="50"
+                    cy="50"
+                    r="44"
+                  />
+                  <polyline
+                    #checkMark
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="6"
+                    stroke-linecap="round"
+                    stroke-miterlimit="10"
+                    points="70,35 45,65 30,52  "
+                  />
+                </g>
+              </svg>
+            </div>
+            <div #successCopy class="sub-headline copy--lit">Thanks for signing up!</div>
+            <h2 #successCopy class="display-3">You've reserved your spot.</h2>
+            <p #successCopy class="large-print copy--tint">
+              Hang tight, we'll be sending you an email with all the details regarding this's months Tech Talks session
+              once the we're ready. See you soon!
+            </p>
           </div>
-          <div #successCopy class="sub-headline copy--lit">Thanks for signing up!</div>
-          <h2 #successCopy class="display-3">You've reserved your spot.</h2>
-          <p #successCopy class="large-print copy--tint">
-            Hang tight, we'll be sending you an email with all the details regarding this's months Tech Talks session
-            once the we're ready. See you soon!
-          </p>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-container *ngIf="signUpClosed">
+      <div #successTrigger class="sign-up-success" @enterAnimation>
+        <div class="sign-up-success__container">
+          <div class="signup-intro">
+            <div class="checkmark">
+              <svg
+                width="225"
+                height="225"
+                x="0px"
+                y="0px"
+                viewBox="0, 0, 225, 225"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  class="tt-bolt"
+                  #bolt
+                  d="M121.875 18.75l-93.75 112.5H112.5l-9.375 75 93.75-112.5H112.5l9.375-75z"
+                  stroke="currentColor"
+                  stroke-width="10"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  class="tt-bolt-spark"
+                  #boltSpark1
+                  d="M50.92 153.85c-14.5 19.5-10.019 27.758 11.5 22 35.5-9.5 72.501-36 101.001-90 18.257-34.593 13.5-61.5-28.5-33"
+                  stroke="currentColor"
+                  stroke-width="8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  class="tt-bolt-spark"
+                  #boltSpark2
+                  d="M61 58c-31-9.5-56.273-5.312-38.198 20.64 19.5 28.001 55 51.001 107.5 66.501C177.5 159.076 213.5 151.5 191.5 131"
+                  stroke="currentColor"
+                  stroke-width="8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            <div #successCopy class="sub-headline copy--lit">Sign up is closed.</div>
+            <h2 #successCopy class="display-3">Thanks for your interest!</h2>
+            <p #successCopy class="large-print copy--tint">
+              Tech Talks' A deep dive into Figma is at full capacity and can't wait to start this session soon. If you
+              didn't get a chance to sign up don't worry! We will be recording the session but keep an eye out next
+              month for something new!
+            </p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </ng-container>
 </div>
 <!-- Template -->
