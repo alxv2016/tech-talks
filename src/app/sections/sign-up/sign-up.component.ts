@@ -35,7 +35,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   private unsubscribe$ = new Subject();
   signupForm: FormGroup;
   signUpSuccess = false;
-  signUpClosed = true;
+  signUpClosed = false;
   alerts = {
     guestList: {
       error: false,
@@ -100,6 +100,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.signUpService.signUpState$.subscribe((s) => {
       this.signUpSuccess = s.success;
+      this.signUpClosed = s.closed;
     });
   }
 
