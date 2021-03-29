@@ -45,3 +45,30 @@
     will-change: transform;
   }
 }
+
+.bolt {
+  position: relative;
+  height: 60px;
+  width: 60px;
+  margin: auto;
+  margin-top: $layout--lg;
+  @include breakpoint(md) {
+    height: 74px;
+    width: 74px;
+    margin-top: $layout--xl;
+  }
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.tt-bolt {
+  stroke: color('accent2');
+  filter: drop-shadow(0 3px 20px rgba(color('accent2'), 0.75));
+}
+
+.tt-bolt-spark {
+  stroke: color('lit');
+  filter: drop-shadow(0 2px 12px rgba(color('lit'), 0.75));
+}

@@ -20,7 +20,7 @@ import {UtilityService} from 'src/app/services/utility.service';
   templateUrl: './faq.component.html',
   styleUrls: ['./faq.component.scss'],
 })
-export class FaqComponent implements OnInit {
+export class FaqComponent implements OnInit, AfterViewInit {
   demoData: any = [];
 
   @HostBinding('class') class = 'c-faq l-content--reveal';
@@ -28,6 +28,9 @@ export class FaqComponent implements OnInit {
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @HostBinding('style.--b-start') @Input() bStart: string = '0%';
   @HostBinding('style.--b-end') @Input() bEnd: string = '0%';
+  @ViewChild('bolt') bolt!: ElementRef;
+  @ViewChild('boltSpark1') boltSpark1!: ElementRef;
+  @ViewChild('boltSpark2') boltSpark2!: ElementRef;
   @ViewChild('faqTitle') faqTitle!: ElementRef;
   @ViewChild('faqAccordion') faqAccordion!: ElementRef;
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
@@ -55,6 +58,59 @@ export class FaqComponent implements OnInit {
           "We know the seats are limited to 10 people, so we will be recording the session. If you can't attend the live event, you can still watch the recording at any time and stay tuned for the next Tech Talks.",
       },
     ];
+  }
+
+  private initBoltGsap() {
+    const bolt = gsap.timeline({
+      defaults: {
+        ease: 'back',
+        repeat: -1,
+        yoyo: true,
+      },
+    });
+
+    bolt
+      .fromTo(
+        this.boltSpark1.nativeElement,
+        {
+          strokeDasharray: 80,
+          strokeDashoffset: 360,
+          strokeWidth: 0.75,
+          stroke: '#fb3e54',
+          opacity: 0,
+        },
+        {
+          strokeDasharray: 110,
+          strokeDashoffset: 0,
+          duration: 0.75,
+          stroke: '#e0fb3e',
+          strokeWidth: 6,
+          opacity: 1,
+        }
+      )
+      .fromTo(
+        this.boltSpark2.nativeElement,
+        {
+          strokeDasharray: 60,
+          strokeDashoffset: 360,
+          stroke: '#fb3e54',
+          strokeWidth: 0.75,
+          opacity: 0,
+        },
+        {
+          strokeDasharray: 120,
+          strokeDashoffset: 0,
+          strokeWidth: 8,
+          duration: 0.95,
+          stroke: '#e0fb3e',
+          opacity: 1,
+        },
+        0.145
+      );
+  }
+
+  ngAfterViewInit(): void {
+    this.initBoltGsap();
   }
 
   // ngAfterViewInit(): void {
