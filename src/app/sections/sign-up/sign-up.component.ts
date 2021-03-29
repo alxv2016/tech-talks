@@ -96,179 +96,179 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.signUpService.signUpState$.subscribe((s) => {
-      this.signUpSuccess = s.success;
+      this.signUpSuccess = s.reserved;
       this.signUpClosed = s.closed;
     });
   }
 
   private initBoltGsap() {
-    const bolt = gsap.timeline({
-      defaults: {
-        ease: 'back',
-        repeat: -1,
-        yoyo: true,
-      },
-    });
+    if (this.bolt !== undefined) {
+      const bolt = gsap.timeline({
+        defaults: {
+          ease: 'back',
+          repeat: -1,
+          yoyo: true,
+        },
+      });
 
-    bolt
-      .fromTo(
-        this.boltSpark1.nativeElement,
-        {
-          strokeDasharray: 80,
-          strokeDashoffset: 360,
-          strokeWidth: 0.75,
-          stroke: '#fb3e54',
-          opacity: 0,
-        },
-        {
-          strokeDasharray: 110,
-          strokeDashoffset: 0,
-          duration: 0.75,
-          stroke: '#e0fb3e',
-          strokeWidth: 6,
-          opacity: 1,
-        }
-      )
-      .fromTo(
-        this.boltSpark2.nativeElement,
-        {
-          strokeDasharray: 60,
-          strokeDashoffset: 360,
-          stroke: '#fb3e54',
-          strokeWidth: 0.75,
-          opacity: 0,
-        },
-        {
-          strokeDasharray: 120,
-          strokeDashoffset: 0,
-          strokeWidth: 8,
-          duration: 0.95,
-          stroke: '#e0fb3e',
-          opacity: 1,
-        },
-        0.145
-      );
+      bolt
+        .fromTo(
+          this.boltSpark1.nativeElement,
+          {
+            strokeDasharray: 80,
+            strokeDashoffset: 360,
+            strokeWidth: 0.75,
+            stroke: '#fb3e54',
+            opacity: 0,
+          },
+          {
+            strokeDasharray: 110,
+            strokeDashoffset: 0,
+            duration: 0.75,
+            stroke: '#e0fb3e',
+            strokeWidth: 6,
+            opacity: 1,
+          }
+        )
+        .fromTo(
+          this.boltSpark2.nativeElement,
+          {
+            strokeDasharray: 60,
+            strokeDashoffset: 360,
+            stroke: '#fb3e54',
+            strokeWidth: 0.75,
+            opacity: 0,
+          },
+          {
+            strokeDasharray: 120,
+            strokeDashoffset: 0,
+            strokeWidth: 8,
+            duration: 0.95,
+            stroke: '#e0fb3e',
+            opacity: 1,
+          },
+          0.145
+        );
+    }
   }
 
   private initSuccessGsap() {
     const titles = this.successCopy.map((el) => el.nativeElement);
-    const checkmark = gsap.timeline({
-      defaults: {
-        ease: 'power2',
-      },
-      scrollTrigger: {
-        markers: false,
-        trigger: this.successTrigger.nativeElement,
-        start: 'top 75%',
-        end: 'bottom 75%',
-        toggleActions: 'play none none reset',
-        // scrub: 0.45,
-      },
-    });
+    if (titles.length !== 0) {
+      const checkmark = gsap.timeline({
+        defaults: {
+          ease: 'power2',
+        },
+        scrollTrigger: {
+          markers: false,
+          trigger: this.successTrigger.nativeElement,
+          start: 'top 75%',
+          end: 'bottom 75%',
+          toggleActions: 'play none none reset',
+          // scrub: 0.45,
+        },
+      });
 
-    checkmark
-      .fromTo(
-        this.checkMarkCircle1.nativeElement,
-        {
-          strokeDasharray: 360,
-          strokeDashoffset: 720,
-          rotate: '0deg',
-          stroke: '#fb3e54',
-          opacity: 0,
-        },
-        {
-          strokeDashoffset: 0,
-          rotate: '360deg',
-          duration: 2.45,
-          transformOrigin: '50%',
-          stroke: '#e0fb3e',
-          opacity: 1,
-        }
-      )
-      .fromTo(
-        this.checkMarkCircle2.nativeElement,
-        {
-          strokeDasharray: 360,
-          strokeDashoffset: 360,
-          stroke: '#fb3e54',
-          opacity: 0,
-        },
-        {
-          strokeDashoffset: 0,
-          duration: 2.45,
-          transformOrigin: '50%',
-          stroke: '#e0fb3e',
-          opacity: 1,
-        }
-      )
-      .fromTo(
-        this.checkMark.nativeElement,
-        {
-          strokeDasharray: 110,
-          strokeDashoffset: 110,
-          stroke: '#fb3e54',
-          opacity: 0,
-        },
-        {
-          strokeDashoffset: 0,
-          duration: 2.45,
-          stroke: '#e0fb3e',
-          opacity: 1,
-        },
-        0.75
-      )
-      .from(
-        titles,
-        {
-          y: 24,
-          opacity: 0,
-          stagger: 0.165,
-        },
-        0.75
-      );
+      checkmark
+        .fromTo(
+          this.checkMarkCircle1.nativeElement,
+          {
+            strokeDasharray: 360,
+            strokeDashoffset: 720,
+            rotate: '0deg',
+            stroke: '#fb3e54',
+            opacity: 0,
+          },
+          {
+            strokeDashoffset: 0,
+            rotate: '360deg',
+            duration: 2.45,
+            transformOrigin: '50%',
+            stroke: '#e0fb3e',
+            opacity: 1,
+          }
+        )
+        .fromTo(
+          this.checkMarkCircle2.nativeElement,
+          {
+            strokeDasharray: 360,
+            strokeDashoffset: 360,
+            stroke: '#fb3e54',
+            opacity: 0,
+          },
+          {
+            strokeDashoffset: 0,
+            duration: 2.45,
+            transformOrigin: '50%',
+            stroke: '#e0fb3e',
+            opacity: 1,
+          }
+        )
+        .fromTo(
+          this.checkMark.nativeElement,
+          {
+            strokeDasharray: 110,
+            strokeDashoffset: 110,
+            stroke: '#fb3e54',
+            opacity: 0,
+          },
+          {
+            strokeDashoffset: 0,
+            duration: 2.45,
+            stroke: '#e0fb3e',
+            opacity: 1,
+          },
+          0.75
+        )
+        .from(
+          titles,
+          {
+            y: 24,
+            opacity: 0,
+            stagger: 0.165,
+          },
+          0.75
+        );
+    }
   }
 
   private initFormGsap() {
     const titles = this.formCopy.map((el) => el.nativeElement);
-    const formAnime = gsap.timeline({
-      defaults: {
-        ease: 'power2',
-      },
-      scrollTrigger: {
-        markers: false,
-        trigger: this.element.nativeElement,
-        start: 'top 75%',
-        end: '70% 75%',
-        scrub: 0.45,
-      },
-    });
+    if (titles.length !== 0) {
+      const formAnime = gsap.timeline({
+        defaults: {
+          ease: 'power2',
+        },
+        scrollTrigger: {
+          markers: false,
+          trigger: this.element.nativeElement,
+          start: 'top 75%',
+          end: '70% 75%',
+          scrub: 0.45,
+        },
+      });
 
-    formAnime
-      .from(
-        titles,
-        {
+      formAnime
+        .from(
+          titles,
+          {
+            y: 24,
+            opacity: 0,
+            stagger: 0.165,
+          },
+          0.75
+        )
+        .from(this.theForm.nativeElement, {
           y: 24,
           opacity: 0,
-          stagger: 0.165,
-        },
-        0.75
-      )
-      .from(this.theForm.nativeElement, {
-        y: 24,
-        opacity: 0,
-      });
+        });
+    }
   }
 
   ngAfterViewInit(): void {
-    if (this.signUpSuccess) {
-      this.initSuccessGsap();
-    }
-    if (this.signUpClosed) {
-      this.initBoltGsap();
-    }
-    if (!this.signUpClosed || !this.signUpSuccess) {
-      this.initFormGsap();
-    }
+    this.initFormGsap();
+    this.initBoltGsap();
+    this.initSuccessGsap();
   }
 
   reserveSeat(): void {
