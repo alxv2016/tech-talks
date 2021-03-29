@@ -118,6 +118,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
         {
           strokeDasharray: 80,
           strokeDashoffset: 360,
+          strokeWidth: 0.75,
           stroke: '#fb3e54',
           opacity: 0,
         },
@@ -126,6 +127,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
           strokeDashoffset: 0,
           duration: 0.75,
           stroke: '#e0fb3e',
+          strokeWidth: 6,
           opacity: 1,
         }
       )
@@ -135,11 +137,13 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
           strokeDasharray: 60,
           strokeDashoffset: 360,
           stroke: '#fb3e54',
+          strokeWidth: 0.75,
           opacity: 0,
         },
         {
           strokeDasharray: 120,
           strokeDashoffset: 0,
+          strokeWidth: 8,
           duration: 0.95,
           stroke: '#e0fb3e',
           opacity: 1,
