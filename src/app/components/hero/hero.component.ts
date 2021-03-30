@@ -11,6 +11,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -24,6 +25,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @ViewChildren('heroTitle', {read: ElementRef}) heroTitle!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
+  @Input() contentData: Content;
 
   constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
 

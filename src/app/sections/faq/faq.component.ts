@@ -12,7 +12,11 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {AccordionComponent} from 'src/app/components/accordion/accordion.component';
+import {ContentService} from 'src/app/services/content.service';
+import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -21,38 +25,19 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./faq.component.scss'],
 })
 export class FaqComponent implements OnInit, AfterViewInit {
-  demoData: any = [];
-
+  private unsubscribe$ = new Subject();
+  siteContent: Content;
   @HostBinding('class') class = 'c-faq';
   @ViewChild('bolt') bolt!: ElementRef;
   @ViewChild('boltSpark1') boltSpark1!: ElementRef;
   @ViewChild('boltSpark2') boltSpark2!: ElementRef;
   @ViewChild('faqAccordion') faqAccordion!: ElementRef;
-  constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
+  constructor(private element: ElementRef, private render: Renderer2, private contentService: ContentService) {}
 
   ngOnInit(): void {
-    this.demoData = [
-      {
-        title: 'How long is this Tech Talks session?',
-        descr:
-          "This session will be 1 hour 15 minutes long as we will be collaboratively diving into Figma to design and prototype an app while learning Figma's core features. You will have 15 minutes at the end for a Q and A session.",
-      },
-      {
-        title: 'Do I need to install Figma?',
-        descr:
-          'Figma is cross platform and can also run in the web browser. While you do not need to install Figma, we highly suggest that you do because it will run a lot better than the web app.',
-      },
-      {
-        title: 'What if I already know how to use Figma?',
-        descr:
-          'This session is geared towards designers who are new to Figma, however Tech Talks sessions aim to combine development practices into design so you may still learn something new.',
-      },
-      {
-        title: "What if I can't join this session?",
-        descr:
-          "We know the seats are limited to 10 people, so we will be recording the session. If you can't attend the live event, you can still watch the recording at any time and stay tuned for the next Tech Talks.",
-      },
-    ];
+    this.contentService.siteContent$.pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
+      this.siteContent = data;
+    });
   }
 
   private initBoltGsap() {
@@ -125,5 +110,10 @@ export class FaqComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initBoltGsap();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
