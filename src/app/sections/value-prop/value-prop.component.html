@@ -1,14 +1,7 @@
 <div class="c-value-prop__container">
-  <div #valueProp class="value-prop">
-    <p class="display-2">Get technical with design and think like a developer.</p>
-  </div>
-  <div #valueProp class="value-prop">
-    <p class="display-2">Understand the technologies that power your design.</p>
-  </div>
-  <div #valueProp class="value-prop">
-    <p class="display-2">Tutorials to level up your skills.</p>
-  </div>
-  <div #valueProp class="value-prop">
-    <p class="display-2">Retain dev knowledge to improve your design workflow.</p>
-  </div>
+  <ng-container *ngFor="let content of siteContent.value_props">
+    <div #valueProp class="value-prop">
+      <p class="display-2">{{ content.value_prop }}</p>
+    </div>
+  </ng-container>
 </div>

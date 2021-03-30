@@ -49,12 +49,9 @@
                 </g>
               </svg>
             </div>
-            <div #successCopy class="sub-headline copy--lit">Thanks for signing up!</div>
-            <h2 #successCopy class="display-3">You've reserved your spot.</h2>
-            <p #successCopy class="large-print copy--tint">
-              Hang tight, we'll be sending you an email with all the details regarding this's months Tech Talks session
-              once the we're ready. See you soon!
-            </p>
+            <div #successCopy class="sub-headline copy--lit">{{ siteContent.sign_up_success.overline }}</div>
+            <h2 #successCopy class="display-3">{{ siteContent.sign_up_success.title }}</h2>
+            <p #successCopy class="large-print copy--tint">{{ siteContent.sign_up_success.body }}</p>
           </div>
         </div>
       </div>
@@ -110,13 +107,9 @@
                 />
               </svg>
             </div>
-            <div #successCopy class="sub-headline copy--lit">Sign up is closed.</div>
-            <h2 #successCopy class="display-3">Thanks for your interest!</h2>
-            <p #successCopy class="large-print copy--tint">
-              Tech Talks' A deep dive into Figma is at full capacity and can't wait to start this session soon. If you
-              didn't get a chance to sign up don't worry! We will be recording the session but keep an eye out next
-              month for something new!
-            </p>
+            <div #successCopy class="sub-headline copy--lit">{{ siteContent.sign_up_closed.overline }}</div>
+            <h2 #successCopy class="display-3">{{ siteContent.sign_up_closed.title }}</h2>
+            <p #successCopy class="large-print copy--tint">{{ siteContent.sign_up_closed.body }}</p>
           </div>
         </div>
       </div>
@@ -126,17 +119,14 @@
 <!-- Template -->
 <ng-template #signUpForm>
   <div class="signup-intro title--reveal">
-    <div #formCopy class="sub-headline copy--lit">Reserve your seat</div>
-    <h2 #formCopy class="display-3">Limited seats available, sign up today.</h2>
-    <p #formCopy class="large-print copy--tint">
-      Tech Talks' A deep dive into Figma is coming soon. Sign up today and we’ll keep you posted on the upcoming
-      session.
-    </p>
+    <div #formCopy class="sub-headline copy--lit">{{ siteContent.sign_up.overline }}</div>
+    <h2 #formCopy class="display-3">{{ siteContent.sign_up.title }}</h2>
+    <p #formCopy class="large-print copy--tint">{{ siteContent.sign_up.body }}</p>
   </div>
   <form #theForm [formGroup]="signupForm" class="signup-form" (ngSubmit)="reserveSeat()">
     <div class="signup-form__name-group">
       <div class="form-control">
-        <label class="form-control__label" for="first-name">First name</label>
+        <label class="form-control__label" for="first-name">{{ siteContent.form.first_name }}</label>
         <input
           class="form-control__input"
           id="first-name"
@@ -156,7 +146,7 @@
         >
       </div>
       <div class="form-control">
-        <label class="form-control__label" for="username">Last name</label>
+        <label class="form-control__label" for="username">{{ siteContent.form.last_name }}</label>
         <input
           class="form-control__input"
           id="username"
@@ -177,48 +167,28 @@
       </div>
     </div>
     <fieldset class="form-group">
-      <legend class="form-group__label">How would you rate your knowlege in Figma?</legend>
+      <legend class="form-group__label">{{ siteContent.form.skill_level }}</legend>
       <div class="radio-group">
-        <div class="radio-control">
-          <input
-            class="radio-control__input"
-            type="radio"
-            name="skill_level"
-            id="beginner"
-            value="beginner"
-            formControlName="skill_level"
-          />
-          <label class="radio-control__label" for="beginner">beginner</label>
-        </div>
-        <div class="radio-control">
-          <input
-            class="radio-control__input"
-            type="radio"
-            name="skill_level"
-            id="intermediate"
-            value="intermediate"
-            formControlName="skill_level"
-          />
-          <label class="radio-control__label" for="intermediate">Intermediate</label>
-        </div>
-        <div class="radio-control">
-          <input
-            class="radio-control__input"
-            type="radio"
-            name="skill_level"
-            id="advance"
-            value="advance"
-            formControlName="skill_level"
-          />
-          <label class="radio-control__label" for="advance">Advance</label>
-        </div>
+        <ng-container *ngFor="let skill of siteContent.form_skill">
+          <div class="radio-control">
+            <input
+              class="radio-control__input"
+              type="radio"
+              name="skill_level"
+              [id]="skill.value"
+              [value]="skill.value"
+              formControlName="skill_level"
+            />
+            <label class="radio-control__label" [for]="skill.value">{{ skill.label }}</label>
+          </div>
+        </ng-container>
       </div>
       <span class="form-control__helper form-control__helper--error" @enterAnimation *ngIf="errors.skill_level.error">{{
         errors.skill_level.errorMsg
       }}</span>
     </fieldset>
     <div class="form-control">
-      <label class="form-control__label" for="comments">What do you want to learn about Figma?</label>
+      <label class="form-control__label" for="comments">{{ siteContent.form.comments }}</label>
       <textarea
         class="form-control__textarea"
         id="comments"
@@ -227,13 +197,11 @@
         aria-describedby="comments-help-text"
         formControlName="comments"
       ></textarea>
-      <span class="form-control__helper" id="comments-help-text"
-        >This is optional but it will help us provide content tailored to you.</span
-      >
+      <span class="form-control__helper" id="comments-help-text">{{ siteContent.form.helper }}</span>
     </div>
     <!-- Errors -->
     <c-warning *ngIf="alerts.guestList.error" @enterAnimation [warningMsg]="alerts.guestList.errorMsg"></c-warning>
     <c-warning *ngIf="alerts.signedUp.error" @enterAnimation [warningMsg]="alerts.signedUp.errorMsg"></c-warning>
-    <input class="btn" type="submit" value="Submit" [disabled]="reserved" />
+    <input class="btn" type="submit" [value]="siteContent.form.action" />
   </form>
 </ng-template>

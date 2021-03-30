@@ -11,6 +11,8 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {Observable} from 'rxjs';
+import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
 
@@ -20,16 +22,25 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent implements OnInit, AfterViewInit {
+  siteContent: Content;
   @HostBinding('class') class = 'c-hero l-content--hide';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @ViewChildren('heroTitle', {read: ElementRef}) heroTitle!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
-  @Input() contentData: Content;
 
-  constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
+  constructor(
+    private element: ElementRef,
+    private render: Renderer2,
+    private util: UtilityService,
+    private contentService: ContentService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contentService.siteContent$.subscribe((data) => {
+      this.siteContent = data;
+    });
+  }
 
   private initGsap() {
     const heroTitles = this.heroTitle.map((title) => title.nativeElement);

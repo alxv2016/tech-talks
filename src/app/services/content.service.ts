@@ -42,6 +42,8 @@ const initialState: Content = {
     last_name: null,
     skill_level: null,
     comments: null,
+    helper: null,
+    action: null,
   },
   form_skill: [],
   hosts: {

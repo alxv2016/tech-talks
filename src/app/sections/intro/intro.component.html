@@ -27,46 +27,23 @@
     </svg>
   </div>
   <div #introContent class="intro-slogan l-margin--top-lg">
-    <div #introTitle class="sub-headline copy--lit">Get technical with design</div>
-    <h2 #introTitle class="display-3">A new perspective.</h2>
-    <p #introTitle class="large-print copy--tint">
-      Whether you’re a beginner or an advanced designer. We want you to get hands on experience through these Tech Talks
-      and give you a new perspective on how you can expand your skills by understanding the techical aspect to work with
-      software engineers.
-    </p>
+    <div #introTitle class="sub-headline copy--lit">{{ siteContent.intro.overline }}</div>
+    <h2 #introTitle class="display-3">{{ siteContent.intro.title }}</h2>
+    <p #introTitle class="large-print copy--tint">{{ siteContent.intro.body }}</p>
   </div>
 </div>
 <!-- Intro cards -->
 <div #cardTrigger class="intro-cards">
   <div class="card-grid">
-    <div #introCard class="intro-card design-card">
-      <div class="intro-card__content">
-        <h3 class="intro-card__title copy--accent-1">Design in the browser</h3>
-        <p class="intro-card__descr">Learn to use the browser's dev tools to your advantage.</p>
+    <ng-container *ngFor="let feat of siteContent.features">
+      <div #introCard class="intro-card design-card">
+        <div class="intro-card__content">
+          <h3 class="intro-card__title copy--accent-1">{{ feat.title }}</h3>
+          <p class="intro-card__descr">{{ feat.descr }}</p>
+        </div>
+        <div #cardReveal class="card-reveal"></div>
       </div>
-      <div #cardReveal class="card-reveal"></div>
-    </div>
-    <div #introCard class="intro-card think-card">
-      <div class="intro-card__content">
-        <h3 class="intro-card__title copy--accent-1">Think like a front end dev</h3>
-        <p class="intro-card__descr">Learn to design for a better dev handoff experience.</p>
-      </div>
-      <div #cardReveal class="card-reveal"></div>
-    </div>
-    <div #introCard class="intro-card constraints-card">
-      <div class="intro-card__content">
-        <h3 class="intro-card__title copy--accent-1">Work with constraints</h3>
-        <p class="intro-card__descr">Learn to optimize your designs for development.</p>
-      </div>
-      <div #cardReveal class="card-reveal"></div>
-    </div>
-    <div #introCard class="intro-card break-card">
-      <div class="intro-card__content">
-        <h3 class="intro-card__title copy--accent-1">Motion on the web</h3>
-        <p class="intro-card__descr">Explore the capabilities of modern web technology and motion techniques.</p>
-      </div>
-      <div #cardReveal class="card-reveal"></div>
-    </div>
+    </ng-container>
   </div>
   <div #glitch class="grads">
     <div #grad class="grads__row"></div>

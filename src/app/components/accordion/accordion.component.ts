@@ -10,6 +10,7 @@ import {
   Renderer2,
   ViewChildren,
 } from '@angular/core';
+import {forkJoin} from 'rxjs';
 import {Content} from 'src/app/services/models/content.interface';
 
 @Component({
@@ -25,37 +26,25 @@ export class AccordionComponent implements OnInit, AfterViewInit {
   @ViewChildren('accordionPanel', {read: ElementRef}) accordionPanel!: QueryList<ElementRef>;
   constructor(private element: ElementRef, private render: Renderer2) {}
 
-  ngOnInit(): void {
-    console.log(this.siteContent);
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.initAccordion();
-    // const headers = this.accordionHeader.map((header) => header.nativeElement);
-    // const panels = this.accordionPanel.map((panel) => panel.nativeElement);
-    // if (panels.length !== 0) {
-    //   console.log(panels);
-    //   panels.forEach((panel) => {
-    //     this.render.setAttribute(panel, 'style', 'height: 0; visibility: hidden;');
-    //   });
-    // }
-    // headers.forEach((header) => {
-    //   this.render.setAttribute(header, 'aria-expanded', `${this.expanded}`);
-    // });
   }
 
-  async initAccordion() {
-    if (this.siteContent.faq_panels.length !== 0) {
+  private initAccordion() {
+    this.accordionHeader.changes.subscribe((_) => {
       const headers = this.accordionHeader.map((header) => header.nativeElement);
-      const panels = this.accordionPanel.map((panel) => panel.nativeElement);
       headers.forEach((header) => {
         this.render.setAttribute(header, 'aria-expanded', `${this.expanded}`);
       });
+    });
+    this.accordionPanel.changes.subscribe((_) => {
+      const panels = this.accordionPanel.map((panel) => panel.nativeElement);
       panels.forEach((panel) => {
         this.render.setAttribute(panel, 'style', 'height: 0; visibility: hidden;');
       });
-      console.log(headers);
-    }
+    });
   }
 
   togglePanel(ev: any, i: number): void {

@@ -19,6 +19,8 @@ import {Subject} from 'rxjs';
 import {map, switchMap, take, takeUntil, tap} from 'rxjs/operators';
 import {UtilityService} from 'src/app/services/utility.service';
 import {SignUpService} from 'src/app/services/sign-up.service';
+import {Content} from 'src/app/services/models/content.interface';
+import {ContentService} from 'src/app/services/content.service';
 
 @Component({
   selector: 'c-sign-up',
@@ -33,6 +35,7 @@ import {SignUpService} from 'src/app/services/sign-up.service';
 })
 export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   private unsubscribe$ = new Subject();
+  siteContent: Content;
   signupForm: FormGroup;
   signUpSuccess = false;
   signUpClosed = false;
@@ -78,7 +81,8 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     private render: Renderer2,
     private util: UtilityService,
     private fb: FormBuilder,
-    private signUpService: SignUpService
+    private signUpService: SignUpService,
+    private contentService: ContentService
   ) {}
 
   private validateSpaces(control: FormControl) {
@@ -93,6 +97,10 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
       skill_level: ['', [Validators.required]],
       comments: '',
       reserved: 1,
+    });
+
+    this.contentService.siteContent$.subscribe((data) => {
+      this.siteContent = data;
     });
 
     this.signUpService.signUpState$.subscribe((s) => {
@@ -290,9 +298,13 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.initFormGsap();
+    this.formCopy.changes.subscribe((_) => {
+      this.initFormGsap();
+    });
+    this.successCopy.changes.subscribe((_) => {
+      this.initSuccessGsap();
+    });
     this.initBoltGsap();
-    this.initSuccessGsap();
   }
 
   reserveSeat(): void {

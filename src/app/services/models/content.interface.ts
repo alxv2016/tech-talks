@@ -42,6 +42,7 @@ interface Hosts {
 interface Formskill {
   newItem?: boolean;
   label: string;
+  value: string;
 }
 
 interface Form {
@@ -49,6 +50,8 @@ interface Form {
   last_name: string;
   skill_level: string;
   comments: string;
+  helper: string;
+  action: string;
 }
 
 interface Feature {
@@ -61,6 +64,7 @@ interface Intro {
   overline: string;
   title: string;
   body: string;
+  video?: string;
 }
 
 interface Valueprop {

@@ -12,6 +12,8 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {ContentService} from 'src/app/services/content.service';
+import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -20,6 +22,8 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./intro.component.scss'],
 })
 export class IntroComponent implements OnInit, AfterViewInit {
+  siteContent: Content;
+
   @HostBinding('class') class = 'c-intro';
   @ViewChild('brandTrigger') brandTrigger!: ElementRef;
   @ViewChild('cardTrigger') cardTrigger!: ElementRef;
@@ -27,13 +31,21 @@ export class IntroComponent implements OnInit, AfterViewInit {
   @ViewChild('brandLogo') brandLogo!: ElementRef;
   @ViewChild('bolt') bolt!: ElementRef;
   @ViewChild('introContent') introContent!: ElementRef;
-  @ViewChildren('introCard', {read: ElementRef}) introCard!: QueryList<ElementRef>;
   @ViewChildren('cardReveal', {read: ElementRef}) cardReveal!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
   @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
+  constructor(
+    private element: ElementRef,
+    private render: Renderer2,
+    private util: UtilityService,
+    private contentService: ContentService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contentService.siteContent$.subscribe((data) => {
+      this.siteContent = data;
+    });
+  }
   //
 
   initGsap() {
@@ -119,6 +131,8 @@ export class IntroComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initGsap();
+    this.cardReveal.changes.subscribe((_) => {
+      this.initGsap();
+    });
   }
 }

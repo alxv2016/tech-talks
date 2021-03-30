@@ -12,6 +12,9 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {Observable} from 'rxjs';
+import {ContentService} from 'src/app/services/content.service';
+import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -20,13 +23,24 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./value-prop.component.scss'],
 })
 export class ValuePropComponent implements OnInit, AfterViewInit {
+  siteContent: Content;
+
   @HostBinding('class') class = 'c-value-prop';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
   @ViewChildren('valueProp', {read: ElementRef}) valueProp!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
+  constructor(
+    private element: ElementRef,
+    private render: Renderer2,
+    private util: UtilityService,
+    private contentService: ContentService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contentService.siteContent$.subscribe((data) => {
+      this.siteContent = data;
+    });
+  }
 
   initGsap(): void {
     const valueProps = this.valueProp.map((value) => value.nativeElement);
@@ -81,6 +95,8 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initGsap();
+    this.valueProp.changes.subscribe((_) => {
+      this.initGsap();
+    });
   }
 }

@@ -12,6 +12,8 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {ContentService} from 'src/app/services/content.service';
+import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -20,24 +22,30 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./figma.component.scss'],
 })
 export class FigmaComponent implements OnInit, AfterViewInit {
+  siteContent: Content;
   @HostBinding('class') class = 'c-figma';
-  @ViewChild('sessionIntroTrigger') sessionIntroTrigger!: ElementRef;
   @ViewChild('figmaDemoTrigger') figmaDemoTrigger!: ElementRef;
   @ViewChild('figmaApp') figmaApp!: ElementRef;
   @ViewChild('figmaVideo') figmaVideo!: ElementRef;
   @ViewChild('introCopy') introCopy!: ElementRef;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
+  constructor(private element: ElementRef, private render: Renderer2, private contentService: ContentService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contentService.siteContent$.subscribe((data) => {
+      const preloadVideo = data.session.video;
+      this.siteContent = data;
+      preloadVideo;
+    });
+  }
 
   initGsap(): void {
     const titles = this.title.map((el) => el.nativeElement);
 
     const sessionReveal = gsap.timeline({
       scrollTrigger: {
-        markers: false,
-        trigger: this.sessionIntroTrigger.nativeElement,
+        markers: true,
+        trigger: this.element.nativeElement,
         start: 'top 60%',
         end: '70% 60%',
         scrub: 0.45,

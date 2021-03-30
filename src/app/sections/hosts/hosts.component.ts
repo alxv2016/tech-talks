@@ -12,6 +12,8 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {ContentService} from 'src/app/services/content.service';
+import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -20,11 +22,16 @@ import {UtilityService} from 'src/app/services/utility.service';
   styleUrls: ['./hosts.component.scss'],
 })
 export class HostsComponent implements OnInit, AfterViewInit {
+  siteContent: Content;
   @HostBinding('class') class = 'c-hosts';
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private util: UtilityService) {}
+  constructor(private element: ElementRef, private render: Renderer2, private contentService: ContentService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.contentService.siteContent$.subscribe((data) => {
+      this.siteContent = data;
+    });
+  }
 
   initGsap(): void {
     const grads = this.grad.map((grad) => grad.nativeElement);
