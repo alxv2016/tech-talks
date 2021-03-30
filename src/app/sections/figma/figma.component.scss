@@ -6,6 +6,11 @@
   background-color: color('darker');
 }
 
+.trigger {
+  position: relative;
+  width: 100%;
+}
+
 .c-figma {
   &__container {
     position: relative;

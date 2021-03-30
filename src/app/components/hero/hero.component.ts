@@ -11,7 +11,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
-import {Observable} from 'rxjs';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
@@ -34,7 +34,9 @@ export class HeroComponent implements OnInit, AfterViewInit {
     private render: Renderer2,
     private util: UtilityService,
     private contentService: ContentService
-  ) {}
+  ) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
@@ -58,6 +60,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
         duration: 4.75,
         stagger: 0.175,
         scrollTrigger: {
+          id: 'hero',
           markers: false,
           trigger: this.element.nativeElement,
           start: 'top top',
@@ -98,5 +101,6 @@ export class HeroComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initGsap();
+    ScrollTrigger.refresh();
   }
 }

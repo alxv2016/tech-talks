@@ -5,51 +5,54 @@
   <div #faqAccordion>
     <c-accordion [siteContent]="siteContent"></c-accordion>
   </div>
-  <div class="bolt">
-    <svg
-      width="225"
-      height="225"
-      x="0px"
-      y="0px"
-      viewBox="0, 0, 225, 225"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        class="tt-bolt"
-        d="M121.875 18.75l-93.75 112.5H112.5l-9.375 75 93.75-112.5H112.5l9.375-75z"
-        stroke="currentColor"
-        stroke-width="14"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        class="tt-bolt-light"
-        #bolt
-        d="M121.875 18.75l-93.75 112.5H112.5l-9.375 75 93.75-112.5H112.5l9.375-75z"
-        stroke="currentColor"
-        stroke-width="6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        class="tt-bolt-spark"
-        #boltSpark1
-        d="M50.92 153.85c-14.5 19.5-10.019 27.758 11.5 22 35.5-9.5 72.501-36 101.001-90 18.257-34.593 13.5-61.5-28.5-33"
-        stroke="currentColor"
-        stroke-width="6"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        class="tt-bolt-spark"
-        #boltSpark2
-        d="M61 58c-31-9.5-56.273-5.312-38.198 20.64 19.5 28.001 55 51.001 107.5 66.501C177.5 159.076 213.5 151.5 191.5 131"
-        stroke="currentColor"
-        stroke-width="8"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
+  <div class="inspire-bolt">
+    <div class="bolt">
+      <svg
+        width="225"
+        height="225"
+        x="0px"
+        y="0px"
+        viewBox="0, 0, 225, 225"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          class="tt-bolt"
+          d="M121.875 18.75l-93.75 112.5H112.5l-9.375 75 93.75-112.5H112.5l9.375-75z"
+          stroke="currentColor"
+          stroke-width="14"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          class="tt-bolt-light"
+          #bolt
+          d="M121.875 18.75l-93.75 112.5H112.5l-9.375 75 93.75-112.5H112.5l9.375-75z"
+          stroke="currentColor"
+          stroke-width="6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          class="tt-bolt-spark"
+          #boltSpark1
+          d="M50.92 153.85c-14.5 19.5-10.019 27.758 11.5 22 35.5-9.5 72.501-36 101.001-90 18.257-34.593 13.5-61.5-28.5-33"
+          stroke="currentColor"
+          stroke-width="6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          class="tt-bolt-spark"
+          #boltSpark2
+          d="M61 58c-31-9.5-56.273-5.312-38.198 20.64 19.5 28.001 55 51.001 107.5 66.501C177.5 159.076 213.5 151.5 191.5 131"
+          stroke="currentColor"
+          stroke-width="8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+    <p class="inspire-bolt__tagline">{{ siteContent.faqs.tagline }}</p>
   </div>
 </div>

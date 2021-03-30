@@ -1,23 +1,25 @@
-<div class="c-figma__container">
-  <div class="session-intro">
-    <div #title class="sub-headline copy--lit">{{ siteContent.session.overline }}</div>
-    <h2 #title class="display-3">{{ siteContent.session.title }}</h2>
+<div #sessionTrigger class="trigger">
+  <div class="c-figma__container">
+    <div class="session-intro">
+      <div #title class="sub-headline copy--lit">{{ siteContent.session.overline }}</div>
+      <h2 #title class="display-3">{{ siteContent.session.title }}</h2>
+    </div>
   </div>
-</div>
-<div #figmaDemoTrigger class="figma-app-demo">
-  <div #figmaApp class="figma-app">
-    <figure class="figma-app__static"></figure>
-    <video
-      #figmaVideo
-      class="figma-app__video"
-      playsinline="true"
-      aria-hidden="true"
-      src="assets/figma-team.mp4"
-    ></video>
+  <div #figmaDemoTrigger class="figma-app-demo">
+    <div #figmaApp class="figma-app">
+      <figure class="figma-app__static"></figure>
+      <video
+        #figmaVideo
+        class="figma-app__video"
+        playsinline="true"
+        aria-hidden="true"
+        src="assets/figma-team.mp4"
+      ></video>
+    </div>
   </div>
-</div>
-<div class="c-figma__container">
-  <div class="session-outro">
-    <p #introCopy class="large-print copy--tint">{{ siteContent.session.body }}</p>
+  <div class="c-figma__container">
+    <div class="session-outro">
+      <p #introCopy class="large-print copy--tint">{{ siteContent.session.body }}</p>
+    </div>
   </div>
 </div>

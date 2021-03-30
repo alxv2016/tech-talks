@@ -12,6 +12,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
@@ -39,7 +40,9 @@ export class IntroComponent implements OnInit, AfterViewInit {
     private render: Renderer2,
     private util: UtilityService,
     private contentService: ContentService
-  ) {}
+  ) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
@@ -133,6 +136,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.cardReveal.changes.subscribe((_) => {
       this.initGsap();
+      ScrollTrigger.refresh();
     });
   }
 }

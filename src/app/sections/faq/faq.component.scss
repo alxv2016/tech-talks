@@ -4,6 +4,7 @@
   position: relative;
   display: block;
   background-color: color('darker');
+  margin-top: $layout--lg;
 }
 
 .c-faq {
@@ -26,21 +27,43 @@
   }
 }
 
+.inspire-bolt {
+  position: relative;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: $layout--xl;
+  @include breakpoint(md) {
+    margin-top: $layout--2xl;
+  }
+
+  &__tagline {
+    margin: 0;
+    font-size: $overline;
+    font-weight: font-weight('bold');
+    color: color('carbon');
+    text-transform: uppercase;
+  }
+}
+
 .bolt {
   position: relative;
   height: 48px;
   width: 48px;
-  margin: auto;
-  margin-top: $layout--lg;
   @include breakpoint(md) {
     height: 64px;
     width: 64px;
-    margin-top: $layout--xl;
   }
   svg {
     height: 100%;
     width: 100%;
   }
+}
+
+.bolt ~ .inspire-bolt__tagline {
+  margin-top: $spacing--lg;
 }
 
 .tt-bolt {

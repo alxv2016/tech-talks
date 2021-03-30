@@ -12,6 +12,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {Observable} from 'rxjs';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
@@ -34,7 +35,9 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
     private render: Renderer2,
     private util: UtilityService,
     private contentService: ContentService
-  ) {}
+  ) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
@@ -97,6 +100,7 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.valueProp.changes.subscribe((_) => {
       this.initGsap();
+      ScrollTrigger.refresh();
     });
   }
 }

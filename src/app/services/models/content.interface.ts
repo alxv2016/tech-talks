@@ -37,6 +37,7 @@ interface Faqpanel {
 
 interface Hosts {
   title: string;
+  tagline?: string;
 }
 
 interface Formskill {

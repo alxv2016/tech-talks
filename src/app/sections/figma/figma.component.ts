@@ -12,9 +12,9 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
-import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
   selector: 'c-figma',
@@ -28,8 +28,11 @@ export class FigmaComponent implements OnInit, AfterViewInit {
   @ViewChild('figmaApp') figmaApp!: ElementRef;
   @ViewChild('figmaVideo') figmaVideo!: ElementRef;
   @ViewChild('introCopy') introCopy!: ElementRef;
+  @ViewChild('sessionTrigger') sessionTrigger!: ElementRef;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private contentService: ContentService) {}
+  constructor(private element: ElementRef, private render: Renderer2, private contentService: ContentService) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
@@ -41,11 +44,10 @@ export class FigmaComponent implements OnInit, AfterViewInit {
 
   initGsap(): void {
     const titles = this.title.map((el) => el.nativeElement);
-
     const sessionReveal = gsap.timeline({
       scrollTrigger: {
-        markers: true,
-        trigger: this.element.nativeElement,
+        markers: false,
+        trigger: this.sessionTrigger.nativeElement,
         start: 'top 60%',
         end: '70% 60%',
         scrub: 0.45,
@@ -85,6 +87,7 @@ export class FigmaComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initGsap();
+    ScrollTrigger.refresh();
   }
 
   hideVideo(ev: any) {

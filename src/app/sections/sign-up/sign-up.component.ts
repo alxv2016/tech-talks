@@ -15,6 +15,7 @@ import {trigger, style, animate, transition} from '@angular/animations';
 
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {Subject} from 'rxjs';
 import {map, switchMap, take, takeUntil, tap} from 'rxjs/operators';
 import {UtilityService} from 'src/app/services/utility.service';
@@ -83,7 +84,9 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     private fb: FormBuilder,
     private signUpService: SignUpService,
     private contentService: ContentService
-  ) {}
+  ) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   private validateSpaces(control: FormControl) {
     const valid = (control.value || '').trim().length !== 0;
@@ -266,45 +269,36 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private initFormGsap() {
     const titles = this.formCopy.map((el) => el.nativeElement);
-    if (titles.length !== 0) {
-      const formAnime = gsap.timeline({
-        defaults: {
-          ease: 'power2',
-        },
-        scrollTrigger: {
-          markers: false,
-          trigger: this.element.nativeElement,
-          start: 'top 75%',
-          end: '58% 75%',
-          scrub: 0.45,
-        },
-      });
-
-      formAnime
-        .from(
-          titles,
-          {
-            y: 24,
-            opacity: 0,
-            stagger: 0.175,
-          },
-          0.75
-        )
-        .from(this.theForm.nativeElement, {
+    const formAnime = gsap.timeline({
+      scrollTrigger: {
+        markers: false,
+        trigger: this.element.nativeElement,
+        start: 'top 75%',
+        end: '58% 75%',
+        scrub: 0.45,
+      },
+    });
+    formAnime
+      .from(
+        titles,
+        {
           y: 24,
           opacity: 0,
-        });
-    }
+          stagger: 0.175,
+        },
+        0.75
+      )
+      .from(this.theForm.nativeElement, {
+        y: 24,
+        opacity: 0,
+      });
   }
 
   ngAfterViewInit(): void {
-    this.formCopy.changes.subscribe((_) => {
-      this.initFormGsap();
-    });
-    this.successCopy.changes.subscribe((_) => {
-      this.initSuccessGsap();
-    });
+    this.initFormGsap();
+    this.initSuccessGsap();
     this.initBoltGsap();
+    ScrollTrigger.refresh();
   }
 
   reserveSeat(): void {
