@@ -7,6 +7,7 @@ import {
   OnInit,
   QueryList,
   Renderer2,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
@@ -26,6 +27,7 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
   @HostBinding('class') class = 'c-value-prop';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
+  @ViewChild('valueProps') valueProps!: ElementRef;
   @ViewChildren('valueProp', {read: ElementRef}) valueProp!: QueryList<ElementRef>;
   constructor(
     private element: ElementRef,
@@ -45,6 +47,12 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
   initGsap(): void {
     const valueProps = this.valueProp.map((value) => value.nativeElement);
     this.render.addClass(this.element.nativeElement, 'l-content--reveal');
+
+    const jet = gsap.timeline({
+      defaults: {
+        ease: 'power2',
+      },
+    });
 
     gsap.fromTo(
       valueProps,
@@ -73,18 +81,30 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
       }
     );
 
-    gsap.to(valueProps, {
-      opacity: 0,
-      textShadow: '4px 0px 0px rgba(251,62,84,0.75), -4px 0px 0px rgba(62,228,251,0.75)',
-      stagger: 0.145,
+    const hideContents = gsap.timeline({
       scrollTrigger: {
         markers: false,
         trigger: this.element.nativeElement,
-        start: 'bottom center',
-        end: '160% center',
+        start: '122% center',
+        end: '180% center',
         scrub: 0.45,
       },
     });
+
+    hideContents
+      .to(valueProps, {
+        textShadow: '4px 0px 0px rgba(251,62,84,0.75), -4px 0px 0px rgba(62,228,251,0.75)',
+        stagger: 0.175,
+      })
+      .to(
+        this.valueProps.nativeElement,
+        {
+          opacity: 0,
+          y: -40,
+          duration: 3,
+        },
+        0
+      );
   }
 
   ngAfterViewInit(): void {
