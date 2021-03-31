@@ -27,6 +27,8 @@ export class IntroComponent implements OnInit, AfterViewInit {
   @ViewChild('cardTrigger') cardTrigger!: ElementRef;
   @ViewChild('brandLogo') brandLogo!: ElementRef;
   @ViewChild('bolt') bolt!: ElementRef;
+  @ViewChild('tech') tech!: ElementRef;
+  @ViewChild('talks') talks!: ElementRef;
   @ViewChild('introContent') introContent!: ElementRef;
   @ViewChildren('cardReveal', {read: ElementRef}) cardReveal!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
@@ -86,6 +88,20 @@ export class IntroComponent implements OnInit, AfterViewInit {
         scale: 0.95,
         opacity: 0,
       })
+      .from(
+        this.tech.nativeElement,
+        {
+          opacity: 0,
+        },
+        0.125
+      )
+      .from(
+        this.talks.nativeElement,
+        {
+          opacity: 0,
+        },
+        0.4
+      )
       .from(
         titles,
         {
