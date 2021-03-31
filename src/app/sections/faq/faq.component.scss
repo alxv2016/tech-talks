@@ -50,11 +50,11 @@
 
 .bolt {
   position: relative;
-  height: 48px;
-  width: 48px;
+  height: icon-size('lg');
+  width: icon-size('lg');
   @include breakpoint(md) {
-    height: 64px;
-    width: 64px;
+    height: icon-size('xl');
+    width: icon-size('xl');
   }
   svg {
     height: 100%;

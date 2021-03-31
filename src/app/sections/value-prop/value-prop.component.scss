@@ -24,9 +24,9 @@
   --progress-end: 80%;
   color: color('tint');
   width: 100%;
-  max-width: 568px;
+  max-width: max-width('xs');
   @include breakpoint(lg) {
-    max-width: 698px;
+    max-width: max-width('sm');
   }
   p {
     margin: 0;

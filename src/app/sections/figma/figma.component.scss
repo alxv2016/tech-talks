@@ -22,14 +22,14 @@
 .session-intro {
   position: relative;
   width: 100%;
-  max-width: 720px;
+  max-width: max-width('md');
   margin: auto;
   margin-bottom: $layout--md;
 }
 .session-outro {
   position: relative;
   width: 100%;
-  max-width: 720px;
+  max-width: max-width('md');
   margin: auto;
   margin-top: $layout--lg;
 }
@@ -74,50 +74,3 @@
     height: inherit;
   }
 }
-
-.feat-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-
-  &__title {
-    font-weight: font-weight('bold');
-    font-size: $subtitle--2;
-    color: color('accent2');
-    margin-top: 0;
-    @include breakpoint(md) {
-      font-size: $title--3;
-    }
-  }
-  &__descr {
-    font-size: $body--2;
-    width: 100%;
-    max-width: 375px;
-    @include breakpoint(md) {
-      font-size: $body--1;
-    }
-    margin: 0;
-    color: color('tint');
-  }
-  &__title ~ &__descr {
-    margin-top: $spacing--xs;
-  }
-}
-
-// .demo--reveal {
-//   &::before {
-//     position: absolute;
-//     content: '';
-//     top: 0;
-//     left: 0;
-//     z-index: 3;
-//     height: 100%;
-//     width: 100%;
-//     border-radius: inherit;
-//     background: linear-gradient(175deg, rgba(color('darker'), 0) var(--a-start), rgba(color('darker'), 1) var(--a-end));
-//     transform-origin: bottom center;
-//     will-change: transform;
-//   }
-// }

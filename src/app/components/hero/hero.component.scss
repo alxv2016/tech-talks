@@ -47,7 +47,7 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 768px;
+    max-width: max-width('md');
     color: color('light');
     margin-bottom: $layout--sm;
     @include breakpoint(lg) {

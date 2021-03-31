@@ -25,7 +25,7 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: $max-width;
+    max-width: max-width('lg');
     @include container-padding;
     padding-top: $spacing--3xl !important;
     padding-bottom: $spacing--3xl !important;

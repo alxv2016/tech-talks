@@ -18,7 +18,7 @@
 .signup-intro {
   position: relative;
   width: 100%;
-  max-width: 720px;
+  max-width: max-width('md');
   margin: auto;
   overflow: hidden;
 }
@@ -28,7 +28,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 720px;
+  max-width: max-width('md');
   margin: auto;
   margin-top: $layout--md;
   padding: $spacing--lg;
@@ -308,9 +308,9 @@
     position: relative;
     padding: $spacing--2xl 0;
     width: 100%;
-    max-width: 568px;
+    max-width: max-width('xs');
     @include breakpoint(lg) {
-      max-width: 720px;
+      max-width: max-width('md');
     }
   }
 }

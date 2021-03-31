@@ -154,11 +154,11 @@
   margin: auto;
   @include breakpoint(md) {
     padding: 0 $spacing--3xl;
-    max-width: 768px;
+    max-width: max-width('md');
   }
   @include breakpoint(lg) {
     padding: 0 $spacing--3xl;
-    max-width: $max-width;
+    max-width: max-width('lg');
   }
 }
 
