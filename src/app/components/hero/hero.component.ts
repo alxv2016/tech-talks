@@ -1,4 +1,6 @@
 import {
+  AfterContentInit,
+  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -7,7 +9,6 @@ import {
   OnInit,
   QueryList,
   Renderer2,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
@@ -23,10 +24,10 @@ import {UtilityService} from 'src/app/services/utility.service';
 })
 export class HeroComponent implements OnInit, AfterViewInit {
   siteContent: Content;
-  @HostBinding('class') class = 'c-hero l-content--hide';
+  @HostBinding('class') class = 'c-hero';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
-  @ViewChildren('heroTitle', {read: ElementRef}) heroTitle!: QueryList<ElementRef>;
+  @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
 
   constructor(
@@ -39,17 +40,18 @@ export class HeroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.render.addClass(this.element.nativeElement, 'l-content--hide');
     this.contentService.siteContent$.subscribe((data) => {
       this.siteContent = data;
     });
   }
 
   private initGsap() {
-    const heroTitles = this.heroTitle.map((title) => title.nativeElement);
+    const titles = this.title.map((title) => title.nativeElement);
     const grads = this.grad.map((grad) => grad.nativeElement);
 
     gsap.fromTo(
-      heroTitles,
+      titles,
       {
         yPercent: 0,
         textShadow: '0px 0px 0px rgba(251,62,84,0.75), 0px 0px 0px rgba(62,228,251,1)',
@@ -60,7 +62,6 @@ export class HeroComponent implements OnInit, AfterViewInit {
         duration: 4.75,
         stagger: 0.175,
         scrollTrigger: {
-          id: 'hero',
           markers: false,
           trigger: this.element.nativeElement,
           start: 'top top',
@@ -101,6 +102,8 @@ export class HeroComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initGsap();
-    ScrollTrigger.refresh();
+    gsap.delayedCall(1, () => {
+      ScrollTrigger.refresh();
+    });
   }
 }

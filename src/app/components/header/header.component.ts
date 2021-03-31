@@ -7,14 +7,12 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit, AfterViewInit {
+export class HeaderComponent implements AfterViewInit {
   @HostBinding('class') class = 'header';
   @ViewChild('header') header!: ElementRef;
   constructor(private element: ElementRef, private render: Renderer2) {
     gsap.registerPlugin(ScrollTrigger);
   }
-
-  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     const headerNav = this.element.nativeElement;

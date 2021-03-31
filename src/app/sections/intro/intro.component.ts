@@ -1,10 +1,8 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostBinding,
-  Input,
   OnInit,
   QueryList,
   Renderer2,
@@ -15,7 +13,6 @@ import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
-import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
   selector: 'c-intro',
@@ -28,19 +25,13 @@ export class IntroComponent implements OnInit, AfterViewInit {
   @HostBinding('class') class = 'c-intro';
   @ViewChild('brandTrigger') brandTrigger!: ElementRef;
   @ViewChild('cardTrigger') cardTrigger!: ElementRef;
-  @ViewChild('glitch') glitch!: ElementRef;
   @ViewChild('brandLogo') brandLogo!: ElementRef;
   @ViewChild('bolt') bolt!: ElementRef;
   @ViewChild('introContent') introContent!: ElementRef;
   @ViewChildren('cardReveal', {read: ElementRef}) cardReveal!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
-  @ViewChildren('introTitle', {read: ElementRef}) introTitle!: QueryList<ElementRef>;
-  constructor(
-    private element: ElementRef,
-    private render: Renderer2,
-    private util: UtilityService,
-    private contentService: ContentService
-  ) {
+  @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
+  constructor(private contentService: ContentService) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
@@ -49,11 +40,10 @@ export class IntroComponent implements OnInit, AfterViewInit {
       this.siteContent = data;
     });
   }
-  //
 
   initGsap() {
     const grads = this.grad.map((grad) => grad.nativeElement);
-    const titles = this.introTitle.map((title) => title.nativeElement);
+    const titles = this.title.map((title) => title.nativeElement);
     const cardReveals = this.cardReveal.map((rev) => rev.nativeElement);
 
     gsap.fromTo(
@@ -99,9 +89,9 @@ export class IntroComponent implements OnInit, AfterViewInit {
       .from(
         titles,
         {
-          y: 20,
+          y: 40,
           opacity: 0,
-          stagger: 0.125,
+          stagger: 0.145,
         },
         0.125
       );
@@ -136,7 +126,6 @@ export class IntroComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.cardReveal.changes.subscribe((_) => {
       this.initGsap();
-      ScrollTrigger.refresh();
     });
   }
 }

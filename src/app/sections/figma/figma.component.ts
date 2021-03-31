@@ -1,10 +1,8 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostBinding,
-  Input,
   OnInit,
   QueryList,
   Renderer2,
@@ -30,15 +28,13 @@ export class FigmaComponent implements OnInit, AfterViewInit {
   @ViewChild('introCopy') introCopy!: ElementRef;
   @ViewChild('sessionTrigger') sessionTrigger!: ElementRef;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private contentService: ContentService) {
+  constructor(private contentService: ContentService) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
-      const preloadVideo = data.session.video;
       this.siteContent = data;
-      preloadVideo;
     });
   }
 
@@ -63,7 +59,7 @@ export class FigmaComponent implements OnInit, AfterViewInit {
 
     sessionReveal
       .from(titles, {
-        y: 45,
+        y: 40,
         opacity: 0,
         stagger: 0.145,
       })
@@ -87,7 +83,6 @@ export class FigmaComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.initGsap();
-    ScrollTrigger.refresh();
   }
 
   hideVideo(ev: any) {

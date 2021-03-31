@@ -14,7 +14,6 @@ import {
 import {gsap} from 'gsap';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
-import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
   selector: 'c-hosts',

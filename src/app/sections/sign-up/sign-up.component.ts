@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -282,7 +283,7 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
       .from(
         titles,
         {
-          y: 24,
+          y: 40,
           opacity: 0,
           stagger: 0.175,
         },
@@ -298,7 +299,6 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     this.initFormGsap();
     this.initSuccessGsap();
     this.initBoltGsap();
-    ScrollTrigger.refresh();
   }
 
   reserveSeat(): void {

@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostBinding,
@@ -8,12 +7,10 @@ import {
   OnInit,
   QueryList,
   Renderer2,
-  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
-import {Observable} from 'rxjs';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
@@ -52,9 +49,9 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
     gsap.fromTo(
       valueProps,
       {
-        y: 46,
+        y: 36,
         opacity: 0,
-        textShadow: '18px 0px 0px rgba(251,62,84,0.75), -18px 0px 0px rgba(62,228,251,0.75)',
+        textShadow: '8px 0px 0px rgba(251,62,84,0.75), -8px 0px 0px rgba(62,228,251,0.75)',
       },
       {
         scrollTrigger: {
@@ -64,7 +61,7 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
           end: '120% center',
           scrub: 0.75,
           onUpdate: (self: any) => {
-            const heroReveal = this.util.calculateScroll(self.progress, 6, 24);
+            const heroReveal = this.util.calculateScroll(self.progress, 4, 24);
             this.aStart = `${heroReveal.start}%`;
             this.aEnd = `${heroReveal.end}%`;
           },
@@ -76,31 +73,23 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
       }
     );
 
-    gsap.fromTo(
-      valueProps,
-      {
-        textShadow: '0px 0px 0px rgba(251,62,84,0.75), 0px 0px 0px rgba(62,228,251,0.75)',
-        opacity: 1,
+    gsap.to(valueProps, {
+      opacity: 0,
+      textShadow: '4px 0px 0px rgba(251,62,84,0.75), -4px 0px 0px rgba(62,228,251,0.75)',
+      stagger: 0.145,
+      scrollTrigger: {
+        markers: false,
+        trigger: this.element.nativeElement,
+        start: 'bottom center',
+        end: '160% center',
+        scrub: 0.45,
       },
-      {
-        opacity: 0,
-        textShadow: '4px 0px 0px rgba(251,62,84,0.75), -4px 0px 0px rgba(62,228,251,0.75)',
-        stagger: 0.175,
-        scrollTrigger: {
-          markers: false,
-          trigger: this.element.nativeElement,
-          start: 'bottom center',
-          end: '160% center',
-          scrub: 0.75,
-        },
-      }
-    );
+    });
   }
 
   ngAfterViewInit(): void {
     this.valueProp.changes.subscribe((_) => {
       this.initGsap();
-      ScrollTrigger.refresh();
     });
   }
 }
