@@ -18,7 +18,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {Subject} from 'rxjs';
-import {map, switchMap, take, takeUntil, tap} from 'rxjs/operators';
+import {tap} from 'rxjs/operators';
 import {UtilityService} from 'src/app/services/utility.service';
 import {SignUpService} from 'src/app/services/sign-up.service';
 import {Content} from 'src/app/services/models/content.interface';
@@ -80,8 +80,6 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChildren('formCopy', {read: ElementRef}) formCopy!: QueryList<ElementRef>;
   constructor(
     private element: ElementRef,
-    private render: Renderer2,
-    private util: UtilityService,
     private fb: FormBuilder,
     private signUpService: SignUpService,
     private contentService: ContentService
@@ -106,7 +104,6 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
     this.contentService.siteContent$.subscribe((data) => {
       this.siteContent = data;
     });
-
     this.signUpService.signUpState$.subscribe((s) => {
       if (s.reserved && !s.closed) {
         this.signUpSuccess = s.reserved;
@@ -119,12 +116,26 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initBoltGsap() {
+    const titles = this.successCopy.map((el) => el.nativeElement);
     if (this.bolt !== undefined) {
       const bolt = gsap.timeline({
         defaults: {
           ease: 'back',
           repeat: -1,
           yoyo: true,
+        },
+      });
+
+      gsap.from(titles, {
+        y: 24,
+        opacity: 0,
+        stagger: 0.165,
+        scrollTrigger: {
+          markers: false,
+          trigger: this.successTrigger.nativeElement,
+          start: 'top 75%',
+          end: 'bottom 75%',
+          toggleActions: 'play none none reset',
         },
       });
 
@@ -296,9 +307,15 @@ export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.initFormGsap();
-    this.initSuccessGsap();
-    this.initBoltGsap();
+    if (this.checkMark !== undefined) {
+      this.initSuccessGsap();
+    }
+    if (this.bolt !== undefined) {
+      this.initBoltGsap();
+    }
+    if (this.theForm !== undefined) {
+      this.initFormGsap();
+    }
   }
 
   reserveSeat(): void {
