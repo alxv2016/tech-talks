@@ -8,9 +8,9 @@
   position: relative;
   display: block;
   background-color: color('darker');
-  height: 90vh;
+  height: 88vh;
   @include breakpoint(xs) {
-    height: 80vh;
+    height: 75vh;
   }
   @include breakpoint(md) {
     height: 70vh;
