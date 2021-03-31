@@ -8,7 +8,12 @@
         <div class="intro-card design-card card--reveal">
           <div class="intro-card__content">
             <div class="intro-card__avatar">
-              <img [src]="host.image" />
+              <ng-container *ngIf="host.image">
+                <img [src]="host.image" />
+              </ng-container>
+              <ng-container *ngIf="!host.image">
+                <span class="host-initials">{{ host.initials }}</span>
+              </ng-container>
             </div>
             <h3 class="intro-card__title copy--accent-1">{{ host.name }}</h3>
             <p class="intro-card__descr">{{ host.role }}</p>

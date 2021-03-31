@@ -27,6 +27,7 @@ interface Host {
   name: string;
   role: string;
   image: string;
+  initials?: string;
 }
 
 interface Faqpanel {

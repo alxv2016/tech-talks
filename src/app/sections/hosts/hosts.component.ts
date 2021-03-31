@@ -29,6 +29,14 @@ export class HostsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
       this.siteContent = data;
+      this.siteContent.host.forEach((d) => {
+        const initials = d.name
+          .split(' ')
+          .map((n) => n[0])
+          .join('')
+          .toUpperCase();
+        Object.assign(d, {initials});
+      });
     });
   }
 

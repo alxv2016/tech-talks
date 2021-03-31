@@ -38,8 +38,11 @@
     position: relative;
     height: 88px;
     width: 88px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 900px;
-    background-color: color('darker');
+    background-color: rgba(color('dark'), 0.25);
     overflow: hidden;
     filter: grayscale(1) contrast(1.25);
     img {
@@ -73,6 +76,12 @@
   &__avatar ~ &__title {
     margin-top: $spacing--md;
   }
+}
+
+.host-initials {
+  font-size: $title--3;
+  font-weight: font-weight('bold');
+  color: color('light');
 }
 
 .scroller {
