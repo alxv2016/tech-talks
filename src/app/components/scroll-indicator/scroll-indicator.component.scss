@@ -1,0 +1,44 @@
+@import '../../../scss/00_imports';
+
+:host-context(.c-scroll-indicator) {
+  position: fixed;
+  z-index: 4;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  bottom: 0;
+  transition: all 0.3s ease-out;
+  pointer-events: none;
+}
+
+.c-scroll-indicator {
+  &__container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 96px;
+    padding: 0 $spacing--lg;
+    pointer-events: none;
+    margin: 0 auto;
+    @include breakpoint(md) {
+      padding: 0 $spacing--3xl;
+      max-width: max-width('md');
+    }
+    @include breakpoint(lg) {
+      padding: 0 $spacing--3xl;
+      max-width: max-width('lg');
+      height: 104px;
+    }
+    overflow: hidden;
+  }
+  &-bar {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 2px;
+    opacity: 0;
+    @include smooth-gradient-vert(color('lit'));
+  }
+}
