@@ -1,27 +1,29 @@
-# TechTalks
+# Tech Talks landing page
+This landing page was designed and created by me for a platform to promote design & tech talks and workshops for designers in my studio.
+The landing page was built with the Angular 11 along with GSAP for the scroll trigger animations. All powered by a headless cms for content management.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.4.
+## Demo
+You can view the demo here:
+[TechTalks](https://techtalks.alxvtoronto.com/)
 
-## Development server
+## Take aways
+1. Create a scroll trigger landing page in Angular
+2. Using GSAP animation the "Angular way"
+3. Connect a project to a headless CMS [directus](https://directus.io/)
+4. Dynamically injecting content from a rest api
+5. Submit and validate a user sign up form through api
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Libraries used
+To keep it lean only a handful of external libraries were used
+1. GSAP - [gsap](https://greensock.com/gsap/)
+2. Angular - [angular](https://angular.io/)
 
-## Code scaffolding
+## Dev and Build scripts
+```
+ng serve
+```
+```
+ng build --prod
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+All images and assets/content are created by Alex Vong (me), this project was built with passion and was used as base of refreshing my angular dev knowledge.
