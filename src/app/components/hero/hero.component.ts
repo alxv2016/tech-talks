@@ -6,6 +6,7 @@ import {
   ElementRef,
   HostBinding,
   Input,
+  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -34,7 +35,8 @@ export class HeroComponent implements OnInit, AfterViewInit {
     private element: ElementRef,
     private render: Renderer2,
     private util: UtilityService,
-    private contentService: ContentService
+    private contentService: ContentService,
+    private ngZone: NgZone
   ) {
     gsap.registerPlugin(ScrollTrigger);
   }
@@ -49,6 +51,30 @@ export class HeroComponent implements OnInit, AfterViewInit {
   private initGsap() {
     const titles = this.title.map((title) => title.nativeElement);
     const grads = this.grad.map((grad) => grad.nativeElement);
+    const glitch = gsap.timeline({
+      defaults: {
+        yoyo: true,
+        yoyoEase: true,
+        repeat: -1,
+        duration: 3.95,
+        ease: 'back',
+      },
+    });
+
+    glitch.fromTo(
+      grads,
+      {
+        xPercent: -58,
+        opacity: 0.75,
+        translateZ: 0,
+      },
+      {
+        xPercent: 58,
+        stagger: 0.125,
+        translateZ: 0,
+        opacity: 1,
+      }
+    );
 
     gsap.fromTo(
       titles,
@@ -75,35 +101,14 @@ export class HeroComponent implements OnInit, AfterViewInit {
         },
       }
     );
-
-    const glitch = gsap.timeline({
-      defaults: {
-        yoyo: true,
-        yoyoEase: true,
-        repeat: -1,
-        duration: 3.95,
-        ease: 'back',
-      },
-    });
-
-    glitch.fromTo(
-      grads,
-      {
-        xPercent: -58,
-        opacity: 0.75,
-      },
-      {
-        xPercent: 58,
-        stagger: 0.125,
-        opacity: 1,
-      }
-    );
   }
 
   ngAfterViewInit(): void {
-    this.initGsap();
-    gsap.delayedCall(1, () => {
-      ScrollTrigger.refresh();
+    this.ngZone.runOutsideAngular(() => {
+      this.initGsap();
+      gsap.delayedCall(1, () => {
+        ScrollTrigger.refresh();
+      });
     });
   }
 }

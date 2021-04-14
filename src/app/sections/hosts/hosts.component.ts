@@ -5,6 +5,7 @@ import {
   ElementRef,
   HostBinding,
   Input,
+  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -24,7 +25,12 @@ export class HostsComponent implements OnInit, AfterViewInit {
   siteContent: Content;
   @HostBinding('class') class = 'c-hosts';
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
-  constructor(private element: ElementRef, private render: Renderer2, private contentService: ContentService) {}
+  constructor(
+    private element: ElementRef,
+    private render: Renderer2,
+    private contentService: ContentService,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
@@ -75,6 +81,8 @@ export class HostsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initGsap();
+    this.ngZone.runOutsideAngular(() => {
+      this.initGsap();
+    });
   }
 }

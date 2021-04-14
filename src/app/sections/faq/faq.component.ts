@@ -5,6 +5,7 @@ import {
   ElementRef,
   HostBinding,
   Input,
+  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -32,7 +33,12 @@ export class FaqComponent implements OnInit, AfterViewInit {
   @ViewChild('boltSpark1') boltSpark1!: ElementRef;
   @ViewChild('boltSpark2') boltSpark2!: ElementRef;
   @ViewChild('faqAccordion') faqAccordion!: ElementRef;
-  constructor(private element: ElementRef, private render: Renderer2, private contentService: ContentService) {}
+  constructor(
+    private element: ElementRef,
+    private render: Renderer2,
+    private contentService: ContentService,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
     this.contentService.siteContent$.pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
@@ -109,7 +115,9 @@ export class FaqComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initBoltGsap();
+    this.ngZone.runOutsideAngular(() => {
+      this.initBoltGsap();
+    });
   }
 
   ngOnDestroy(): void {

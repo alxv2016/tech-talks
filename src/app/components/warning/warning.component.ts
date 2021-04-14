@@ -9,6 +9,5 @@ export class WarningComponent implements OnInit {
   @HostBinding('class') class = 'c-warning';
   @Input() warningMsg: string;
   constructor() {}
-
   ngOnInit(): void {}
 }

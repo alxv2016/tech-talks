@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -28,7 +29,7 @@ export class FigmaComponent implements OnInit, AfterViewInit {
   @ViewChild('introCopy') introCopy!: ElementRef;
   @ViewChild('sessionTrigger') sessionTrigger!: ElementRef;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
-  constructor(private contentService: ContentService) {
+  constructor(private contentService: ContentService, private ngZone: NgZone) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
@@ -82,7 +83,9 @@ export class FigmaComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initGsap();
+    this.ngZone.runOutsideAngular(() => {
+      this.initGsap();
+    });
   }
 
   hideVideo(ev: any) {

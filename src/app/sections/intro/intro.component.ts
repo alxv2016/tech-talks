@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -33,7 +34,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
   @ViewChildren('cardReveal', {read: ElementRef}) cardReveal!: QueryList<ElementRef>;
   @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
-  constructor(private contentService: ContentService) {
+  constructor(private contentService: ContentService, private ngZone: NgZone) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
@@ -141,7 +142,9 @@ export class IntroComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.cardReveal.changes.subscribe((_) => {
-      this.initGsap();
+      this.ngZone.runOutsideAngular(() => {
+        this.initGsap();
+      });
     });
   }
 }

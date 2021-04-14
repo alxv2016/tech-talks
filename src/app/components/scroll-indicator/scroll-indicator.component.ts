@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -20,7 +21,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 export class ScrollIndicatorComponent implements AfterViewInit {
   @HostBinding('class') class = 'c-scroll-indicator';
   @ViewChild('scrollIndicator') scrollIndicator!: ElementRef;
-  constructor(private element: ElementRef, private render: Renderer2) {
+  constructor(private element: ElementRef, private render: Renderer2, private ngZone: NgZone) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
@@ -53,30 +54,31 @@ export class ScrollIndicatorComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.initGsap();
+    this.ngZone.runOutsideAngular(() => {
+      this.initGsap();
+      const tl = gsap.to(this.element.nativeElement, {
+        ease: 'power1',
+        duration: 0.25,
+        yPercent: 100,
+        opacity: 0,
+        visibility: 'hidden',
+      });
+      tl.pause();
 
-    const tl = gsap.to(this.element.nativeElement, {
-      ease: 'power1',
-      duration: 0.25,
-      yPercent: 100,
-      opacity: 0,
-      visibility: 'hidden',
-    });
-    tl.pause();
-
-    const indicator = this.element.nativeElement;
-    ScrollTrigger.create({
-      onUpdate: (self: any) => {
-        const scrollPos = self.scroller.pageYOffset;
-        if (indicator) {
-          const headerHeight = indicator.getBoundingClientRect().height;
-          if (scrollPos >= headerHeight) {
-            tl.play();
-          } else {
-            tl.reverse();
+      const indicator = this.element.nativeElement;
+      ScrollTrigger.create({
+        onUpdate: (self: any) => {
+          const scrollPos = self.scroller.pageYOffset;
+          if (indicator) {
+            const headerHeight = indicator.getBoundingClientRect().height;
+            if (scrollPos >= headerHeight) {
+              tl.play();
+            } else {
+              tl.reverse();
+            }
           }
-        }
-      },
+        },
+      });
     });
   }
 }

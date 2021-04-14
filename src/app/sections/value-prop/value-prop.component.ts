@@ -4,6 +4,7 @@ import {
   ElementRef,
   HostBinding,
   Input,
+  NgZone,
   OnInit,
   QueryList,
   Renderer2,
@@ -33,7 +34,8 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
     private element: ElementRef,
     private render: Renderer2,
     private util: UtilityService,
-    private contentService: ContentService
+    private contentService: ContentService,
+    private ngZone: NgZone
   ) {
     gsap.registerPlugin(ScrollTrigger);
   }
@@ -109,7 +111,9 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.valueProp.changes.subscribe((_) => {
-      this.initGsap();
+      this.ngZone.runOutsideAngular(() => {
+        this.initGsap();
+      });
     });
   }
 }
