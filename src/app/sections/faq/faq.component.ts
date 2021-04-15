@@ -13,6 +13,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AccordionComponent} from 'src/app/components/accordion/accordion.component';
@@ -38,7 +39,9 @@ export class FaqComponent implements OnInit, AfterViewInit {
     private render: Renderer2,
     private contentService: ContentService,
     private ngZone: NgZone
-  ) {}
+  ) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   ngOnInit(): void {
     this.contentService.siteContent$.pipe(takeUntil(this.unsubscribe$)).subscribe((data) => {
@@ -112,6 +115,21 @@ export class FaqComponent implements OnInit, AfterViewInit {
         },
         0.145
       );
+
+    bolt.pause();
+
+    ScrollTrigger.create({
+      trigger: this.element.nativeElement,
+      markers: false,
+      start: 'top bottom',
+      end: 'bottom bottom',
+      onEnter: () => {
+        bolt.play();
+      },
+      onLeaveBack: () => {
+        bolt.pause();
+      },
+    });
   }
 
   ngAfterViewInit(): void {

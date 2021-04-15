@@ -51,6 +51,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
   private initGsap() {
     const titles = this.title.map((title) => title.nativeElement);
     const grads = this.grad.map((grad) => grad.nativeElement);
+
     const glitch = gsap.timeline({
       defaults: {
         yoyo: true,
@@ -93,6 +94,12 @@ export class HeroComponent implements OnInit, AfterViewInit {
           start: 'top top',
           end: '120% top',
           scrub: 0.45,
+          onEnterBack: () => {
+            glitch.play();
+          },
+          onLeave: () => {
+            glitch.pause();
+          },
           onUpdate: (self: any) => {
             const heroReveal = this.util.calculateScroll(self.progress, 3, 20);
             this.aStart = `${heroReveal.start}%`;

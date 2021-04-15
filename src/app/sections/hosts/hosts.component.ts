@@ -13,6 +13,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
+import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
 
@@ -30,7 +31,9 @@ export class HostsComponent implements OnInit, AfterViewInit {
     private render: Renderer2,
     private contentService: ContentService,
     private ngZone: NgZone
-  ) {}
+  ) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
@@ -48,6 +51,7 @@ export class HostsComponent implements OnInit, AfterViewInit {
 
   initGsap(): void {
     const grads = this.grad.map((grad) => grad.nativeElement);
+
     const glitch = gsap.timeline({
       defaults: {
         yoyo: true,
@@ -78,6 +82,21 @@ export class HostsComponent implements OnInit, AfterViewInit {
         duration: 1.75,
       }
     );
+
+    glitch.pause();
+
+    ScrollTrigger.create({
+      trigger: this.element.nativeElement,
+      markers: false,
+      start: 'top bottom',
+      end: 'bottom bottom',
+      onEnter: () => {
+        glitch.play();
+      },
+      onLeaveBack: () => {
+        glitch.pause();
+      },
+    });
   }
 
   ngAfterViewInit(): void {

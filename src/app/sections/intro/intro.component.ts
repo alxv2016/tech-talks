@@ -49,18 +49,46 @@ export class IntroComponent implements OnInit, AfterViewInit {
     const titles = this.title.map((title) => title.nativeElement);
     const cardReveals = this.cardReveal.map((rev) => rev.nativeElement);
 
-    gsap.fromTo(
-      this.bolt.nativeElement,
+    const glitch = gsap.timeline({
+      defaults: {
+        yoyo: true,
+        yoyoEase: true,
+        repeat: -1,
+        ease: 'back',
+        duration: 1.95,
+      },
+    });
+
+    glitch.pause();
+
+    glitch.fromTo(
+      grads,
       {
-        fill: '#FB3E54',
+        scaleX: 0.175,
+        opacity: 0.25,
       },
       {
-        fill: '#E0FB3E',
-        duration: 1.25,
-        yoyo: true,
-        repeat: -1,
+        scaleX: 1.25,
+        opacity: 1,
+        stagger: {
+          each: 0.175,
+          from: 'end',
+        },
       }
     );
+
+    // gsap.fromTo(
+    //   this.bolt.nativeElement,
+    //   {
+    //     fill: '#FB3E54',
+    //   },
+    //   {
+    //     fill: '#E0FB3E',
+    //     duration: 1.25,
+    //     yoyo: true,
+    //     repeat: -1,
+    //   }
+    // );
 
     gsap.from(cardReveals, {
       opacity: 1,
@@ -71,6 +99,18 @@ export class IntroComponent implements OnInit, AfterViewInit {
         start: 'top center',
         end: '80% center',
         scrub: 0.45,
+        onEnter: () => {
+          glitch.play();
+        },
+        onEnterBack: () => {
+          glitch.play();
+        },
+        onLeave: () => {
+          glitch.pause();
+        },
+        onLeaveBack: () => {
+          glitch.pause();
+        },
       },
     });
 
@@ -112,32 +152,6 @@ export class IntroComponent implements OnInit, AfterViewInit {
         },
         0.125
       );
-
-    const glitch = gsap.timeline({
-      defaults: {
-        yoyo: true,
-        yoyoEase: true,
-        repeat: -1,
-        ease: 'back',
-        duration: 1.95,
-      },
-    });
-
-    glitch.fromTo(
-      grads,
-      {
-        scaleX: 0.175,
-        opacity: 0.25,
-      },
-      {
-        scaleX: 1.25,
-        opacity: 1,
-        stagger: {
-          each: 0.175,
-          from: 'end',
-        },
-      }
-    );
   }
 
   ngAfterViewInit(): void {
