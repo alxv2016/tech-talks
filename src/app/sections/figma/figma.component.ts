@@ -23,11 +23,20 @@ import {Content} from 'src/app/services/models/content.interface';
 export class FigmaComponent implements OnInit, AfterViewInit {
   siteContent: Content;
   @HostBinding('class') class = 'c-figma';
-  @ViewChild('figmaDemoTrigger') figmaDemoTrigger!: ElementRef;
-  @ViewChild('figmaApp') figmaApp!: ElementRef;
-  @ViewChild('figmaVideo') figmaVideo!: ElementRef;
-  @ViewChild('introCopy') introCopy!: ElementRef;
-  @ViewChild('sessionTrigger') sessionTrigger!: ElementRef;
+
+  @ViewChild('autoLayoutTrigger') autoLayoutTrigger!: ElementRef;
+  @ViewChild('autoLayout') autoLayout!: ElementRef;
+  @ViewChild('autoLayoutVideo') autoLayoutVideo!: ElementRef;
+
+  @ViewChild('variantsTrigger') variantsTrigger!: ElementRef;
+  @ViewChild('variants') variants!: ElementRef;
+  @ViewChild('variantsVideo') variantsVideo!: ElementRef;
+
+  @ViewChild('prototypesTrigger') prototypesTrigger!: ElementRef;
+  @ViewChild('prototypes') prototypes!: ElementRef;
+  @ViewChild('prototypesVideo') prototypesVideo!: ElementRef;
+
+  @ViewChild('introTrigger') introTrigger!: ElementRef;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
   constructor(private contentService: ContentService, private ngZone: NgZone) {
     gsap.registerPlugin(ScrollTrigger);
@@ -40,46 +49,77 @@ export class FigmaComponent implements OnInit, AfterViewInit {
   }
 
   initGsap(): void {
-    const titles = this.title.map((el) => el.nativeElement);
-    const sessionReveal = gsap.timeline({
+    const titles = this.title.map((title) => title.nativeElement);
+
+    gsap.from(this.autoLayout.nativeElement, {
+      y: 40,
+      opacity: 0,
       scrollTrigger: {
         markers: false,
-        trigger: this.sessionTrigger.nativeElement,
-        start: 'top 60%',
-        end: '70% 60%',
+        trigger: this.autoLayoutTrigger.nativeElement,
+        start: 'top 80%',
+        end: 'bottom 80%',
         scrub: 0.45,
         onEnter: ({isActive}) => {
           if (isActive) {
-            this.figmaVideo.nativeElement.muted = true;
-            this.figmaVideo.nativeElement.play();
-            this.figmaVideo.nativeElement.addEventListener('ended', this.hideVideo);
+            this.autoLayoutVideo.nativeElement.muted = true;
+            this.autoLayoutVideo.nativeElement.play();
+            this.autoLayoutVideo.nativeElement.addEventListener('ended', this.hideVideo);
           }
         },
       },
     });
 
-    sessionReveal
-      .from(titles, {
-        y: 40,
-        opacity: 0,
-        stagger: 0.145,
-      })
-      .from(
-        this.figmaApp.nativeElement,
-        {
-          y: 40,
-          opacity: 0,
-          scale: 0.96,
+    gsap.from(this.variants.nativeElement, {
+      y: 40,
+      opacity: 0,
+      scrollTrigger: {
+        markers: false,
+        trigger: this.variantsTrigger.nativeElement,
+        start: 'top 80%',
+        end: 'bottom 80%',
+        scrub: 0.45,
+        onEnter: ({isActive}) => {
+          if (isActive) {
+            this.variantsVideo.nativeElement.muted = true;
+            this.variantsVideo.nativeElement.play();
+            this.variantsVideo.nativeElement.addEventListener('ended', this.hideVideo);
+          }
         },
-        0.125
-      )
-      .from(
-        this.introCopy.nativeElement,
-        {
-          opacity: 0,
+      },
+    });
+
+    gsap.from(this.prototypes.nativeElement, {
+      y: 40,
+      opacity: 0,
+      scrollTrigger: {
+        markers: false,
+        trigger: this.prototypesTrigger.nativeElement,
+        start: 'top 80%',
+        end: 'bottom 80%',
+        scrub: 0.45,
+        onEnter: ({isActive}) => {
+          if (isActive) {
+            this.prototypesVideo.nativeElement.muted = true;
+            this.prototypesVideo.nativeElement.play();
+            this.prototypesVideo.nativeElement.addEventListener('ended', this.hideVideo);
+          }
         },
-        0.145
-      );
+      },
+    });
+
+    gsap.from(titles, {
+      y: 24,
+      opacity: 0,
+      stagger: 0.165,
+      scrollTrigger: {
+        markers: false,
+        trigger: this.introTrigger.nativeElement,
+        start: 'top 75%',
+        end: 'bottom 75%',
+        scrub: 0.45,
+      },
+    });
   }
 
   ngAfterViewInit(): void {

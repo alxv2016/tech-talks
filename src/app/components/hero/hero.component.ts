@@ -10,10 +10,13 @@ import {
   OnInit,
   QueryList,
   Renderer2,
+  ViewChild,
   ViewChildren,
 } from '@angular/core';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {PixiPlugin} from 'gsap/PixiPlugin';
+import * as PIXI from 'pixi.js';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
@@ -25,11 +28,12 @@ import {UtilityService} from 'src/app/services/utility.service';
 })
 export class HeroComponent implements OnInit, AfterViewInit {
   siteContent: Content;
+  app: any;
   @HostBinding('class') class = 'c-hero';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
+  @ViewChild('gradientContainer') gradientContainer!: ElementRef;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
-  @ViewChildren('grad', {read: ElementRef}) grad!: QueryList<ElementRef>;
 
   constructor(
     private element: ElementRef,
@@ -39,6 +43,8 @@ export class HeroComponent implements OnInit, AfterViewInit {
     private ngZone: NgZone
   ) {
     gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(PixiPlugin);
+    PixiPlugin.registerPIXI(PIXI);
   }
 
   ngOnInit(): void {
@@ -50,42 +56,15 @@ export class HeroComponent implements OnInit, AfterViewInit {
 
   private initGsap() {
     const titles = this.title.map((title) => title.nativeElement);
-    const grads = this.grad.map((grad) => grad.nativeElement);
-
-    const glitch = gsap.timeline({
-      defaults: {
-        yoyo: true,
-        yoyoEase: true,
-        repeat: -1,
-        duration: 3.95,
-        ease: 'back',
-      },
-    });
-
-    glitch.fromTo(
-      grads,
-      {
-        xPercent: -58,
-        opacity: 0.75,
-        translateZ: 0,
-      },
-      {
-        xPercent: 58,
-        stagger: 0.125,
-        translateZ: 0,
-        opacity: 1,
-      }
-    );
-
     gsap.fromTo(
       titles,
       {
         yPercent: 0,
-        textShadow: '0px 0px 0px rgba(251,62,84,0.75), 0px 0px 0px rgba(62,228,251,1)',
+        textShadow: '0px 0px 0px rgba(251,62,84,0.95), 0px 0px 0px rgba(62,228,251,1)',
       },
       {
         yPercent: -30,
-        textShadow: '28px 0px 0px rgba(251,62,84,0.75), -28px 0px 0px rgba(62,228,251,1)',
+        textShadow: '8px 0px 0px rgba(251,62,84,0.95), -8px 0px 0px rgba(62,228,251,1)',
         duration: 4.75,
         stagger: 0.175,
         scrollTrigger: {
@@ -94,12 +73,6 @@ export class HeroComponent implements OnInit, AfterViewInit {
           start: 'top top',
           end: '120% top',
           scrub: 0.45,
-          onEnterBack: () => {
-            glitch.play();
-          },
-          onLeave: () => {
-            glitch.pause();
-          },
           onUpdate: (self: any) => {
             const heroReveal = this.util.calculateScroll(self.progress, 3, 20);
             this.aStart = `${heroReveal.start}%`;
@@ -116,6 +89,61 @@ export class HeroComponent implements OnInit, AfterViewInit {
       gsap.delayedCall(1, () => {
         ScrollTrigger.refresh();
       });
+
+      this.app = new PIXI.Application({
+        height: 800,
+        width: 800,
+        antialias: true,
+        transparent: true,
+      });
+      this.render.appendChild(this.gradientContainer.nativeElement, this.app.view);
+      this.app.ticker.stop();
+      gsap.ticker.add(() => {
+        this.app.ticker.update();
+      });
+
+      this.app.renderer.autoResize = true;
+      this.render.setStyle(this.app.renderer.view, 'height', '100%');
+      this.render.setStyle(this.app.renderer.view, 'width', '100%');
+
+      for (let i = 0; i < this.app.renderer.height / 40; i++) {
+        const texture = PIXI.Texture.from('assets/gradient.png');
+        const gradient = new PIXI.Sprite(texture);
+        gradient.anchor.set(0.5);
+        gradient.x = this.app.renderer.width / 2;
+        gradient.width = this.app.renderer.width;
+        gradient.height = 40;
+        gradient.y = i * gradient.height;
+        this.app.stage.addChild(gradient);
+      }
+
+      const tl = gsap.timeline({
+        defaults: {
+          stagger: {
+            each: 0.0675,
+            from: 'end',
+          },
+          ease: 'back',
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          yoyoEase: true,
+        },
+      });
+
+      tl.fromTo(
+        this.app.stage.children,
+        {
+          pixi: {
+            x: -100,
+          },
+        },
+        {
+          pixi: {
+            x: 900,
+          },
+        }
+      );
     });
   }
 }

@@ -1,25 +1,63 @@
-<div #sessionTrigger class="trigger">
+<div #introTrigger class="trigger">
   <div class="c-figma__container">
     <div class="session-intro">
       <div #title class="sub-headline copy--lit">{{ siteContent.session.overline }}</div>
       <h2 #title class="display-3">{{ siteContent.session.title }}</h2>
+      <p #title class="large-print copy--tint">{{ siteContent.session.body }}</p>
     </div>
   </div>
-  <div #figmaDemoTrigger class="figma-app-demo">
-    <div #figmaApp class="figma-app">
-      <figure class="figma-app__static"></figure>
+</div>
+<div class="concepts" #autoLayoutTrigger>
+  <div class="concepts__grid" #autoLayout>
+    <div class="concept-demo">
       <video
-        #figmaVideo
-        class="figma-app__video"
+        #autoLayoutVideo
+        class="concept-demo__video"
         playsinline="true"
         aria-hidden="true"
-        src="assets/figma-team.mp4"
+        src="assets/auto-layout.mp4"
+      ></video>
+    </div>
+    <div class="concept-intro">
+      <div class="sub-headline copy--carbon">Auto Layout</div>
+      <h2 class="display-4">Flexin' on your designs</h2>
+      <p class="small-print copy--tint">Understand Flex box concepts to make your designs dynamic with Auto Layout.</p>
+    </div>
+  </div>
+</div>
+<div class="concepts" #variantsTrigger>
+  <div class="concepts__grid" #variants>
+    <div class="concept-intro">
+      <div class="sub-headline copy--carbon">Variants</div>
+      <h2 class="display-4">Stateful components</h2>
+      <p class="small-print copy--tint">Give your components states and start thinking dynamically.</p>
+    </div>
+    <div class="concept-demo">
+      <video
+        #variantsVideo
+        class="concept-demo__video"
+        playsinline="true"
+        aria-hidden="true"
+        src="assets/variants.mp4"
       ></video>
     </div>
   </div>
-  <div class="c-figma__container">
-    <div class="session-outro">
-      <p #introCopy class="large-print copy--tint">{{ siteContent.session.body }}</p>
+</div>
+<div class="concepts" #prototypesTrigger>
+  <div class="concepts__grid" #prototypes>
+    <div class="concept-demo">
+      <video
+        #prototypesVideo
+        class="concept-demo__video"
+        playsinline="true"
+        aria-hidden="true"
+        src="assets/prototype.mp4"
+      ></video>
+    </div>
+    <div class="concept-intro">
+      <div class="sub-headline copy--carbon">Prototypes</div>
+      <h2 class="display-4">Make your transistions pop</h2>
+      <p class="small-print copy--tint">Add dynamic animation to your prototypes with customized easing curves.</p>
     </div>
   </div>
 </div>

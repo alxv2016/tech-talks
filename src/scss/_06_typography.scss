@@ -83,6 +83,24 @@ form legend {
   }
 }
 
+.display-4 {
+  font-size: $title--2;
+  line-height: 1.15;
+  font-weight: font-weight('bold');
+  @include breakpoint(lg) {
+    font-size: $title--1;
+  }
+  & ~ h2,
+  & ~ h2,
+  & ~ h3,
+  & ~ h4 {
+    margin-top: 0;
+  }
+  & ~ p {
+    margin-top: $spacing--lg;
+  }
+}
+
 .sub-headline {
   font-size: $subtitle;
   font-weight: font-weight('medium');

@@ -26,51 +26,111 @@
   margin: auto;
   margin-bottom: $layout--md;
 }
-.session-outro {
+
+// .session-outro {
+//   position: relative;
+//   width: 100%;
+//   max-width: max-width('md');
+//   margin: auto;
+//   margin-top: $layout--lg;
+// }
+
+// .figma-app-demo {
+//   position: relative;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin-top: $layout--xs;
+// }
+
+// .figma-app {
+//   position: relative;
+//   flex-shrink: 0;
+//   width: 441px;
+//   height: 250px;
+//   border-radius: $spacing--md;
+//   overflow: hidden;
+//   @include elevate-4(color('carbon'), 0.75);
+//   @include breakpoint(sm) {
+//     width: 706px;
+//     height: 400px;
+//   }
+//   @include breakpoint(lg) {
+//     width: 882px;
+//     height: 500px;
+//   }
+//   &__static {
+//     position: absolute;
+//     z-index: 1;
+//     top: 0;
+//     left: 0;
+//     width: inherit;
+//     height: inherit;
+//   }
+//   &__video {
+//     position: relative;
+//     display: block;
+//     z-index: 2;
+//     width: inherit;
+//     height: inherit;
+//   }
+// }
+
+.concepts {
   position: relative;
-  width: 100%;
-  max-width: max-width('md');
-  margin: auto;
-  margin-top: $layout--lg;
+  @include container-padding;
+  margin-top: $layout--xl;
+  @include breakpoint(md) {
+    margin-top: $layout--2xl;
+  }
+  &__grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    padding-bottom: $spacing--xl;
+    @include breakpoint(md) {
+      flex-direction: row;
+    }
+  }
 }
 
-.figma-app-demo {
+.concept-demo {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: $layout--xs;
-}
-
-.figma-app {
-  position: relative;
+  width: 324px;
+  height: 324px;
   flex-shrink: 0;
-  width: 441px;
-  height: 250px;
   border-radius: $spacing--md;
   overflow: hidden;
-  @include elevate-4(color('carbon'), 0.75);
-  @include breakpoint(sm) {
-    width: 706px;
-    height: 400px;
+  @include elevate-3(color('carbon'), 0.25);
+  @include breakpoint(md) {
+    width: 50%;
+    height: auto;
   }
-  @include breakpoint(lg) {
-    width: 882px;
-    height: 500px;
-  }
-  &__static {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: inherit;
-    height: inherit;
-  }
+
   &__video {
     position: relative;
     display: block;
     z-index: 2;
-    width: inherit;
-    height: inherit;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+}
+
+.concept-intro {
+  position: relative;
+  width: 100%;
+  margin-top: $layout--lg;
+  order: 1;
+  p {
+    margin-bottom: 0;
+  }
+  @include breakpoint(md) {
+    margin-top: 0;
+    width: 50%;
+    padding: 0 $spacing--2xl;
+    order: 0;
   }
 }

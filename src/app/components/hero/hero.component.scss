@@ -56,18 +56,16 @@
   }
 }
 
-.grads {
+.gradient-container {
   --progress-start: 40%;
   --progress-end: 80%;
   position: absolute;
-  z-index: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  overflow: hidden;
+  z-index: 0;
   &:before {
     position: absolute;
     z-index: 2;
@@ -86,21 +84,53 @@
         rgba(color('darker'), 1) var(--progress-end)
       );
   }
-  &__row {
-    position: relative;
-    height: 6.25%;
-    width: 100%;
-    @include smooth-gradient(color('lit'));
-    opacity: 0.075;
-    will-change: transform;
-    // &:nth-child(even) {
-    //   transform: translateX(8%);
-    // }
-    // &:nth-child(odd) {
-    //   transform: translateX(16%);
-    // }
-  }
 }
+
+// .grads {
+//   --progress-start: 40%;
+//   --progress-end: 80%;
+//   position: absolute;
+//   z-index: 0;
+//   display: flex;
+//   flex-direction: column;
+//   overflow: hidden;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   &:before {
+//     position: absolute;
+//     z-index: 2;
+//     content: '';
+//     height: 100%;
+//     width: 100%;
+//     background: radial-gradient(
+//       circle,
+//       rgba(color('darker'), 0) var(--progress-start),
+//       rgba(color('darker'), 0.85) var(--progress-end)
+//     );
+//     mask: $noiseFilter,
+//       radial-gradient(
+//         circle,
+//         rgba(color('darker'), 0) var(--progress-start),
+//         rgba(color('darker'), 1) var(--progress-end)
+//       );
+//   }
+//   &__row {
+//     position: relative;
+//     height: 6.25%;
+//     width: 100%;
+//     @include smooth-gradient(color('lit'));
+//     opacity: 0.075;
+//     will-change: transform;
+//     // &:nth-child(even) {
+//     //   transform: translateX(8%);
+//     // }
+//     // &:nth-child(odd) {
+//     //   transform: translateX(16%);
+//     // }
+//   }
+// }
 
 :host-context(.l-content--hide) {
   &::after {
