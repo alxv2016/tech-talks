@@ -58,19 +58,6 @@ export class IntroComponent implements OnInit, AfterViewInit {
     const titles = this.title.map((title) => title.nativeElement);
     const cardReveals = this.cardReveal.map((rev) => rev.nativeElement);
 
-    gsap.fromTo(
-      this.bolt.nativeElement,
-      {
-        fill: '#FB3E54',
-      },
-      {
-        fill: '#E0FB3E',
-        duration: 1.25,
-        yoyo: true,
-        repeat: -1,
-      }
-    );
-
     gsap.from(cardReveals, {
       opacity: 1,
       stagger: 0.125,
@@ -98,6 +85,15 @@ export class IntroComponent implements OnInit, AfterViewInit {
         scale: 0.95,
         opacity: 0,
       })
+      .fromTo(
+        this.bolt.nativeElement,
+        {
+          fill: '#FB3E54',
+        },
+        {
+          fill: '#E0FB3E',
+        }
+      )
       .from(
         this.tech.nativeElement,
         {
