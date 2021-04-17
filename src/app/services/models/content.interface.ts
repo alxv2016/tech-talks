@@ -67,6 +67,15 @@ interface Intro {
   title: string;
   body: string;
   video?: string;
+  auto_layout_overline?: string;
+  auto_layout_title?: string;
+  auto_layout_intro?: string;
+  variant_overline?: string;
+  variant_title?: string;
+  variant_intro?: string;
+  prototype_overline?: string;
+  prototype_title?: string;
+  prototype_intro?: string;
 }
 
 interface Valueprop {

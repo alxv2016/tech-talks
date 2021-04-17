@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   Component,
   ElementRef,
   HostBinding,
@@ -17,6 +18,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
   selector: 'c-scroll-indicator',
   templateUrl: './scroll-indicator.component.html',
   styleUrls: ['./scroll-indicator.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ScrollIndicatorComponent implements AfterViewInit {
   @HostBinding('class') class = 'c-scroll-indicator';
@@ -51,34 +53,35 @@ export class ScrollIndicatorComponent implements AfterViewInit {
         opacity: 1,
       }
     );
+
+    const tl = gsap.to(this.element.nativeElement, {
+      ease: 'power1',
+      duration: 0.25,
+      yPercent: 100,
+      opacity: 0,
+      visibility: 'hidden',
+    });
+    tl.pause();
+
+    const indicator = this.element.nativeElement;
+    ScrollTrigger.create({
+      onUpdate: (self: any) => {
+        const scrollPos = self.scroller.pageYOffset;
+        if (indicator) {
+          const headerHeight = indicator.getBoundingClientRect().height;
+          if (scrollPos >= headerHeight) {
+            tl.play();
+          } else {
+            tl.reverse();
+          }
+        }
+      },
+    });
   }
 
   ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
       this.initGsap();
-      const tl = gsap.to(this.element.nativeElement, {
-        ease: 'power1',
-        duration: 0.25,
-        yPercent: 100,
-        opacity: 0,
-        visibility: 'hidden',
-      });
-      tl.pause();
-
-      const indicator = this.element.nativeElement;
-      ScrollTrigger.create({
-        onUpdate: (self: any) => {
-          const scrollPos = self.scroller.pageYOffset;
-          if (indicator) {
-            const headerHeight = indicator.getBoundingClientRect().height;
-            if (scrollPos >= headerHeight) {
-              tl.play();
-            } else {
-              tl.reverse();
-            }
-          }
-        },
-      });
     });
   }
 }

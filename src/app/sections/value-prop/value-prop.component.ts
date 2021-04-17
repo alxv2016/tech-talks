@@ -15,7 +15,6 @@ import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ContentService} from 'src/app/services/content.service';
 import {Content} from 'src/app/services/models/content.interface';
-import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
   selector: 'c-value-prop',
@@ -33,7 +32,6 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
   constructor(
     private element: ElementRef,
     private render: Renderer2,
-    private util: UtilityService,
     private contentService: ContentService,
     private ngZone: NgZone
   ) {
@@ -50,38 +48,37 @@ export class ValuePropComponent implements OnInit, AfterViewInit {
     const valueProps = this.valueProp.map((value) => value.nativeElement);
     this.render.addClass(this.element.nativeElement, 'l-content--reveal');
 
-    const jet = gsap.timeline({
-      defaults: {
-        ease: 'power2',
+    const valueTL = gsap.timeline({
+      scrollTrigger: {
+        markers: false,
+        trigger: this.element.nativeElement,
+        start: 'top center',
+        end: '120% center',
+        scrub: 0.75,
       },
     });
 
-    gsap.fromTo(
-      valueProps,
-      {
-        y: 36,
-        opacity: 0,
-        textShadow: '8px 0px 0px rgba(251,62,84,0.75), -8px 0px 0px rgba(62,228,251,0.75)',
-      },
-      {
-        scrollTrigger: {
-          markers: false,
-          trigger: this.element.nativeElement,
-          start: 'top center',
-          end: '120% center',
-          scrub: 0.75,
-          onUpdate: (self: any) => {
-            const heroReveal = this.util.calculateScroll(self.progress, 4, 24);
-            this.aStart = `${heroReveal.start}%`;
-            this.aEnd = `${heroReveal.end}%`;
-          },
+    valueTL
+      .to(this.element.nativeElement, {
+        '--a-start': '60%',
+        '--a-end': '200%',
+        duration: 3,
+      })
+      .fromTo(
+        valueProps,
+        {
+          y: 36,
+          opacity: 0,
+          textShadow: '8px 0px 0px rgba(251,62,84,0.75), -8px 0px 0px rgba(62,228,251,0.75)',
         },
-        y: 0,
-        opacity: 1,
-        textShadow: '0px 0px 0px rgba(251,62,84,0.75), 0px 0px 0px rgba(62,228,251,0.75)',
-        stagger: 0.175,
-      }
-    );
+        {
+          y: 0,
+          opacity: 1,
+          textShadow: '0px 0px 0px rgba(251,62,84,0.75), 0px 0px 0px rgba(62,228,251,0.75)',
+          stagger: 0.275,
+        },
+        0.275
+      );
 
     const hideContents = gsap.timeline({
       scrollTrigger: {

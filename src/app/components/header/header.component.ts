@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, HostBinding, NgZone, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  HostBinding,
+  NgZone,
+  OnInit,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 
@@ -6,6 +16,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
   selector: 'c-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent implements AfterViewInit {
   @HostBinding('class') class = 'header';

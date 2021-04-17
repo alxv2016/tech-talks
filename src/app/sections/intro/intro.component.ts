@@ -123,66 +123,70 @@ export class IntroComponent implements OnInit, AfterViewInit {
       );
   }
 
+  private initPixi(): void {
+    this.app = new PIXI.Application({
+      height: 800,
+      width: 800,
+      antialias: true,
+      transparent: true,
+    });
+    this.render.appendChild(this.gradientContainer.nativeElement, this.app.view);
+    this.app.ticker.stop();
+    gsap.ticker.add(() => {
+      this.app.ticker.update();
+    });
+
+    this.app.renderer.autoResize = true;
+    this.render.setStyle(this.app.renderer.view, 'height', '100%');
+    this.render.setStyle(this.app.renderer.view, 'width', '100%');
+
+    for (let i = 0; i < this.app.renderer.height / 20; i++) {
+      const texture = PIXI.Texture.from('assets/gradient.png');
+      const gradient = new PIXI.Sprite(texture);
+      gradient.anchor.set(0.5);
+      gradient.x = this.app.renderer.width / 2;
+      gradient.width = this.app.renderer.width;
+      gradient.height = 20;
+      gradient.y = i * gradient.height;
+      this.app.stage.addChild(gradient);
+    }
+
+    const tl = gsap.timeline({
+      defaults: {
+        stagger: {
+          each: 0.0475,
+          from: 'end',
+        },
+        ease: 'back',
+        duration: 3,
+        repeat: -1,
+        yoyo: true,
+        yoyoEase: true,
+      },
+    });
+
+    tl.fromTo(
+      this.app.stage.children,
+      {
+        pixi: {
+          width: this.app.renderer.width / 16,
+          alpha: 0.45,
+        },
+      },
+      {
+        pixi: {
+          width: this.app.renderer.width / 2,
+          alpha: 1,
+        },
+      }
+    );
+  }
+
   ngAfterViewInit(): void {
-    this.cardReveal.changes.subscribe((_) => {
-      this.ngZone.runOutsideAngular(() => {
+    this.ngZone.runOutsideAngular(() => {
+      this.cardReveal.changes.subscribe((_) => {
         this.initGsap();
-        this.app = new PIXI.Application({
-          height: 800,
-          width: 800,
-          antialias: true,
-          transparent: true,
-        });
-        this.render.appendChild(this.gradientContainer.nativeElement, this.app.view);
-        this.app.ticker.stop();
-        gsap.ticker.add(() => {
-          this.app.ticker.update();
-        });
-
-        this.app.renderer.autoResize = true;
-        this.render.setStyle(this.app.renderer.view, 'height', '100%');
-        this.render.setStyle(this.app.renderer.view, 'width', '100%');
-
-        for (let i = 0; i < this.app.renderer.height / 20; i++) {
-          const texture = PIXI.Texture.from('assets/gradient.png');
-          const gradient = new PIXI.Sprite(texture);
-          gradient.anchor.set(0.5);
-          gradient.x = this.app.renderer.width / 2;
-          gradient.width = this.app.renderer.width;
-          gradient.height = 20;
-          gradient.y = i * gradient.height;
-          this.app.stage.addChild(gradient);
-        }
-
-        const tl = gsap.timeline({
-          defaults: {
-            stagger: {
-              each: 0.0475,
-              from: 'end',
-            },
-            ease: 'back',
-            duration: 3,
-            repeat: -1,
-            yoyo: true,
-            yoyoEase: true,
-          },
-        });
-
-        tl.fromTo(
-          this.app.stage.children,
-          {
-            pixi: {
-              width: this.app.renderer.width / 16,
-              alpha: 0.45,
-            },
-          },
-          {
-            pixi: {
-              width: this.app.renderer.width / 2,
-              alpha: 1,
-            },
-          }
-        );
+        this.initPixi();
       });
     });
   }
