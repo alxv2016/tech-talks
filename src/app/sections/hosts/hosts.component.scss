@@ -12,8 +12,8 @@
   overflow: hidden;
   h2 {
     margin: 0;
-    max-width: max-width('md');
-    margin: auto;
+    // max-width: max-width('md');
+    // margin: auto;
   }
 }
 
@@ -97,7 +97,7 @@
   z-index: 2;
   display: grid;
   width: 100%;
-  max-width: max-width('md');
+  max-width: max-width('lg');
   margin: auto;
   grid-row-gap: $spacing--lg;
   grid-auto-flow: column;
