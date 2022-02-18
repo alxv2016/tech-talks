@@ -21,7 +21,6 @@ import {Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {UtilityService} from 'src/app/services/utility.service';
 import {SignUpService} from 'src/app/services/sign-up.service';
-import {Content} from 'src/app/services/models/content.interface';
 import {ContentService} from 'src/app/services/content.service';
 
 @Component({
@@ -37,7 +36,7 @@ import {ContentService} from 'src/app/services/content.service';
 })
 export class SignUpComponent implements OnInit, AfterViewInit, OnDestroy {
   private unsubscribe$ = new Subject();
-  siteContent: Content;
+  siteContent: any;
   signupForm: FormGroup;
   signUpSuccess = false;
   signUpClosed = false;

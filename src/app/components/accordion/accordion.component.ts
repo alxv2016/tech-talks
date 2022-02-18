@@ -12,7 +12,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {forkJoin} from 'rxjs';
-import {Content} from 'src/app/services/models/content.interface';
+import {TechTalksCollection} from 'src/app/services/models/content.interface';
 
 @Component({
   selector: 'c-accordion',
@@ -22,7 +22,7 @@ import {Content} from 'src/app/services/models/content.interface';
 export class AccordionComponent implements OnInit, AfterViewInit {
   expanded = false;
   @HostBinding('class') class = 'c-accordion';
-  @Input() siteContent: Content;
+  @Input() siteContent: TechTalksCollection;
   @ViewChildren('accordionHeader', {read: ElementRef}) accordionHeader!: QueryList<ElementRef>;
   @ViewChildren('accordionPanel', {read: ElementRef}) accordionPanel!: QueryList<ElementRef>;
   constructor(private element: ElementRef, private render: Renderer2) {}

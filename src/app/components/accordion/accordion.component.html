@@ -1,13 +1,13 @@
-<ng-container *ngFor="let item of siteContent.faq_panels; index as i">
+<ng-container *ngFor="let item of siteContent.faqs; index as i">
   <h2 class="c-accordion__header">
     <button #accordionHeader (click)="togglePanel($event, i)">
-      {{ item.title }}<span class="c-accordion-icon"></span>
+      {{ item.faq }}<span class="c-accordion-icon"></span>
     </button>
   </h2>
   <div #accordionPanel class="c-accordion__panel">
     <div class="c-accordion__panel-container">
       <div class="c-accordion-content">
-        <p>{{ item.body }}</p>
+        <p>{{ item.faq_content }}</p>
       </div>
     </div>
   </div>

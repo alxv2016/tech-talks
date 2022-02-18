@@ -1,22 +1,22 @@
 <div class="section-title">
-  <h2 class="display-2">{{ siteContent.hosts.title }}</h2>
+  <h2 class="display-2">{{ siteContent.host_title }}</h2>
 </div>
 <div class="scroller">
   <ul class="scroll-container">
-    <ng-container *ngFor="let host of siteContent.host">
+    <ng-container *ngFor="let host of siteContent.hosts">
       <li class="scroll-container__item">
         <div class="intro-card design-card card--reveal">
           <div class="intro-card__content">
             <div class="intro-card__avatar">
-              <ng-container *ngIf="host.image">
-                <img [src]="host.image" />
+              <ng-container *ngIf="host.has_image">
+                <img [src]="host.host_image" />
               </ng-container>
-              <ng-container *ngIf="!host.image">
-                <span class="host-initials">{{ host.initials }}</span>
+              <ng-container *ngIf="!host.has_image">
+                <span class="host-initials">{{ host.host_initials }}</span>
               </ng-container>
             </div>
-            <h3 class="intro-card__title copy--accent-1">{{ host.name }}</h3>
-            <p class="intro-card__descr">{{ host.role }}</p>
+            <h3 class="intro-card__title copy--accent-1">{{ host.host_name }}</h3>
+            <p class="intro-card__descr">{{ host.host_content }}</p>
           </div>
         </div>
       </li>

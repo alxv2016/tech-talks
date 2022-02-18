@@ -14,7 +14,7 @@ import {
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {ContentService} from 'src/app/services/content.service';
-import {Content} from 'src/app/services/models/content.interface';
+import {TechTalksCollection} from 'src/app/services/models/content.interface';
 
 @Component({
   selector: 'c-value-prop',
@@ -22,7 +22,7 @@ import {Content} from 'src/app/services/models/content.interface';
   styleUrls: ['./value-prop.component.scss'],
 })
 export class ValuePropComponent implements OnInit, AfterViewInit {
-  siteContent: Content;
+  siteContent: TechTalksCollection;
 
   @HostBinding('class') class = 'c-value-prop';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';

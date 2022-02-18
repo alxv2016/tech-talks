@@ -15,7 +15,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {PixiPlugin} from 'gsap/PixiPlugin';
 import * as PIXI from 'pixi.js';
 import {ContentService} from 'src/app/services/content.service';
-import {Content} from 'src/app/services/models/content.interface';
+import {TechTalksCollection} from 'src/app/services/models/content.interface';
 
 @Component({
   selector: 'c-intro',
@@ -23,7 +23,7 @@ import {Content} from 'src/app/services/models/content.interface';
   styleUrls: ['./intro.component.scss'],
 })
 export class IntroComponent implements OnInit, AfterViewInit {
-  siteContent: Content;
+  siteContent: TechTalksCollection;
   app: any;
 
   @HostBinding('class') class = 'c-intro';

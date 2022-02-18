@@ -1,89 +1,79 @@
-export interface SiteContent {
-  data: Content[];
-  public: boolean;
+export interface PrismicQuery {
+  page: number;
+  results_per_page: number;
+  results_size: number;
+  total_results_size: number;
+  total_pages: number;
+  next_page?: any;
+  prev_page?: any;
+  results: Result[];
+  version: string;
+  license: string;
 }
 
-export interface Content {
-  id?: number;
-  created_on?: string;
-  hero: Hero;
+interface Result {
+  id: string;
+  uid: string;
+  url?: any;
+  type: string;
+  href: string;
+  tags: string[];
+  first_publication_date: string;
+  last_publication_date: string;
+  slugs: string[];
+  linked_documents: any[];
+  lang: string;
+  alternate_languages: any[];
+  data: TechTalksCollection;
+}
+
+export interface TechTalksCollection {
+  page_title: string;
+  hero_title: string;
+  hero_content: string;
   value_props: Valueprop[];
-  intro: Intro;
-  features: Feature[];
-  session: Intro;
-  sign_up: Intro;
-  form: Form;
-  form_skill: Formskill[];
-  hosts: Hosts;
-  faqs: Hosts;
-  faq_panels: Faqpanel[];
-  host: Host[];
-  sign_up_success: Intro;
-  sign_up_closed: Intro;
+  intro_callout: string;
+  intro_title: string;
+  intro_content: string;
+  topics: Topic[];
+  session_callout: string;
+  session_title: string;
+  session_content: string;
+  session_topics: Sessiontopic[];
+  host_title: string;
+  hosts: Host[];
+  faq_title: string;
+  faqs: Faq[];
+  slogan: string;
+}
+
+interface Faq {
+  faq: string;
+  faq_content: string;
 }
 
 interface Host {
-  newItem?: boolean;
-  name: string;
-  role: string;
-  image: string;
-  initials?: string;
+  host_image: Sessionimage;
+  host_initials: string;
+  host_name: string;
+  host_content: string;
+  has_image: boolean;
 }
 
-interface Faqpanel {
-  newItem?: boolean;
-  title: string;
-  body: string;
+interface Sessiontopic {
+  session_image: Sessionimage;
+  session_topic?: any;
+  session_topic_content?: any;
+  has_image?: boolean;
 }
 
-interface Hosts {
-  title: string;
-  tagline?: string;
-}
+interface Sessionimage {}
 
-interface Formskill {
-  newItem?: boolean;
-  label: string;
-  value: string;
-}
-
-interface Form {
-  first_name: string;
-  last_name: string;
-  skill_level: string;
-  comments: string;
-  helper: string;
-  action: string;
-}
-
-interface Feature {
-  newItem?: boolean;
-  title: string;
-  descr: string;
-}
-
-interface Intro {
-  overline: string;
-  title: string;
-  body: string;
-  video?: string;
-  auto_layout_overline?: string;
-  auto_layout_title?: string;
-  auto_layout_intro?: string;
-  variant_overline?: string;
-  variant_title?: string;
-  variant_intro?: string;
-  prototype_overline?: string;
-  prototype_title?: string;
-  prototype_intro?: string;
+interface Topic {
+  topic: string;
+  topic_content: string;
 }
 
 interface Valueprop {
-  newItem?: boolean;
   value_prop: string;
-}
-
-interface Hero {
-  title: string;
-  body: string;
 }

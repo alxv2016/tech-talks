@@ -17,7 +17,7 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import {PixiPlugin} from 'gsap/PixiPlugin';
 import * as PIXI from 'pixi.js';
 import {ContentService} from 'src/app/services/content.service';
-import {Content} from 'src/app/services/models/content.interface';
+import {TechTalksCollection} from 'src/app/services/models/content.interface';
 
 @Component({
   selector: 'c-hosts',
@@ -25,7 +25,7 @@ import {Content} from 'src/app/services/models/content.interface';
   styleUrls: ['./hosts.component.scss'],
 })
 export class HostsComponent implements OnInit, AfterViewInit {
-  siteContent: Content;
+  siteContent: TechTalksCollection;
   app: any;
   @HostBinding('class') class = 'c-hosts';
   @ViewChild('gradientContainer') gradientContainer!: ElementRef;
@@ -43,14 +43,14 @@ export class HostsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
       this.siteContent = data;
-      this.siteContent.host.forEach((d) => {
-        const initials = d.name
-          .split(' ')
-          .map((n) => n[0])
-          .join('')
-          .toUpperCase();
-        Object.assign(d, {initials});
-      });
+      // this.siteContent.hosts.forEach((d) => {
+      //   const initials = d.host_name
+      //     .split(' ')
+      //     .map((n) => n[0])
+      //     .join('')
+      //     .toUpperCase();
+      //   Object.assign(d, {initials});
+      // });
     });
   }
 

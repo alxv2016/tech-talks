@@ -18,7 +18,7 @@ import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {AccordionComponent} from 'src/app/components/accordion/accordion.component';
 import {ContentService} from 'src/app/services/content.service';
-import {Content} from 'src/app/services/models/content.interface';
+import {TechTalksCollection} from 'src/app/services/models/content.interface';
 import {UtilityService} from 'src/app/services/utility.service';
 
 @Component({
@@ -28,7 +28,7 @@ import {UtilityService} from 'src/app/services/utility.service';
 })
 export class FaqComponent implements OnInit, AfterViewInit {
   private unsubscribe$ = new Subject();
-  siteContent: Content;
+  siteContent: TechTalksCollection;
   @HostBinding('class') class = 'c-faq';
   @ViewChild('bolt') bolt!: ElementRef;
   @ViewChild('boltSpark1') boltSpark1!: ElementRef;
