@@ -1,0 +1,29 @@
+<div #introTrigger class="trigger">
+  <div class="c-figma__container">
+    <div class="session-intro">
+      <div #title class="sub-headline copy--lit">{{ siteContent.experience_callout }}</div>
+      <h2 #title class="display-3">{{ siteContent.experience_title }}</h2>
+      <p #title class="large-print copy--tint">{{ siteContent.experience_content }}</p>
+    </div>
+  </div>
+</div>
+<div class="trigger" #testTrigger>
+  <div class="concepts">
+    <div class="concepts__grid" #sessionContent>
+      <div class="concept-demo">
+        <video
+          #testVideo
+          class="concept-demo__video"
+          playsinline="true"
+          aria-hidden="true"
+          src="assets/auto-layout.mp4"
+        ></video>
+      </div>
+      <div class="concept-intro">
+        <div class="sub-headline copy--lit">{{ siteContent.session_callout }}</div>
+        <h2 class="display-4">{{ siteContent.session_title }}.</h2>
+        <p class="small-print copy--tint">{{ siteContent.session_content }}</p>
+      </div>
+    </div>
+  </div>
+</div>

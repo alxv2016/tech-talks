@@ -36,10 +36,12 @@ export interface TechTalksCollection {
   intro_title: string;
   intro_content: string;
   topics: Topic[];
+  experience_callout: string;
+  experience_title: string;
+  experience_content: string;
   session_callout: string;
   session_title: string;
   session_content: string;
-  session_topics: Sessiontopic[];
   host_title: string;
   hosts: Host[];
   faq_title: string;
@@ -58,13 +60,6 @@ interface Host {
   host_name: string;
   host_content: string;
   has_image: boolean;
-}
-
-interface Sessiontopic {
-  session_image: Sessionimage;
-  session_topic?: any;
-  session_topic_content?: any;
-  has_image?: boolean;
 }
 
 interface Sessionimage {}
