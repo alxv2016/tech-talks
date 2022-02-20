@@ -25,7 +25,6 @@ export class OrbitalBlurComponent implements AfterViewInit {
   oribtalAnime!: GSAPTimeline;
   @Input() animeEvents!: Observable<boolean>;
   @HostBinding('class') class = 'c-orbital-blur';
-  @ViewChild('orbitalOrb') orbitalOrb!: ElementRef;
   @ViewChildren('orbitalBlob', {read: ElementRef}) orbitalBlob!: QueryList<ElementRef>;
   constructor(private element: ElementRef, private render: Renderer2, private ngZone: NgZone) {}
 
@@ -34,30 +33,21 @@ export class OrbitalBlurComponent implements AfterViewInit {
 
     this.oribtalAnime = gsap.timeline({
       repeat: -1,
+      repeatDelay: 4,
       yoyo: true,
       yoyoEase: 'back',
       defaults: {
-        duration: 2.25,
+        duration: 4,
         transformOrigin: 'center',
       },
     });
 
-    this.oribtalAnime
-      .from(orbitalBlobs, {
-        scale: 1.25,
-        opacity: 0.125,
-        rotate: -25,
-        stagger: 0.125,
-      })
-      .from(
-        this.orbitalOrb.nativeElement,
-        {
-          scale: 1.45,
-          opacity: 0,
-          ease: 'back',
-        },
-        0.24
-      );
+    this.oribtalAnime.from(orbitalBlobs, {
+      scale: 1.25,
+      opacity: 0.125,
+      rotate: -45,
+      stagger: 0.175,
+    });
   }
 
   ngAfterViewInit(): void {

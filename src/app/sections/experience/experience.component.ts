@@ -28,7 +28,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
   @HostBinding('class') class = 'c-experience';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
-
+  //@ViewChild('bolt') bolt!: ElementRef;
   @ViewChild('experienceTrigger') experienceTrigger!: ElementRef;
   @ViewChild('sessionContent') sessionContent!: ElementRef;
   @ViewChild('testVideo') testVideo!: ElementRef;
@@ -37,6 +37,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
   @ViewChild('vortexTrigger') vortexTrigger!: ElementRef;
   @ViewChild('experienceVortex') experienceVortex!: ElementRef;
   @ViewChildren('experienceVortexRing', {read: ElementRef}) experienceVortexRing!: QueryList<ElementRef>;
+  @ViewChildren('bolt', {read: ElementRef}) bolt!: QueryList<ElementRef>;
   constructor(private contentService: ContentService, private ngZone: NgZone, private render: Renderer2) {
     gsap.registerPlugin(ScrollTrigger);
   }
@@ -50,6 +51,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
   initGsap(): void {
     const titles = this.title.map((title) => title.nativeElement);
     const vortexRings = this.experienceVortexRing.map((ring) => ring.nativeElement);
+    const bolts = this.bolt.map((b) => b.nativeElement);
     this.render.addClass(this.experienceVortex.nativeElement, 'l-content--hide');
 
     const experienceTL = gsap.timeline({
@@ -89,12 +91,9 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
         0.25
       );
 
-    gsap.from(this.sessionContent.nativeElement, {
-      y: 24,
-      opacity: 0,
-      stagger: 0.165,
+    const sessionTL = gsap.timeline({
       scrollTrigger: {
-        markers: true,
+        markers: false,
         trigger: this.experienceTrigger.nativeElement,
         start: 'top 75%',
         end: 'bottom 75%',
@@ -106,15 +105,26 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
         onLeaveBack: () => {
           this.scrollTriggerEvents.next(true);
         },
-        // onEnter: ({isActive}) => {
-        //   if (isActive) {
-        //     this.testVideo.nativeElement.muted = true;
-        //     this.testVideo.nativeElement.play();
-        //     this.testVideo.nativeElement.addEventListener('ended', this.hideVideo);
-        //   }
-        // },
       },
     });
+
+    sessionTL
+      .from(this.sessionContent.nativeElement, {
+        y: 24,
+        opacity: 0,
+        stagger: 0.165,
+      })
+      .from(
+        bolts,
+        {
+          opacity: 0,
+          scale: 0.125,
+          stagger: 0.85,
+          transformOrigin: 'center',
+          duration: 3,
+        },
+        0.25
+      );
 
     // Set a delay after 1 second to refresh scrollTrigger instance
     gsap.delayedCall(1, () => {

@@ -122,3 +122,18 @@
     order: 0;
   }
 }
+
+.bolt {
+  position: absolute;
+  z-index: 1;
+  height: 200px;
+  width: 200px;
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.tt-bolt {
+  stroke: color('lit');
+}
