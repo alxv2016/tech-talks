@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   HostBinding,
+  Input,
   NgZone,
   OnInit,
   QueryList,
@@ -23,21 +24,18 @@ import {TechTalksCollection} from 'src/app/services/models/content.interface';
 export class ExperienceComponent implements OnInit, AfterViewInit {
   siteContent: TechTalksCollection;
   @HostBinding('class') class = 'c-experience';
+  @HostBinding('style.--a-start') @Input() aStart: string = '0%';
+  @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
 
   @ViewChild('testTrigger') testTrigger!: ElementRef;
   @ViewChild('sessionContent') sessionContent!: ElementRef;
   @ViewChild('testVideo') testVideo!: ElementRef;
-  // @ViewChild('variantsTrigger') variantsTrigger!: ElementRef;
-  // @ViewChild('variants') variants!: ElementRef;
-  // @ViewChild('variantsVideo') variantsVideo!: ElementRef;
-
-  // @ViewChild('prototypesTrigger') prototypesTrigger!: ElementRef;
-  // @ViewChild('prototypes') prototypes!: ElementRef;
-  // @ViewChild('prototypesVideo') prototypesVideo!: ElementRef;
-
   @ViewChild('introTrigger') introTrigger!: ElementRef;
   @ViewChildren('title', {read: ElementRef}) title!: QueryList<ElementRef>;
-  constructor(private contentService: ContentService, private ngZone: NgZone) {
+  @ViewChild('vortexTrigger') vortexTrigger!: ElementRef;
+  @ViewChild('experienceVortex') experienceVortex!: ElementRef;
+  @ViewChildren('experienceVortexRing', {read: ElementRef}) experienceVortexRing!: QueryList<ElementRef>;
+  constructor(private contentService: ContentService, private ngZone: NgZone, private render: Renderer2) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
@@ -49,19 +47,45 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
 
   initGsap(): void {
     const titles = this.title.map((title) => title.nativeElement);
+    const vortexRings = this.experienceVortexRing.map((ring) => ring.nativeElement);
+    this.render.addClass(this.experienceVortex.nativeElement, 'l-content--hide');
 
-    gsap.from(titles, {
-      y: 24,
-      opacity: 0,
-      stagger: 0.165,
+    const experienceTL = gsap.timeline({
       scrollTrigger: {
         markers: false,
         trigger: this.introTrigger.nativeElement,
-        start: 'top 75%',
-        end: 'bottom 75%',
+        start: 'top center',
+        end: 'bottom center',
         scrub: 0.45,
       },
     });
+
+    experienceTL
+      .from(vortexRings, {
+        rotate: -360,
+        scale: 0.65,
+        opacity: 0,
+        stagger: 0.125,
+        transformOrigin: 'center center',
+      })
+      .from(
+        titles,
+        {
+          y: 24,
+          opacity: 0,
+          stagger: 0.165,
+        },
+        0.45
+      )
+      .to(
+        this.experienceVortex.nativeElement,
+        {
+          '--a-start': '60%',
+          '--a-end': '200%',
+          duration: 6,
+        },
+        0.25
+      );
 
     gsap.from(this.sessionContent.nativeElement, {
       y: 24,
