@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
+import {Subject} from 'rxjs';
 import {ContentService} from 'src/app/services/content.service';
 import {TechTalksCollection} from 'src/app/services/models/content.interface';
 
@@ -23,11 +24,12 @@ import {TechTalksCollection} from 'src/app/services/models/content.interface';
 })
 export class ExperienceComponent implements OnInit, AfterViewInit {
   siteContent: TechTalksCollection;
+  scrollTriggerEvents: Subject<boolean> = new Subject<boolean>();
   @HostBinding('class') class = 'c-experience';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
 
-  @ViewChild('testTrigger') testTrigger!: ElementRef;
+  @ViewChild('experienceTrigger') experienceTrigger!: ElementRef;
   @ViewChild('sessionContent') sessionContent!: ElementRef;
   @ViewChild('testVideo') testVideo!: ElementRef;
   @ViewChild('introTrigger') introTrigger!: ElementRef;
@@ -92,19 +94,31 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
       opacity: 0,
       stagger: 0.165,
       scrollTrigger: {
-        markers: false,
-        trigger: this.testTrigger.nativeElement,
+        markers: true,
+        trigger: this.experienceTrigger.nativeElement,
         start: 'top 75%',
         end: 'bottom 75%',
         scrub: 0.45,
-        onEnter: ({isActive}) => {
-          if (isActive) {
-            this.testVideo.nativeElement.muted = true;
-            this.testVideo.nativeElement.play();
-            this.testVideo.nativeElement.addEventListener('ended', this.hideVideo);
-          }
+        onLeave: () => {
+          this.scrollTriggerEvents.next(false);
+          this.scrollTriggerEvents.asObservable();
         },
+        onLeaveBack: () => {
+          this.scrollTriggerEvents.next(true);
+        },
+        // onEnter: ({isActive}) => {
+        //   if (isActive) {
+        //     this.testVideo.nativeElement.muted = true;
+        //     this.testVideo.nativeElement.play();
+        //     this.testVideo.nativeElement.addEventListener('ended', this.hideVideo);
+        //   }
+        // },
       },
+    });
+
+    // Set a delay after 1 second to refresh scrollTrigger instance
+    gsap.delayedCall(1, () => {
+      ScrollTrigger.refresh();
     });
   }
 

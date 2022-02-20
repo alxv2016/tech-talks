@@ -89,21 +89,15 @@
     </svg>
   </div>
 </div>
-<div class="trigger" #testTrigger>
+<div class="experience-trigger" #experienceTrigger>
   <div class="concepts">
     <div class="concepts__grid" #sessionContent>
       <div class="concept-demo">
-        <video
-          #testVideo
-          class="concept-demo__video"
-          playsinline="true"
-          aria-hidden="true"
-          src="assets/auto-layout.mp4"
-        ></video>
+        <c-orbital-blur [animeEvents]="scrollTriggerEvents"></c-orbital-blur>
       </div>
       <div class="concept-intro">
         <div class="sub-headline copy--lit">{{ siteContent.session_callout }}</div>
-        <h2 class="display-4">{{ siteContent.session_title }}.</h2>
+        <h2 class="display-4">{{ siteContent.session_title }}</h2>
         <p class="small-print copy--tint">{{ siteContent.session_content }}</p>
       </div>
     </div>

@@ -6,6 +6,7 @@ import {AccordionComponent} from './accordion/accordion.component';
 import {FooterComponent} from './footer/footer.component';
 import {WarningComponent} from './warning/warning.component';
 import {ScrollIndicatorComponent} from './scroll-indicator/scroll-indicator.component';
+import {OrbitalBlurComponent} from './orbital-blur/orbital-blur.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {ScrollIndicatorComponent} from './scroll-indicator/scroll-indicator.comp
     FooterComponent,
     WarningComponent,
     ScrollIndicatorComponent,
+    OrbitalBlurComponent,
   ],
   exports: [
     HeaderComponent,
@@ -23,6 +25,7 @@ import {ScrollIndicatorComponent} from './scroll-indicator/scroll-indicator.comp
     FooterComponent,
     WarningComponent,
     ScrollIndicatorComponent,
+    OrbitalBlurComponent,
   ],
   imports: [CommonModule],
 })
