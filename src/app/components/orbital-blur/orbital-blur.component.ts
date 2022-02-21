@@ -33,11 +33,11 @@ export class OrbitalBlurComponent implements AfterViewInit {
 
     this.oribtalAnime = gsap.timeline({
       repeat: -1,
-      repeatDelay: 4,
+      repeatDelay: 2,
       yoyo: true,
       yoyoEase: 'back',
       defaults: {
-        duration: 4,
+        duration: 3,
         transformOrigin: 'center',
       },
     });
@@ -45,7 +45,7 @@ export class OrbitalBlurComponent implements AfterViewInit {
     this.oribtalAnime.from(orbitalBlobs, {
       scale: 1.25,
       opacity: 0.125,
-      rotate: -45,
+      rotate: -75,
       stagger: 0.175,
     });
   }

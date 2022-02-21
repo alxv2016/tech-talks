@@ -81,7 +81,7 @@
 .host-initials {
   font-size: $title--3;
   font-weight: font-weight('bold');
-  color: color('light');
+  color: color('lit');
 }
 
 .scroller {
@@ -101,6 +101,7 @@
   margin: auto;
   grid-row-gap: $spacing--lg;
   grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
   padding: $spacing--sm;
   overflow-x: scroll;
   scroll-snap-type: x proximity;
@@ -109,7 +110,6 @@
   }
   @include breakpoint(md) {
     grid-auto-flow: row;
-    grid-template-columns: repeat(auto-fill, minmax(33.33%, 1fr));
     grid-row-gap: $spacing--lg;
   }
   @include breakpoint(lg) {
@@ -117,7 +117,7 @@
   }
 
   &__item {
-    width: 200px;
+    width: 100%;
     height: auto;
     padding: 0 $spacing--sm;
     &:last-child,
@@ -126,7 +126,6 @@
     }
 
     @include breakpoint(md) {
-      width: 100%;
       &:last-child,
       &:last-of-type {
         padding-right: $spacing--sm;

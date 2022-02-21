@@ -1,6 +1,6 @@
 @import '../../../scss/00_imports';
 
-:host-context(.c-figma) {
+:host-context(.c-experience) {
   --a-start: 0%;
   --a-end: 0%;
   position: relative;
@@ -8,13 +8,13 @@
   background-color: color('darker');
 }
 
-.trigger {
+.intro-trigger {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 800px;
+  margin-bottom: $layout--xl;
 }
 
 .experience-trigger {
@@ -23,18 +23,24 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  margin-top: $layout--xl;
+  margin-bottom: $layout--xl;
 }
 
 .c-experience-vortex {
   position: absolute;
-  z-index: 0;
   top: 0;
-  width: 720px;
-  height: 720px;
+  z-index: 0;
+  width: 568px;
+  height: 568px;
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0.75;
+  @include breakpoint('sm') {
+    width: 768px;
+    height: 768px;
+  }
   svg {
     width: 100%;
     height: 100%;
@@ -55,12 +61,17 @@
   }
 }
 
-.c-figma {
+.c-experience {
   &__container {
     position: relative;
+    display: flex;
+    align-items: flex-end;
     z-index: 1;
-    display: block;
     @include container-padding;
+    height: 568px;
+    @include breakpoint('md') {
+      height: 768px;
+    }
   }
 }
 
@@ -68,12 +79,18 @@
   position: relative;
   width: 100%;
   max-width: max-width('md');
-  margin: auto;
   margin-bottom: $layout--md;
+  @include breakpoint('md') {
+    margin-bottom: $layout--lg;
+  }
+  @include breakpoint('lg') {
+    margin-bottom: $layout--xl;
+  }
 }
 
 .concepts {
   position: relative;
+  width: 100%;
   @include container-padding;
   &__grid {
     display: flex;
@@ -81,7 +98,6 @@
     justify-content: center;
     flex-direction: column;
     width: 100%;
-    padding-bottom: $spacing--xl;
     @include breakpoint(md) {
       flex-direction: row;
     }
@@ -90,27 +106,33 @@
 
 .concept-demo {
   position: relative;
-  flex-shrink: 0;
-  border-radius: $spacing--md;
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 100%;
+  height: 368px;
   @include breakpoint(md) {
     width: 50%;
+    height: 768px;
   }
 
   .c-orbital-blur {
     position: relative;
+    top: 0;
     z-index: 0;
-    right: 0;
     flex-shrink: 0;
+    width: 468px;
+    height: 468px;
+    @include breakpoint(lg) {
+      width: 768px;
+      height: 768px;
+    }
   }
 }
 
 .concept-intro {
   position: relative;
   width: 100%;
-  margin-top: $layout--lg;
   order: 1;
   p {
     margin-bottom: 0;
@@ -135,5 +157,9 @@
 }
 
 .tt-bolt {
-  stroke: color('lit');
+  stroke: color('accent1');
+}
+
+.tt-bolt-accent {
+  stroke: color('accent1');
 }

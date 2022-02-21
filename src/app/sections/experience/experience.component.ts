@@ -70,6 +70,7 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
         scale: 0.65,
         opacity: 0,
         stagger: 0.125,
+        duration: 2.5,
         transformOrigin: 'center center',
       })
       .from(
@@ -95,14 +96,17 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
       scrollTrigger: {
         markers: false,
         trigger: this.experienceTrigger.nativeElement,
-        start: 'top 75%',
-        end: 'bottom 75%',
+        start: 'top 55%',
+        end: 'bottom 55%',
         scrub: 0.45,
         onLeave: () => {
           this.scrollTriggerEvents.next(false);
           this.scrollTriggerEvents.asObservable();
         },
         onLeaveBack: () => {
+          this.scrollTriggerEvents.next(true);
+        },
+        onEnterBack: () => {
           this.scrollTriggerEvents.next(true);
         },
       },
