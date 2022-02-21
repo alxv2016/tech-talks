@@ -121,6 +121,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
     for (let i = 0; i < this.app.renderer.height / 40; i++) {
       const texture = PIXI.Texture.from('assets/gradient.png');
       const gradient = new PIXI.Sprite(texture);
+
       gradient.anchor.set(0.5);
       gradient.x = this.app.renderer.width / 2;
       gradient.width = this.app.renderer.width;

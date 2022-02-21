@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "~13.2.2",
     "@angular/router": "~13.2.2",
     "gsap": "^3.9.1",
-    "pixi.js": "^5.3.11",
+    "pixi.js": "^6.2.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"
@@ -34,6 +34,7 @@
     "@commitlint/config-angular": "^12.1.4",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
+    "@types/offscreencanvas": "^2019.6.4",
     "codelyzer": "^6.0.0",
     "husky": "^6.0.0",
     "jasmine-core": "~3.6.0",
@@ -49,6 +50,6 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "~4.5.5"
+    "typescript": "^4.5.5"
   }
 }
