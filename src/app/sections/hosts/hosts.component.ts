@@ -72,13 +72,13 @@ export class HostsComponent implements OnInit, AfterViewInit {
       this.render.setStyle(this.app.renderer.view, 'height', '100%');
       this.render.setStyle(this.app.renderer.view, 'width', '100%');
 
-      for (let i = 0; i < this.app.renderer.width / 25; i++) {
+      for (let i = 0; i < this.app.renderer.width / 24; i++) {
         const texture = PIXI.Texture.from('assets/gradient2.png');
         const gradient = new PIXI.Sprite(texture);
         gradient.anchor.set(0.5);
         gradient.y = this.app.renderer.height / 2;
         gradient.height = this.app.renderer.height;
-        gradient.width = 25;
+        gradient.width = 24;
         gradient.x = i * gradient.width;
         this.app.stage.addChild(gradient);
       }
@@ -101,7 +101,7 @@ export class HostsComponent implements OnInit, AfterViewInit {
         this.app.stage.children,
         {
           pixi: {
-            height: 60,
+            height: 90,
             alpha: 0.125,
           },
         },
