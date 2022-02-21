@@ -29,6 +29,7 @@ import {TechTalksCollection} from 'src/app/services/models/content.interface';
 export class HeroComponent implements OnInit, AfterViewInit {
   siteContent: TechTalksCollection;
   app: any;
+  heroAnime!: GSAPTimeline;
   @HostBinding('class') class = 'c-hero';
   @HostBinding('style.--a-start') @Input() aStart: string = '0%';
   @HostBinding('style.--a-end') @Input() aEnd: string = '0%';
@@ -62,6 +63,12 @@ export class HeroComponent implements OnInit, AfterViewInit {
         start: 'top top',
         end: '120% top',
         scrub: 0.45,
+        onLeave: () => {
+          this.heroAnime.pause();
+        },
+        onLeaveBack: () => {
+          this.heroAnime.play();
+        },
       },
     });
 
@@ -122,7 +129,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
       this.app.stage.addChild(gradient);
     }
 
-    const tl = gsap.timeline({
+    this.heroAnime = gsap.timeline({
       defaults: {
         stagger: {
           each: 0.0675,
@@ -136,7 +143,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
       },
     });
 
-    tl.fromTo(
+    this.heroAnime.fromTo(
       this.app.stage.children,
       {
         pixi: {

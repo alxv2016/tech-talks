@@ -56,7 +56,6 @@ export class OrbitalBlurComponent implements AfterViewInit {
     });
 
     this.animeEvents.subscribe((bool) => {
-      console.log(bool);
       bool ? this.oribtalAnime.play() : this.oribtalAnime.pause();
     });
   }

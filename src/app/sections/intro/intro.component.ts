@@ -25,7 +25,7 @@ import {TechTalksCollection} from 'src/app/services/models/content.interface';
 export class IntroComponent implements OnInit, AfterViewInit {
   siteContent: TechTalksCollection;
   app: any;
-
+  introAnime!: GSAPTimeline;
   @HostBinding('class') class = 'c-intro';
   @ViewChild('brandTrigger') brandTrigger!: ElementRef;
   @ViewChild('cardTrigger') cardTrigger!: ElementRef;
@@ -67,6 +67,16 @@ export class IntroComponent implements OnInit, AfterViewInit {
         start: 'top center',
         end: '80% center',
         scrub: 0.45,
+        onLeave: () => {
+          if (this.introAnime) {
+            this.introAnime.pause();
+          }
+        },
+        onLeaveBack: () => {
+          if (this.introAnime) {
+            this.introAnime.play();
+          }
+        },
       },
     });
 
@@ -147,7 +157,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
       this.app.stage.addChild(gradient);
     }
 
-    const tl = gsap.timeline({
+    this.introAnime = gsap.timeline({
       defaults: {
         stagger: {
           each: 0.0475,
@@ -161,7 +171,7 @@ export class IntroComponent implements OnInit, AfterViewInit {
       },
     });
 
-    tl.fromTo(
+    this.introAnime.fromTo(
       this.app.stage.children,
       {
         pixi: {

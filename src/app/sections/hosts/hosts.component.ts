@@ -43,22 +43,12 @@ export class HostsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.contentService.siteContent$.subscribe((data) => {
       this.siteContent = data;
-      // this.siteContent.hosts.forEach((d) => {
-      //   const initials = d.host_name
-      //     .split(' ')
-      //     .map((n) => n[0])
-      //     .join('')
-      //     .toUpperCase();
-      //   Object.assign(d, {initials});
-      // });
     });
   }
 
   ngAfterViewInit(): void {
     this.ngZone.runOutsideAngular(() => {
       this.app = new PIXI.Application({
-        height: 400,
-        width: 800,
         antialias: true,
         transparent: true,
       });
@@ -72,13 +62,13 @@ export class HostsComponent implements OnInit, AfterViewInit {
       this.render.setStyle(this.app.renderer.view, 'height', '100%');
       this.render.setStyle(this.app.renderer.view, 'width', '100%');
 
-      for (let i = 0; i < this.app.renderer.width / 24; i++) {
+      for (let i = 0; i < this.app.renderer.width / 18; i++) {
         const texture = PIXI.Texture.from('assets/gradient2.png');
         const gradient = new PIXI.Sprite(texture);
         gradient.anchor.set(0.5);
         gradient.y = this.app.renderer.height / 2;
         gradient.height = this.app.renderer.height;
-        gradient.width = 24;
+        gradient.width = 18;
         gradient.x = i * gradient.width;
         this.app.stage.addChild(gradient);
       }
@@ -86,14 +76,14 @@ export class HostsComponent implements OnInit, AfterViewInit {
       const tl = gsap.timeline({
         defaults: {
           stagger: {
-            each: 0.175,
-            from: 'start',
+            each: 0.0125,
+            from: 'center',
           },
           ease: 'back',
-          duration: 2,
+          duration: 6,
           repeat: -1,
           yoyo: true,
-          yoyoEase: true,
+          yoyoEase: 'back',
         },
       });
 
@@ -101,7 +91,7 @@ export class HostsComponent implements OnInit, AfterViewInit {
         this.app.stage.children,
         {
           pixi: {
-            height: 90,
+            height: 40,
             alpha: 0.125,
           },
         },
