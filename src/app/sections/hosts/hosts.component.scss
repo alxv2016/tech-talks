@@ -137,6 +137,7 @@
   --progress-start: 30%;
   --progress-end: 84%;
   position: absolute;
+  z-index: 0;
   height: auto;
   width: 768px;
   @include breakpoint(md) {
