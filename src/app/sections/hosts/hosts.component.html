@@ -1,26 +1,49 @@
-<div class="section-title">
-  <h2 class="display-2">{{ siteContent.host_title }}</h2>
-</div>
-<div class="scroller">
-  <ul class="scroll-container">
-    <ng-container *ngFor="let host of siteContent.hosts">
-      <li class="scroll-container__item">
-        <div class="intro-card design-card card--reveal">
-          <div class="intro-card__content">
-            <div class="intro-card__avatar">
-              <ng-container *ngIf="host.has_image">
-                <img [src]="host.host_image" />
-              </ng-container>
-              <ng-container *ngIf="!host.has_image">
-                <span class="host-initials">{{ host.host_initials }}</span>
-              </ng-container>
+<div #trigger>
+  <div class="section-title">
+    <h2 class="display-2">{{ siteContent.host_title }}</h2>
+  </div>
+  <div class="scroller">
+    <ul class="scroll-container">
+      <ng-container *ngFor="let host of siteContent.hosts">
+        <li class="scroll-container__item">
+          <div class="intro-card design-card card--reveal">
+            <div class="intro-card__content">
+              <div class="intro-card__avatar">
+                <ng-container *ngIf="host.has_image">
+                  <img [src]="host.host_image" />
+                </ng-container>
+                <ng-container *ngIf="!host.has_image">
+                  <span class="host-initials">{{ host.host_initials }}</span>
+                </ng-container>
+              </div>
+              <h3 class="intro-card__title copy--accent-1">{{ host.host_name }}</h3>
+              <p class="intro-card__descr">{{ host.host_content }}</p>
             </div>
-            <h3 class="intro-card__title copy--accent-1">{{ host.host_name }}</h3>
-            <p class="intro-card__descr">{{ host.host_content }}</p>
           </div>
-        </div>
-      </li>
-    </ng-container>
-  </ul>
-  <div #gradientContainer class="gradient-container"></div>
+        </li>
+      </ng-container>
+    </ul>
+    <div class="orb-glow">
+      <svg #glow viewBox="0 0 879 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M879 30.1333C879 46.7755 682.229 60 439.5 60C196.771 60 0 46.7755 0 30.1333C0 13.4912 196.771 0 439.5 0C682.229 0 879 13.4912 879 30.1333Z"
+          fill="url(#paint0_radial_513_5)"
+        />
+        <defs>
+          <radialGradient
+            id="paint0_radial_513_5"
+            cx="0"
+            cy="0"
+            r="1"
+            gradientUnits="userSpaceOnUse"
+            gradientTransform="translate(440 30.1333) rotate(90.0001) scale(29.8667 449.105)"
+          >
+            <stop offset="0.317708" stop-color="#FB3E54" />
+            <stop offset="0.661458" stop-color="#751F39" stop-opacity="0.465649" />
+            <stop offset="1" stop-color="#000421" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+      </svg>
+    </div>
+  </div>
 </div>
