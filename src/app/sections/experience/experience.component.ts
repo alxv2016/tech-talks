@@ -68,9 +68,10 @@ export class ExperienceComponent implements OnInit, AfterViewInit {
       .from(vortexRings, {
         rotate: -360,
         scale: 0.65,
+        yPercent: 10,
         opacity: 0,
         stagger: 0.125,
-        duration: 2.5,
+        duration: 3,
         transformOrigin: 'center center',
       })
       .from(

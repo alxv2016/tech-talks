@@ -117,16 +117,18 @@ export class HeroComponent implements OnInit, AfterViewInit {
     this.app.renderer.autoResize = true;
     this.render.setStyle(this.app.renderer.view, 'height', '100%');
     this.render.setStyle(this.app.renderer.view, 'width', '100%');
+    const gradHeight = 22;
 
-    for (let i = 0; i < this.app.renderer.height / 40; i++) {
+    for (let i = 0; i < this.app.renderer.height / gradHeight; i++) {
       const texture = PIXI.Texture.from('assets/gradient.png');
       const gradient = new PIXI.Sprite(texture);
 
       gradient.anchor.set(0.5);
       gradient.x = this.app.renderer.width / 2;
       gradient.width = this.app.renderer.width;
-      gradient.height = 40;
+      gradient.height = gradHeight;
       gradient.y = i * gradient.height;
+
       this.app.stage.addChild(gradient);
     }
 
@@ -140,7 +142,7 @@ export class HeroComponent implements OnInit, AfterViewInit {
         duration: 4,
         repeat: -1,
         yoyo: true,
-        yoyoEase: true,
+        yoyoEase: 'back',
       },
     });
 

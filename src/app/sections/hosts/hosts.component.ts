@@ -33,6 +33,7 @@ export class HostsComponent implements OnInit, AfterViewInit {
       opacity: 0,
       scale: 0.25,
       ease: 'back',
+      duration: 2.5,
     });
   }
 
